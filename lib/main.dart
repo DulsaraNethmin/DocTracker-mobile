@@ -1,24 +1,32 @@
+import 'package:doctracker/screens/fake_todo_list.dart';
+import 'package:doctracker/screens/future_provider_screen.dart';
+import 'package:doctracker/screens/my_home.dart';
+import 'package:doctracker/screens/test_state_provider_screen.dart';
+import 'package:doctracker/screens/test_provider_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('docTracker test mod'),
-        backgroundColor: Colors.blue[700],
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: MyHome(),
+      routes: {
+        '/provider': ((context) => ProviderScreen()),
+        '/state/provider': (context) => StateProviderScreen(),
+        '/future': (context) => FutureScreen(),
+        '/todo': (context) => ToDoListScreen(),
+      },
     );
   }
 }
