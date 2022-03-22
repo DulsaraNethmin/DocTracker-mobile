@@ -1,9 +1,10 @@
+import 'package:doctracker/logic/cubit/user_cubit.dart';
+import 'package:doctracker/presentation/routes/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'features/main_component.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -11,14 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    var _appRouter = new AppRouter();
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => UserCubit())],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        onGenerateRoute: _appRouter.onGeneratedRoute,
       ),
-      home: MainComponent(),
-      routes: {},
     );
   }
 }
