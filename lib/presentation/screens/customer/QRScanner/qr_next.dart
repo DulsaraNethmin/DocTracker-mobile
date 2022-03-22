@@ -1,5 +1,8 @@
 import 'package:doctracker/presentation/widgets/app_bar.dart';
+import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRNext extends StatelessWidget {
   const QRNext({Key? key}) : super(key: key);
@@ -11,6 +14,7 @@ class QRNext extends StatelessWidget {
         child: Text('Internal'),
         color: Colors.amberAccent[400],
         onPressed: () {
+          context.read<QrCubit>().setInternal();
           Navigator.pushNamed(context, '/qr');
         });
     final externalButton = MaterialButton(
@@ -18,6 +22,7 @@ class QRNext extends StatelessWidget {
         child: Text('External'),
         color: Colors.amberAccent[400],
         onPressed: () {
+          context.read<QrCubit>().setExternal();
           Navigator.pushNamed(context, '/qr');
         });
     return SafeArea(

@@ -74,8 +74,8 @@ class _QRScannerState extends State<QRScanner> {
       if (barcode != null) {
         var data = jsonDecode(barcode!.code.toString());
         if (data["uuid"] != null) {
-          context.read<QrCubit>().setQR(
-              data["uuid"], data["name"], data["branch"], data["department"]);
+          context.read<QrCubit>().setQR(data["uuid"], data["name"],
+              data["branch"], data["department"], deliverType.internal);
           //Navigator.pushNamed(context, '/qrnext');
         }
       }
