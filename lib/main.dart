@@ -1,3 +1,4 @@
+import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/routes/app_router.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var _appRouter = new AppRouter();
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => UserCubit())],
+      providers: [
+        BlocProvider(create: (context) => UserCubit()),
+        BlocProvider(create: (context) => QrCubit()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',

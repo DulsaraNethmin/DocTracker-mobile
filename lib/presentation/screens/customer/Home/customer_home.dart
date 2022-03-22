@@ -13,6 +13,13 @@ class CustomerHome extends StatelessWidget {
         Navigator.pushNamed(context, '/qr');
       },
     );
+    final button2 = MaterialButton(
+      child: Text('hello'),
+      color: Colors.amberAccent[400],
+      onPressed: () {
+        print('hello button');
+      },
+    );
     return Scaffold(
       appBar: appBar('Home'),
       body: SafeArea(
@@ -22,6 +29,7 @@ class CustomerHome extends StatelessWidget {
           children: [
             Text('home'),
             button,
+            button2,
           ],
         ),
       )),
