@@ -6,11 +6,24 @@ class CustomerHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final button = MaterialButton(
+      child: Text('QR'),
+      color: Colors.amberAccent[400],
+      onPressed: () {
+        Navigator.pushNamed(context, '/qr');
+      },
+    );
     return Scaffold(
       appBar: appBar('Home'),
       body: SafeArea(
           child: Center(
-        child: Text('home'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('home'),
+            button,
+          ],
+        ),
       )),
     );
   }
