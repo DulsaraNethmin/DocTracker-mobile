@@ -4,7 +4,6 @@ import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:slide_digital_clock/slide_digital_clock.dart';
 
 class CustomerHome extends StatelessWidget {
   const CustomerHome({Key? key}) : super(key: key);
@@ -18,11 +17,15 @@ class CustomerHome extends StatelessWidget {
         children: [
           Text(
             'Jack Ryan',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           Text(
             'Service id: xxx-xxx-C',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.normal,
+                color: Colors.white),
           ),
         ],
       ),
@@ -34,6 +37,7 @@ class CustomerHome extends StatelessWidget {
     final topcard = Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Card(
+        color: Color(0xff8c52ff),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
