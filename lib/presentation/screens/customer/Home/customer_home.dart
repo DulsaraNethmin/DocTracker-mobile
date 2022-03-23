@@ -78,10 +78,15 @@ class CustomerHome extends StatelessWidget {
               color: Colors.green,
               child: Column(
                 children: [
-                  Icon(
-                    Icons.mail,
-                    size: 40,
-                    color: Colors.grey[350],
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/more');
+                    },
+                    icon: Icon(
+                      Icons.mail,
+                      size: 40,
+                      color: Colors.grey[350],
+                    ),
                   ),
                   Text('Mails')
                 ],

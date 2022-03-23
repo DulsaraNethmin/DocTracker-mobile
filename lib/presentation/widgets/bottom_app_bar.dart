@@ -42,7 +42,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
             Navigator.pushNamed(context, '/track');
             index = 3;
             break;
-          case 1:
+          case 4:
             context.read<BotnavbarCubit>().onSelect(4);
             Navigator.pushNamed(context, '/more');
             index = 4;
