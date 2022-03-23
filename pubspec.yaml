@@ -33,6 +33,8 @@ dependencies:
   flutter_bloc: ^8.0.1
   http: ^0.13.4
   qr_code_scanner: ^0.7.0
+  analog_clock: ^0.1.0
+  slide_digital_clock: ^1.0.2
 
 dev_dependencies:
 

@@ -43,6 +43,7 @@ class _QRScannerState extends State<QRScanner> {
       builder: (context, state) {
         if (state.uuid != null && state.branch != null) {
           return MaterialButton(
+            minWidth: MediaQuery.of(context).size.width * 0.8,
             child: Text('Next'),
             color: Colors.amberAccent[400],
             onPressed: () {

@@ -82,16 +82,18 @@ class ExternalJob extends StatelessWidget {
         child: Scaffold(
       appBar: appBar('Internal Job'),
       body: SingleChildScrollView(
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            uuid,
-            name,
-            department,
-            endCustomer,
-            endBranch,
-            requestButton,
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              uuid,
+              name,
+              department,
+              endCustomer,
+              endBranch,
+              requestButton,
+            ],
+          ),
         ),
       ),
     ));
