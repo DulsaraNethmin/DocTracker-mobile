@@ -1,3 +1,4 @@
+import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/routes/app_router.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => UserCubit()),
         BlocProvider(create: (context) => QrCubit()),
+        BlocProvider(create: (context) => BotnavbarCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

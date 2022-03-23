@@ -49,7 +49,7 @@ class CustomerHome extends StatelessWidget {
           ],
         ),
       )),
-      bottomNavigationBar: bottomNavBar(context),
+      bottomNavigationBar: MyBottomNavBar(),
     );
   }
 }
