@@ -1,6 +1,7 @@
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchDoc extends StatelessWidget {
   const SearchDoc({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class SearchDoc extends StatelessWidget {
 
     return Scaffold(
       appBar: appBar('Search Document'),
-      bottomNavigationBar: bottomNavBar(context),
+      bottomNavigationBar: MyBottomNavBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
