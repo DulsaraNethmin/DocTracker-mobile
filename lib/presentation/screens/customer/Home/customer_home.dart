@@ -12,6 +12,40 @@ class CustomerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<BotnavbarCubit>().onSelect(0);
+    final bio = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Jack Ryan',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            'Service id: xxx-xxx-C',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
+          ),
+        ],
+      ),
+    );
+    final pic = CircleAvatar(
+      radius: 35,
+      child: Image.asset('assets/images/profile.png'),
+    );
+    final topcard = Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              bio,
+              pic,
+            ],
+          ),
+        ),
+      ),
+    );
     final topContainer = Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       color: Color.fromARGB(255, 240, 231, 239),
@@ -72,8 +106,15 @@ class CustomerHome extends StatelessWidget {
 
     final middleBody = Container(
       child: Column(
-        children: [],
+        children: [
+          //row1,
+          //row2,
+        ],
       ),
+    );
+
+    final row1 = Row(
+      children: [],
     );
 
     final button = MaterialButton(
@@ -96,10 +137,11 @@ class CustomerHome extends StatelessWidget {
       body: SafeArea(
           child: Column(
         children: [
+          topcard,
           topContainer,
-          Text('home'),
-          button,
-          button2,
+          //Text('home'),
+          //button,
+          //button2,
         ],
       )),
       bottomNavigationBar: MyBottomNavBar(),
