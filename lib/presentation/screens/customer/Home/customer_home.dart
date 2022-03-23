@@ -1,7 +1,9 @@
+import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/presentation/widgets/analog_clock.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slide_digital_clock/slide_digital_clock.dart';
 
 class CustomerHome extends StatelessWidget {
@@ -9,14 +11,68 @@ class CustomerHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<BotnavbarCubit>().onSelect(0);
     final topContainer = Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      color: Color.fromARGB(255, 240, 231, 239),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.5,
-          )
+          Expanded(
+            flex: 1,
+            child: Card(
+              color: Colors.red,
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.punch_clock,
+                    size: 40,
+                    color: Colors.grey[350],
+                  ),
+                  Text('Pending')
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Card(
+              color: Colors.green,
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.mail,
+                    size: 40,
+                    color: Colors.grey[350],
+                  ),
+                  Text('Mails')
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Card(
+              color: Colors.blue,
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.money,
+                    size: 40,
+                    color: Colors.grey[350],
+                  ),
+                  Text('Payments')
+                ],
+              ),
+            ),
+          ),
         ],
+      ),
+    );
+
+    final middleBody = Container(
+      child: Column(
+        children: [],
       ),
     );
 
@@ -38,16 +94,13 @@ class CustomerHome extends StatelessWidget {
     return Scaffold(
       appBar: appBar('Home'),
       body: SafeArea(
-          child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            topContainer,
-            Text('home'),
-            button,
-            button2,
-          ],
-        ),
+          child: Column(
+        children: [
+          topContainer,
+          Text('home'),
+          button,
+          button2,
+        ],
       )),
       bottomNavigationBar: MyBottomNavBar(),
     );
