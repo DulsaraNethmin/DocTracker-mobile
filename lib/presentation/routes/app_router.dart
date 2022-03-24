@@ -4,6 +4,8 @@ import 'package:doctracker/presentation/screens/customer/QRScanner/internal_job.
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_next.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_scanner_screen.dart';
 import 'package:doctracker/presentation/screens/customer/Search/search_doc.dart';
+import 'package:doctracker/presentation/screens/deliverer/Login/login_screen.dart';
+import 'package:doctracker/presentation/screens/deliverer/Welcome/welcome_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +15,10 @@ class AppRouter {
   Route onGeneratedRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => CustomerHome());
+        return MaterialPageRoute(builder: (_) => WelcomeScreen());
+        break;
+      case '/login':
+        return MaterialPageRoute(builder: (_) => LoginScreen());
         break;
       case '/qr':
         return MaterialPageRoute(builder: (_) => QRScanner());
