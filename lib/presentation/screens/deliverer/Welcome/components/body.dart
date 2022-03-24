@@ -38,14 +38,7 @@ class Body extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
               color: kPrimaryColor,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LoginScreen();
-                    },
-                  ),
-                );
+                Navigator.pushNamed(context, '/login');
               },
               child: Text(
                 "Sign In",
@@ -56,7 +49,9 @@ class Body extends StatelessWidget {
           FlatButton(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
               color: kPrimaryColor,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/org');
+              },
               child: Text(
                 "Join an Organization",
                 style: TextStyle(color: Colors.white),

@@ -48,14 +48,7 @@ class Body extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
               color: kPrimaryColor,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return OrgScreen();
-                    },
-                  ),
-                );
+                Navigator.pushNamed(context, '/customer/home');
               },
               child: Text(
                 "Sign In as Customer",
