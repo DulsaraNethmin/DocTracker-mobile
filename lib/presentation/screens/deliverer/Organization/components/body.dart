@@ -12,7 +12,11 @@ class Body extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset("assets/images/logo_dt.PNG"),
+          Image.asset(
+            "assets/images/logo.png",
+            width: size.width * 0.3,
+            height: size.height * 0.2,
+          ),
           Text(""),
           Text(""),
           TextFieldContainer(
