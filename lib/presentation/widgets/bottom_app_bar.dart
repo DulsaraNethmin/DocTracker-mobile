@@ -26,7 +26,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
         switch (value) {
           case 0:
             context.read<BotnavbarCubit>().onSelect(0);
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, '/customer/home');
             break;
           case 1:
             context.read<BotnavbarCubit>().onSelect(1);

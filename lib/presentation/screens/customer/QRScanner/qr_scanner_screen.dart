@@ -39,12 +39,13 @@ class _QRScannerState extends State<QRScanner> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<QrCubit>().reset();
     final button = BlocBuilder<QrCubit, QrState>(
       builder: (context, state) {
-        if (state.uuid != null && state.branch != null) {
+        if (state.uuid != '' && state.branch != '') {
           return MaterialButton(
             minWidth: MediaQuery.of(context).size.width * 0.8,
-            child: Text('Next'),
+            child: Text('Next1'),
             color: Colors.amberAccent[400],
             onPressed: () {
               Navigator.pushNamed(context, '/qrnext');

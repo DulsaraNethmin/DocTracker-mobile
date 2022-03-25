@@ -40,4 +40,13 @@ class QrCubit extends Cubit<QrState> {
         department: state.department,
         type: deliverType.external));
   }
+
+  void reset() {
+    emit(QrState(
+        uuid: '',
+        name: state.name,
+        branch: '',
+        department: state.department,
+        type: state.type));
+  }
 }
