@@ -41,7 +41,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
 
   Container body(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 175, 154, 218),
+      color: Color.fromARGB(255, 199, 181, 236),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Stack(
