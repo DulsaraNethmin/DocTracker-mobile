@@ -1,21 +1,24 @@
+import 'package:doctracker/data/model/chatModel.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({Key? key}) : super(key: key);
-
+  const CustomCard({required this.chatModel});
+  final ChatModel chatModel;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, '/individual');
+      },
       child: Column(
         children: [
           ListTile(
             leading: CircleAvatar(
-              child: Image.asset('assets/images/profile.png'),
+              child: Image.asset(chatModel.icon),
               radius: 30,
             ),
             title: Text(
-              "Jack Ryan",
+              chatModel.name,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             subtitle: Row(
@@ -25,12 +28,12 @@ class CustomCard extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  "Hello Ryan",
+                  chatModel.currentMessage,
                   style: TextStyle(fontSize: 13),
                 ),
               ],
             ),
-            trailing: Text("18:06"),
+            trailing: Text(chatModel.time),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 80, right: 20),

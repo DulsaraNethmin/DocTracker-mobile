@@ -1,3 +1,4 @@
+import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/custom_card.dart';
 import 'package:flutter/material.dart';
 
@@ -58,19 +59,39 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<ChatModel> chats = [
+      ChatModel(
+          name: "Jack Ryan",
+          icon: "assets/images/profile.png",
+          time: "17:19",
+          currentMessage: "Hello man",
+          status: '',
+          id: 9),
+      ChatModel(
+          name: "Rosie Black",
+          icon: "assets/images/profile.png",
+          time: "14:00",
+          currentMessage: "Hello man",
+          status: '',
+          id: 9),
+      ChatModel(
+          name: "Jack Ryan",
+          icon: "assets/images/profile.png",
+          time: "07:20",
+          currentMessage: "Hello man",
+          status: '',
+          id: 9),
+    ];
     return Scaffold(
       appBar: appbar,
       floatingActionButton: actionBtn,
-      body: ListView(
-        children: [
-          CustomCard(),
-          CustomCard(),
-          CustomCard(),
-          CustomCard(),
-          CustomCard(),
-          CustomCard(),
-          CustomCard(),
-        ],
+      body: ListView.builder(
+        itemCount: chats.length,
+        itemBuilder: (context, index) {
+          return CustomCard(
+            chatModel: chats[index],
+          );
+        },
       ),
     );
   }
