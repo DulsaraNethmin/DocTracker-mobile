@@ -47,9 +47,9 @@ class AppRouter {
       case '/chat':
         return MaterialPageRoute(builder: (_) => ChatScreen());
         break;
-      case '/individual':
-        return MaterialPageRoute(builder: (_) => IndividualScreen());
-        break;
+      // case '/individual':
+      //   return MaterialPageRoute(builder: (_) => IndividualScreen());
+      //   break;
       case '/more':
         return MaterialPageRoute(builder: (_) => MoreScreen());
         break;

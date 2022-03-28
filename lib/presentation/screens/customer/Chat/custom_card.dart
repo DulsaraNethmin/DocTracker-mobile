@@ -1,4 +1,5 @@
 import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
@@ -8,7 +9,10 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/individual');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => IndividualScreen(chatModel: chatModel)));
       },
       child: Column(
         children: [
