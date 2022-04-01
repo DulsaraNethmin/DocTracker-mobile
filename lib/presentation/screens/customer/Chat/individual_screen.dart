@@ -48,6 +48,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
       child: Stack(
         children: [
           ListView(
+            shrinkWrap: true,
             children: [
               OwnMessageCard(),
             ],
