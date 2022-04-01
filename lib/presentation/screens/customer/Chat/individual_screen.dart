@@ -1,5 +1,6 @@
 import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/own_message_card.dart';
+import 'package:doctracker/presentation/screens/customer/Chat/reply_card.dart';
 import 'package:flutter/material.dart';
 
 class IndividualScreen extends StatefulWidget {
@@ -47,11 +48,29 @@ class _IndividualScreenState extends State<IndividualScreen> {
       width: MediaQuery.of(context).size.width,
       child: Stack(
         children: [
-          ListView(
-            shrinkWrap: true,
-            children: [
-              OwnMessageCard(),
-            ],
+          Container(
+            height: MediaQuery.of(context).size.height - 140,
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                OwnMessageCard(),
+                ReplyCard(),
+                OwnMessageCard(),
+                ReplyCard(),
+                OwnMessageCard(),
+                ReplyCard(),
+                OwnMessageCard(),
+                ReplyCard(),
+                OwnMessageCard(),
+                ReplyCard(),
+                OwnMessageCard(),
+                ReplyCard(),
+                OwnMessageCard(),
+                ReplyCard(),
+                OwnMessageCard(),
+                ReplyCard(),
+              ],
+            ),
           ),
           Align(
             alignment: Alignment.bottomCenter,

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class OwnMessageCard extends StatelessWidget {
-  const OwnMessageCard({Key? key}) : super(key: key);
+class ReplyCard extends StatelessWidget {
+  const ReplyCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.centerLeft,
       child: ConstrainedBox(
         constraints:
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width - 45),
         child: Card(
           elevation: 1,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          color: Color.fromARGB(255, 107, 77, 166),
+          //color: Color.fromARGB(255, 91, 57, 160),
           margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: Stack(
             children: [
@@ -25,28 +25,16 @@ class OwnMessageCard extends StatelessWidget {
                   bottom: 20,
                 ),
                 child: Text(
-                  "Hey jhjjk hjjj derftyg jkk kkkl yoik njolk nnloooktg",
-                  style: TextStyle(color: Colors.white),
+                  "Hey jhjjk hjjj derftyg",
+                  style: TextStyle(color: Colors.grey[600]),
                 ),
               ),
               Positioned(
                 right: 10,
                 bottom: 4,
-                child: Row(
-                  children: [
-                    Text(
-                      "08:12",
-                      style: TextStyle(color: Colors.white38, fontSize: 13),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Icon(
-                      Icons.done_all,
-                      color: Colors.white38,
-                      size: 14,
-                    ),
-                  ],
+                child: Text(
+                  "08:12",
+                  style: TextStyle(color: Colors.grey[400], fontSize: 13),
                 ),
               ),
             ],
