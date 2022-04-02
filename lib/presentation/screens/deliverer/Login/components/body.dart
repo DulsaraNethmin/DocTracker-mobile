@@ -6,6 +6,8 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final _username_controller = TextEditingController();
+    final _password_controller = TextEditingController();
     return Container(
       margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
       height: size.height,
@@ -25,15 +27,17 @@ class Body extends StatelessWidget {
           ),
           Text(""),
           TextFieldContainer(
-            child: TextField(
+            child: TextFormField(
+              controller: _username_controller,
               decoration: InputDecoration(
-                hintText: "Email",
+                hintText: "Username",
                 border: InputBorder.none,
               ),
             ),
           ),
           TextFieldContainer(
-            child: TextField(
+            child: TextFormField(
+                controller: _password_controller,
                 obscureText: true,
                 decoration: InputDecoration(
                     hintText: "Password",
@@ -48,6 +52,7 @@ class Body extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
               color: kPrimaryColor,
               onPressed: () {
+                print(_username_controller.text);
                 Navigator.pushNamed(context, '/customer/home');
               },
               child: Text(
