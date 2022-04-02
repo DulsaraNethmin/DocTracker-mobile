@@ -131,6 +131,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
     });
     print("inside");
     socket.connect();
+    socket.emit('/test', "I Connnect to the lobby");
     socket.onConnect((data) {
       print("connected");
     });
