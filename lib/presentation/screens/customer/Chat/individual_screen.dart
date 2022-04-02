@@ -2,6 +2,7 @@ import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/own_message_card.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/reply_card.dart';
 import 'package:flutter/material.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class IndividualScreen extends StatefulWidget {
   IndividualScreen({required this.chatModel});
@@ -12,6 +13,7 @@ class IndividualScreen extends StatefulWidget {
 }
 
 class _IndividualScreenState extends State<IndividualScreen> {
+  late IO.Socket socket;
   AppBar appbar(BuildContext context) {
     return AppBar(
       elevation: 0,
@@ -112,6 +114,27 @@ class _IndividualScreenState extends State<IndividualScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("hello2");
+    connect();
+  }
+
+  void connect() {
+    socket = IO.io("http://192.168.56.1:8000", <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": false
+    });
+    print("inside");
+    socket.connect();
+    socket.onConnect((data) {
+      print("connected");
+    });
+    print(socket.connected);
   }
 
   @override
