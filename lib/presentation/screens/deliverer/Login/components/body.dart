@@ -1,6 +1,8 @@
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/deliverer/Organization/org_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -52,6 +54,9 @@ class Body extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
               color: kPrimaryColor,
               onPressed: () {
+                context
+                    .read<UserCubit>()
+                    .setUser(_username_controller.text, "123456789qwer");
                 print(_username_controller.text);
                 Navigator.pushNamed(context, '/customer/home');
               },

@@ -1,7 +1,9 @@
 import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/own_message_card.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/reply_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class IndividualScreen extends StatefulWidget {
@@ -131,7 +133,8 @@ class _IndividualScreenState extends State<IndividualScreen> {
     });
     print("inside");
     socket.connect();
-    socket.emit('/test', "I Connnect to the lobby");
+    String name = context.read<UserCubit>().state.username;
+    socket.emit('/test', "$name Connnect to the lobby");
     socket.onConnect((data) {
       print("connected");
     });
