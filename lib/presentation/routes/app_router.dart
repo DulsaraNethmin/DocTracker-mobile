@@ -7,6 +7,7 @@ import 'package:doctracker/presentation/screens/customer/Search/search_doc.dart'
 import 'package:doctracker/presentation/screens/deliverer/Login/login_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Organization/org_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Welcome/welcome_screen.dart';
+import 'package:doctracker/presentation/screens/deliverer/Admin/admin_select.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,9 @@ class AppRouter {
         break;
       case '/org':
         return MaterialPageRoute(builder: (_) => OrgScreen());
+        break;
+      case '/continue':
+        return MaterialPageRoute(builder: (_) => AdminSelect());
         break;
       case '/customer/home':
         return MaterialPageRoute(builder: (_) => CustomerHome());
