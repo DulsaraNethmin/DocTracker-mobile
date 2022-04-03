@@ -163,6 +163,8 @@ class _IndividualScreenState extends State<IndividualScreen> {
       socket.on('msg', (msg) {
         print(msg);
         setMessages("target", msg["message"], msg["time"]);
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: Duration(microseconds: 300), curve: Curves.easeOut);
       });
     });
     print(socket.connected);
