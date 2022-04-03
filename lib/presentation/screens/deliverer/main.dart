@@ -1,6 +1,5 @@
 import 'package:doctracker/presentation/screens/deliverer/Welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/constants.dart';
 
 void main() {

@@ -46,7 +46,9 @@ class LoginScreen extends StatelessWidget {
               MaterialButton(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
                   color: kPrimaryColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/customer/home');
+                  },
                   child: Text(
                     "Sign In as Customer",
                     style: TextStyle(color: Colors.white),
