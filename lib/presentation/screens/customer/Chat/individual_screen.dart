@@ -115,6 +115,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
                                 _message_controller.text,
                                 context.read<UserCubit>().state.uuid,
                                 widget.chatModel.id);
+                            _message_controller.clear();
                           }
                         },
                       )),
