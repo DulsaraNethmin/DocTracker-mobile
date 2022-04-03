@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class OwnMessageCard extends StatelessWidget {
-  const OwnMessageCard({Key? key}) : super(key: key);
-
+  const OwnMessageCard({Key? key, required this.message}) : super(key: key);
+  final message;
+  //final time;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -25,7 +26,7 @@ class OwnMessageCard extends StatelessWidget {
                   bottom: 20,
                 ),
                 child: Text(
-                  "Hey jhjjk hjjj derftyg jkk kkkl yoik njolk nnloooktg",
+                  message,
                   style: TextStyle(color: Colors.white),
                 ),
               ),

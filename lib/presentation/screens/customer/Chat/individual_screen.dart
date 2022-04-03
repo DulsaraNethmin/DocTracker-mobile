@@ -1,4 +1,5 @@
 import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/data/model/messageModel.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/own_message_card.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/reply_card.dart';
@@ -17,6 +18,8 @@ class IndividualScreen extends StatefulWidget {
 class _IndividualScreenState extends State<IndividualScreen> {
   late IO.Socket socket;
   final _message_controller = TextEditingController();
+  List<MessageModel> messages = [];
+
   AppBar appbar(BuildContext context) {
     return AppBar(
       elevation: 0,
@@ -55,26 +58,17 @@ class _IndividualScreenState extends State<IndividualScreen> {
         children: [
           Container(
             height: MediaQuery.of(context).size.height - 140,
-            child: ListView(
+            child: ListView.builder(
               shrinkWrap: true,
-              children: [
-                OwnMessageCard(),
-                ReplyCard(),
-                OwnMessageCard(),
-                ReplyCard(),
-                OwnMessageCard(),
-                ReplyCard(),
-                OwnMessageCard(),
-                ReplyCard(),
-                OwnMessageCard(),
-                ReplyCard(),
-                OwnMessageCard(),
-                ReplyCard(),
-                OwnMessageCard(),
-                ReplyCard(),
-                OwnMessageCard(),
-                ReplyCard(),
-              ],
+              itemCount: messages.length,
+              itemBuilder: (context, index) {
+                if (messages[index].type == "sender") {
+                  return OwnMessageCard(
+                    message: messages[index].message,
+                  );
+                }
+                return ReplyCard(message: messages[index].message);
+              },
             ),
           ),
           Align(
@@ -111,7 +105,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
                         ),
                         onPressed: () {
                           if (_message_controller.text.length > 0) {
-                            message(
+                            sendMessage(
                                 _message_controller.text,
                                 context.read<UserCubit>().state.uuid,
                                 widget.chatModel.id);
@@ -149,14 +143,23 @@ class _IndividualScreenState extends State<IndividualScreen> {
       print("connected");
       socket.on('msg', (msg) {
         print(msg);
+        setMessages("target", msg);
       });
     });
     print(socket.connected);
   }
 
-  void message(String message, String sender, String target) {
+  void sendMessage(String message, String sender, String target) {
     socket
         .emit('msg', {"message": message, "sender": sender, "target": target});
+    setMessages("sender", message);
+  }
+
+  void setMessages(String type, String msg) {
+    MessageModel message = MessageModel(type: type, message: msg);
+    setState(() {
+      messages.add(message);
+    });
   }
 
   @override
