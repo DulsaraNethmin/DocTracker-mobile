@@ -19,6 +19,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
   late IO.Socket socket;
   final _message_controller = TextEditingController();
   List<MessageModel> messages = [];
+  ScrollController _scrollController = ScrollController();
 
   AppBar appbar(BuildContext context) {
     return AppBar(
@@ -54,67 +55,85 @@ class _IndividualScreenState extends State<IndividualScreen> {
       color: Color.fromARGB(255, 199, 181, 236),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: Stack(
+      child: Column(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height - 140,
+          Expanded(
+            //height: MediaQuery.of(context).size.height - 140,
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: messages.length,
+              controller: _scrollController,
+              itemCount: messages.length + 1,
               itemBuilder: (context, index) {
+                if (index == messages.length) {
+                  return Container(
+                    height: 70,
+                  );
+                }
                 if (messages[index].type == "sender") {
                   return OwnMessageCard(
                     message: messages[index].message,
+                    time: messages[index].time,
                   );
                 }
-                return ReplyCard(message: messages[index].message);
+                return ReplyCard(
+                  message: messages[index].message,
+                  time: messages[index].time,
+                );
               },
             ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Row(
-              children: [
-                Container(
-                    width: MediaQuery.of(context).size.width - 60,
-                    child: Card(
-                        margin: EdgeInsets.only(left: 2, right: 2, bottom: 8),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        child: TextFormField(
-                          //textAlignVertical: TextAlignVertical.center,
-                          controller: _message_controller,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 5,
-                          minLines: 1,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Type a message...',
-                              contentPadding: EdgeInsets.all(7)),
-                        ))),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(bottom: 8.0, right: 5, left: 5),
-                  child: CircleAvatar(
-                      backgroundColor: Color.fromARGB(255, 91, 57, 160),
-                      radius: 25,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.send,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          if (_message_controller.text.length > 0) {
-                            sendMessage(
-                                _message_controller.text,
-                                context.read<UserCubit>().state.uuid,
-                                widget.chatModel.id);
-                            _message_controller.clear();
-                          }
-                        },
-                      )),
-                )
-              ],
+            child: Container(
+              height: 70,
+              child: Row(
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width - 60,
+                      child: Card(
+                          margin: EdgeInsets.only(left: 2, right: 2, bottom: 8),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                          child: TextFormField(
+                            //textAlignVertical: TextAlignVertical.center,
+                            controller: _message_controller,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 5,
+                            minLines: 1,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Type a message...',
+                                contentPadding: EdgeInsets.all(7)),
+                          ))),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 8.0, right: 5, left: 5),
+                    child: CircleAvatar(
+                        backgroundColor: Color.fromARGB(255, 91, 57, 160),
+                        radius: 25,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.send,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            if (_message_controller.text.length > 0) {
+                              _scrollController.animateTo(
+                                  _scrollController.position.maxScrollExtent,
+                                  duration: Duration(microseconds: 300),
+                                  curve: Curves.easeOut);
+                              sendMessage(
+                                  _message_controller.text,
+                                  DateTime.now().toString().substring(10, 16),
+                                  context.read<UserCubit>().state.uuid,
+                                  widget.chatModel.id);
+                              _message_controller.clear();
+                            }
+                          },
+                        )),
+                  )
+                ],
+              ),
             ),
           )
         ],
@@ -143,20 +162,20 @@ class _IndividualScreenState extends State<IndividualScreen> {
       print("connected");
       socket.on('msg', (msg) {
         print(msg);
-        setMessages("target", msg);
+        setMessages("target", msg["message"], msg["time"]);
       });
     });
     print(socket.connected);
   }
 
-  void sendMessage(String message, String sender, String target) {
-    socket
-        .emit('msg', {"message": message, "sender": sender, "target": target});
-    setMessages("sender", message);
+  void sendMessage(String message, String time, String sender, String target) {
+    socket.emit('msg',
+        {"message": message, "time": time, "sender": sender, "target": target});
+    setMessages("sender", message, time);
   }
 
-  void setMessages(String type, String msg) {
-    MessageModel message = MessageModel(type: type, message: msg);
+  void setMessages(String type, String msg, String time) {
+    MessageModel message = MessageModel(type: type, message: msg, time: time);
     setState(() {
       messages.add(message);
     });

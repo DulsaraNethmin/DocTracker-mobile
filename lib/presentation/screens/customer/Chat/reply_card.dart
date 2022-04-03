@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ReplyCard extends StatelessWidget {
-  const ReplyCard({Key? key, required this.message}) : super(key: key);
+  const ReplyCard({Key? key, required this.message, required this.time})
+      : super(key: key);
   final message;
+  final time;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -33,7 +35,7 @@ class ReplyCard extends StatelessWidget {
                 right: 10,
                 bottom: 4,
                 child: Text(
-                  "08:12",
+                  time,
                   style: TextStyle(color: Colors.grey[400], fontSize: 13),
                 ),
               ),
