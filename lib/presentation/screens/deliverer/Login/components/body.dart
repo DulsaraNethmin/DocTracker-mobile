@@ -42,7 +42,7 @@ class Body extends StatelessWidget {
                 controller: _password_controller,
                 obscureText: true,
                 decoration: InputDecoration(
-                    hintText: "Password",
+                    hintText: "ID (change later to password)",
                     border: InputBorder.none,
                     suffixIcon: Icon(
                       Icons.visibility,
@@ -54,9 +54,8 @@ class Body extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
               color: kPrimaryColor,
               onPressed: () {
-                context
-                    .read<UserCubit>()
-                    .setUser(_username_controller.text, "123456789qwer");
+                context.read<UserCubit>().setUser(
+                    _username_controller.text, _password_controller.text);
                 print(_username_controller.text);
                 Navigator.pushNamed(context, '/customer/home');
               },

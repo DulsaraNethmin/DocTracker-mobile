@@ -1,6 +1,8 @@
 import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({required this.chatModel});
@@ -9,6 +11,8 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        print(
+            "sender: ${context.read<UserCubit>().state.uuid} and targe : ${chatModel.id}");
         Navigator.push(
             context,
             MaterialPageRoute(

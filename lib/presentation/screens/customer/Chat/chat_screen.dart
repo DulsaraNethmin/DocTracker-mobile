@@ -61,26 +61,40 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     List<ChatModel> chats = [
       ChatModel(
-          name: "Jack Ryan",
+          name: "Sangeeth",
           icon: "assets/images/profile.png",
           time: "17:19",
           currentMessage: "Hello man",
           status: '',
-          id: 9),
+          id: '1'),
       ChatModel(
-          name: "Rosie Black",
+          name: "Chamodhya",
+          icon: "assets/images/profile.png",
+          time: "17:19",
+          currentMessage: "Hello man",
+          status: '',
+          id: '2'),
+      ChatModel(
+          name: "Chinthani",
           icon: "assets/images/profile.png",
           time: "14:00",
           currentMessage: "Hello man",
           status: '',
-          id: 9),
+          id: '3'),
       ChatModel(
-          name: "Jack Ryan",
+          name: "Nethmin",
           icon: "assets/images/profile.png",
           time: "07:20",
           currentMessage: "Hello man",
           status: '',
-          id: 9),
+          id: '4'),
+      ChatModel(
+          name: "Harsha",
+          icon: "assets/images/profile.png",
+          time: "07:20",
+          currentMessage: "Hello man",
+          status: '',
+          id: '5'),
     ];
     return Scaffold(
       appBar: appbar,

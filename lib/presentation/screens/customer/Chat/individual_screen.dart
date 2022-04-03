@@ -16,6 +16,7 @@ class IndividualScreen extends StatefulWidget {
 
 class _IndividualScreenState extends State<IndividualScreen> {
   late IO.Socket socket;
+  final _message_controller = TextEditingController();
   AppBar appbar(BuildContext context) {
     return AppBar(
       elevation: 0,
@@ -88,6 +89,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
                             borderRadius: BorderRadius.circular(25)),
                         child: TextFormField(
                           //textAlignVertical: TextAlignVertical.center,
+                          controller: _message_controller,
                           keyboardType: TextInputType.multiline,
                           maxLines: 5,
                           minLines: 1,
@@ -107,7 +109,14 @@ class _IndividualScreenState extends State<IndividualScreen> {
                           Icons.send,
                           color: Colors.white,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_message_controller.text.length > 0) {
+                            message(
+                                _message_controller.text,
+                                context.read<UserCubit>().state.uuid,
+                                widget.chatModel.id);
+                          }
+                        },
                       )),
                 )
               ],
@@ -122,7 +131,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("hello2");
+    //print("hello2");
     connect();
   }
 
@@ -133,12 +142,17 @@ class _IndividualScreenState extends State<IndividualScreen> {
     });
     print("inside");
     socket.connect();
-    String name = context.read<UserCubit>().state.username;
-    socket.emit('/test', "$name Connnect to the lobby");
+    String id = context.read<UserCubit>().state.uuid;
+    socket.emit('signin', id);
     socket.onConnect((data) {
       print("connected");
     });
     print(socket.connected);
+  }
+
+  void message(String message, String sender, String target) {
+    socket
+        .emit('msg', {"message": message, "sender": sender, "target": target});
   }
 
   @override
