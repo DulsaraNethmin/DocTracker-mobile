@@ -150,7 +150,8 @@ class _IndividualScreenState extends State<IndividualScreen> {
   }
 
   void connect() {
-    socket = IO.io("http://192.168.56.1:8000", <String, dynamic>{
+    socket = IO
+        .io("https://intense-anchorage-44762.herokuapp.com/", <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
