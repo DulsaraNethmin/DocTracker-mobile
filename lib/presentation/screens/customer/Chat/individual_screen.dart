@@ -147,6 +147,9 @@ class _IndividualScreenState extends State<IndividualScreen> {
     socket.emit('signin', id);
     socket.onConnect((data) {
       print("connected");
+      socket.on('msg', (msg) {
+        print(msg);
+      });
     });
     print(socket.connected);
   }
