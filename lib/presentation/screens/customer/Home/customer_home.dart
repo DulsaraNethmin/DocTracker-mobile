@@ -63,7 +63,7 @@ class CustomerHome extends StatelessWidget {
               child: Column(
                 children: [
                   Icon(
-                    Icons.punch_clock,
+                    Icons.lock_clock_rounded,
                     size: 40,
                     color: Colors.grey[350],
                   ),
