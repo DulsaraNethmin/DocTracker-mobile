@@ -1,4 +1,6 @@
 import 'package:doctracker/presentation/screens/Customer/Home/customer_home.dart';
+import 'package:doctracker/presentation/screens/customer/Chat/chat_screen.dart';
+import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
 import 'package:doctracker/presentation/screens/customer/More/more.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/internal_job.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_next.dart';
@@ -42,6 +44,12 @@ class AppRouter {
       case '/search':
         return MaterialPageRoute(builder: (_) => SearchDoc());
         break;
+      case '/chat':
+        return MaterialPageRoute(builder: (_) => ChatScreen());
+        break;
+      // case '/individual':
+      //   return MaterialPageRoute(builder: (_) => IndividualScreen());
+      //   break;
       case '/more':
         return MaterialPageRoute(builder: (_) => MoreScreen());
         break;

@@ -80,7 +80,7 @@ class CustomerHome extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/more');
+                      Navigator.pushNamed(context, '/chat');
                     },
                     icon: Icon(
                       Icons.mail,
