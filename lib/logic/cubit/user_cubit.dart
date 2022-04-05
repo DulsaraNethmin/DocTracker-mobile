@@ -4,5 +4,9 @@ import 'package:meta/meta.dart';
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit() : super(UserInitial());
+  UserCubit() : super(UserState(username: "", uuid: ""));
+
+  void setUser(String username, String uuid) {
+    emit(UserState(username: username, uuid: uuid));
+  }
 }

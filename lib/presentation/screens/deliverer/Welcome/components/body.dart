@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
             width: size.width * 0.3,
             height: size.height * 0.2,
           ),
-          //Text(""),
+          Text(""),
           Text(
             "DocTracker",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
           Text(""),
           Text(""),
           Text(""),
-          MaterialButton(
+          FlatButton(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
               color: kPrimaryColor,
               onPressed: () {
@@ -46,8 +46,8 @@ class Body extends StatelessWidget {
               )),
           Text(""),
           Text(""),
-          MaterialButton(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 55),
+          FlatButton(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
               color: kPrimaryColor,
               onPressed: () {
                 Navigator.pushNamed(context, '/org');

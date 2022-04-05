@@ -35,7 +35,7 @@ class Body extends StatelessWidget {
             )),
           ),
           Text(""),
-          MaterialButton(
+          FlatButton(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 70),
               color: kPrimaryColor,
               onPressed: () {},

@@ -63,7 +63,7 @@ class CustomerHome extends StatelessWidget {
               child: Column(
                 children: [
                   Icon(
-                    Icons.lock_clock_rounded,
+                    Icons.punch_clock,
                     size: 40,
                     color: Colors.grey[350],
                   ),
@@ -80,7 +80,7 @@ class CustomerHome extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/more');
+                      Navigator.pushNamed(context, '/chat');
                     },
                     icon: Icon(
                       Icons.mail,

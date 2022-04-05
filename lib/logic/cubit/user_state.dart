@@ -1,6 +1,8 @@
 part of 'user_cubit.dart';
 
-@immutable
-abstract class UserState {}
+class UserState {
+  String username;
+  String uuid;
 
-class UserInitial extends UserState {}
+  UserState({required this.username, required this.uuid});
+}
