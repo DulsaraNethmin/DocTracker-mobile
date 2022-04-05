@@ -1,10 +1,15 @@
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
-//import 'package:doctracker/presentation/screens/deliverer/Login/components/body.dart';
+import 'package:doctracker/presentation/screens/deliverer/Login/text_field_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -30,7 +35,7 @@ class LoginScreen extends StatelessWidget {
               ),
               TextFieldContainer(
                 child: TextFormField(
-                  //controller: _username_controller,
+                  controller: _username_controller,
                   decoration: InputDecoration(
                     hintText: "Username",
                     border: InputBorder.none,
@@ -39,7 +44,7 @@ class LoginScreen extends StatelessWidget {
               ),
               TextFieldContainer(
                 child: TextFormField(
-                    //controller: _password_controller,
+                    controller: _password_controller,
                     obscureText: true,
                     decoration: InputDecoration(
                         hintText: "Password1",
@@ -53,6 +58,7 @@ class LoginScreen extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
                   color: kPrimaryColor,
                   onPressed: () {
+                    print(_username_controller.text);
                     context.read<UserCubit>().setUser(
                         _username_controller.text, _password_controller.text);
                     Navigator.pushNamed(context, '/customer/home');
@@ -77,28 +83,6 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class TextFieldContainer extends StatelessWidget {
-  final Widget child;
-  const TextFieldContainer({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 50),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      width: size.width * 0.8,
-      decoration: BoxDecoration(
-        color: kPrimaryLightColor,
-      ),
-      child: child,
     );
   }
 }
