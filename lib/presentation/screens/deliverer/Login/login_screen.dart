@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
               ),
               TextFieldContainer(
                 child: TextFormField(
-                  controller: _username_controller,
+                  //controller: _username_controller,
                   decoration: InputDecoration(
                     hintText: "Username",
                     border: InputBorder.none,
@@ -39,10 +39,10 @@ class LoginScreen extends StatelessWidget {
               ),
               TextFieldContainer(
                 child: TextFormField(
-                    controller: _password_controller,
+                    //controller: _password_controller,
                     obscureText: true,
                     decoration: InputDecoration(
-                        hintText: "Password",
+                        hintText: "Password1",
                         border: InputBorder.none,
                         suffixIcon: Icon(
                           Icons.visibility,
