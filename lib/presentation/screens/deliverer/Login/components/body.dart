@@ -32,7 +32,7 @@ class Body extends StatelessWidget {
             child: TextFormField(
               controller: _username_controller,
               decoration: InputDecoration(
-                hintText: "Username",
+                hintText: "Username2",
                 border: InputBorder.none,
               ),
             ),
