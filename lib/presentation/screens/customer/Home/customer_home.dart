@@ -1,4 +1,6 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/widgets/analog_clock.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
@@ -10,13 +12,14 @@ class CustomerHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<SocketCubit>().connect(context);
     context.read<BotnavbarCubit>().onSelect(0);
     final bio = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Jack Ryan',
+            context.read<UserCubit>().state.username,
             style: TextStyle(
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
