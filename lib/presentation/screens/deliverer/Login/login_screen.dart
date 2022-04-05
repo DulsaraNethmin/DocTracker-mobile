@@ -10,11 +10,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _username_controller = TextEditingController();
+  final _password_controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final _username_controller = TextEditingController();
-    final _password_controller = TextEditingController();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
