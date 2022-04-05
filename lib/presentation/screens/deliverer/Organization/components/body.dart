@@ -5,6 +5,8 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final _organization_controller = TextEditingController();
+    final _branch_controller = TextEditingController();
     return Container(
       margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
       height: size.height,
@@ -20,7 +22,8 @@ class Body extends StatelessWidget {
           Text(""),
           Text(""),
           TextFieldContainer(
-            child: TextField(
+            child: TextFormField(
+              controller: _organization_controller,
               decoration: InputDecoration(
                 hintText: "Organization",
                 border: InputBorder.none,
@@ -28,17 +31,20 @@ class Body extends StatelessWidget {
             ),
           ),
           TextFieldContainer(
-            child: TextField(
+            child: TextFormField(
+                controller: _branch_controller,
                 decoration: InputDecoration(
-              hintText: "Branch",
-              border: InputBorder.none,
-            )),
+                  hintText: "Branch",
+                  border: InputBorder.none,
+                )),
           ),
           Text(""),
-          FlatButton(
+          MaterialButton(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 70),
               color: kPrimaryColor,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/adminselect');
+              },
               child: Text(
                 "Continue",
                 style: TextStyle(color: Colors.white),
