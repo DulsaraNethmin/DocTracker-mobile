@@ -1,5 +1,6 @@
 import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/messageModel.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/own_message_card.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/reply_card.dart';
@@ -18,7 +19,6 @@ class IndividualScreen extends StatefulWidget {
 class _IndividualScreenState extends State<IndividualScreen> {
   late IO.Socket socket;
   final _message_controller = TextEditingController();
-  List<MessageModel> messages = [];
   ScrollController _scrollController = ScrollController();
 
   AppBar appbar(BuildContext context) {
@@ -51,6 +51,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
   }
 
   Container body(BuildContext context) {
+    List<MessageModel> messages = context.read<SocketCubit>().state.messages;
     return Container(
       color: Color.fromARGB(255, 199, 181, 236),
       height: MediaQuery.of(context).size.height,
@@ -62,6 +63,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
             child: ListView.builder(
               shrinkWrap: true,
               controller: _scrollController,
+              //{messages=context.read<SocketCubit>().state;},
               itemCount: messages.length + 1,
               itemBuilder: (context, index) {
                 if (index == messages.length) {
@@ -122,11 +124,13 @@ class _IndividualScreenState extends State<IndividualScreen> {
                                   _scrollController.position.maxScrollExtent,
                                   duration: Duration(microseconds: 300),
                                   curve: Curves.easeOut);
-                              sendMessage(
+                              context.read<SocketCubit>().sendMessage(
                                   _message_controller.text,
                                   DateTime.now().toString().substring(10, 16),
                                   context.read<UserCubit>().state.uuid,
                                   widget.chatModel.id);
+                              setMessages('sender', _message_controller.text,
+                                  DateTime.now().toString().substring(10, 16));
                               _message_controller.clear();
                             }
                           },
@@ -146,42 +150,40 @@ class _IndividualScreenState extends State<IndividualScreen> {
     // TODO: implement initState
     super.initState();
     //print("hello2");
-    connect();
+    //connect();
   }
 
-  void connect() {
-    socket = IO
-        .io("https://intense-anchorage-44762.herokuapp.com/", <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": false
-    });
-    print("inside");
-    socket.connect();
-    String id = context.read<UserCubit>().state.uuid;
-    socket.emit('signin', id);
-    socket.onConnect((data) {
-      print("connected");
-      socket.on('msg', (msg) {
-        print(msg);
-        setMessages("target", msg["message"], msg["time"]);
-        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-            duration: Duration(microseconds: 300), curve: Curves.easeOut);
-      });
-    });
-    print(socket.connected);
-  }
+  // void connect() {
+  //   socket = IO
+  //       .io("https://intense-anchorage-44762.herokuapp.com/", <String, dynamic>{
+  //     "transports": ["websocket"],
+  //     "autoConnect": false
+  //   });
+  //   print("inside");
+  //   socket.connect();
+  //   String id = context.read<UserCubit>().state.uuid;
+  //   socket.emit('signin', id);
+  //   socket.onConnect((data) {
+  //     print("connected");
+  //     socket.on('msg', (msg) {
+  //       print(msg);
+  //       setMessages("target", msg["message"], msg["time"]);
+  //       _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+  //           duration: Duration(microseconds: 300), curve: Curves.easeOut);
+  //     });
+  //   });
+  //   print(socket.connected);
+  // }
 
-  void sendMessage(String message, String time, String sender, String target) {
-    socket.emit('msg',
-        {"message": message, "time": time, "sender": sender, "target": target});
-    setMessages("sender", message, time);
-  }
+  // void sendMessage(String message, String time, String sender, String target) {
+  //   socket.emit('msg',
+  //       {"message": message, "time": time, "sender": sender, "target": target});
+  //   setMessages("sender", message, time);
+  // }
 
   void setMessages(String type, String msg, String time) {
     MessageModel message = MessageModel(type: type, message: msg, time: time);
-    setState(() {
-      messages.add(message);
-    });
+    context.read<SocketCubit>().addMessages(message);
   }
 
   @override
