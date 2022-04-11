@@ -1,5 +1,4 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
-import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/widgets/analog_clock.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
@@ -12,7 +11,7 @@ class CustomerHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<SocketCubit>().connect(context);
+    //context.read<SocketCubit>().connect(context);
     context.read<BotnavbarCubit>().onSelect(0);
     final bio = Container(
       child: Column(
