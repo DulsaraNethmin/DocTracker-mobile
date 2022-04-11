@@ -14,7 +14,7 @@ class UserCubit extends Cubit<UserState> {
                 uuid: "",
                 name: "",
                 email: "",
-                usenmae: "",
+                username: "",
                 role: "",
                 branch: "")));
 
@@ -22,17 +22,19 @@ class UserCubit extends Cubit<UserState> {
     emit(UserState(username: username, uuid: uuid, user: user));
   }
 
-  void getUser(String username, String password) async {
+  Future getUser(String username, String password) async {
     UserRepo userRepo = UserRepo();
     bool result = false;
     try {
       User user = await userRepo.getUser(username, password);
-      //return true;
+      print(user.name);
       emit(UserState(username: user.name, uuid: user.uuid, user: user));
       result = true;
     } catch (e) {
       result = false;
-      print(e);
+      print('error');
+      //emit(UserState(username: "No Body", uuid: uuid, user: user))
+      print(e.toString());
     }
   }
 }

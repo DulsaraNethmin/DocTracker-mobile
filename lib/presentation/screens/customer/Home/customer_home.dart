@@ -18,7 +18,7 @@ class CustomerHome extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            context.read<UserCubit>().state.username,
+            context.read<UserCubit>().state.user.name,
             style: TextStyle(
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),

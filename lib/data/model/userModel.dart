@@ -14,7 +14,7 @@ class User {
     required this.uuid,
     required this.name,
     required this.email,
-    required this.usenmae,
+    required this.username,
     required this.role,
     required this.branch,
   });
@@ -22,7 +22,7 @@ class User {
   final String uuid;
   final String name;
   final String email;
-  final String usenmae;
+  final String username;
   final String role;
   final String branch;
 
@@ -30,7 +30,7 @@ class User {
         uuid: json["uuid"],
         name: json["name"],
         email: json["email"],
-        usenmae: json["usenmae"],
+        username: json["username"],
         role: json["role"],
         branch: json["branch"],
       );
@@ -39,11 +39,12 @@ class User {
         "uuid": uuid,
         "name": name,
         "email": email,
-        "usenmae": usenmae,
+        "username": username,
         "role": role,
         "branch": branch,
       };
 }
+
 
 
 

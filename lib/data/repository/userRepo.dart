@@ -7,9 +7,14 @@ import '../model/userModel.dart';
 class UserRepo {
   UserProvider _userProvider = UserProvider();
   Future<User> getUser(String username, String password) async {
-    var response = await _userProvider
-        .getUser('/user/one', {"username": username, "password": password});
-    User user = User.fromJson(jsonDecode(response.body.toString()));
+    final response = await _userProvider
+        .getUser('/user/get/one', {"username": username, "password": password});
+    print(response.data[0]);
+    final data = response.data[0];
+    final jsonData = jsonEncode(data);
+    print(jsonData);
+    final user = User.fromJson(jsonDecode(jsonData));
+    print("hi");
     return user;
   }
 }
