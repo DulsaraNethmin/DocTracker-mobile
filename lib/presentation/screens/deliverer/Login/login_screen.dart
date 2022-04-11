@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: kPrimaryColor,
                   onPressed: () {
                     print(_username_controller.text);
-                    context.read<UserCubit>().setUser(
+                    context.read<UserCubit>().getUser(
                         _username_controller.text, _password_controller.text);
                     Navigator.pushNamed(context, '/customer/home');
                   },

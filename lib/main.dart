@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => UserCubit()),
         BlocProvider(create: (context) => QrCubit()),
         BlocProvider(create: (context) => BotnavbarCubit()),
+        BlocProvider(create: (context) => UserCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
