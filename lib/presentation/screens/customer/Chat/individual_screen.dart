@@ -18,6 +18,7 @@ class IndividualScreen extends StatefulWidget {
 class _IndividualScreenState extends State<IndividualScreen> {
   late IO.Socket socket;
   final _message_controller = TextEditingController();
+  List<MessageModel> messages = [];
   ScrollController _scrollController = ScrollController();
 
   AppBar appbar(BuildContext context) {
@@ -50,7 +51,6 @@ class _IndividualScreenState extends State<IndividualScreen> {
   }
 
   Container body(BuildContext context) {
-    List<MessageModel> messages = [];
     return Container(
       color: Color.fromARGB(255, 199, 181, 236),
       height: MediaQuery.of(context).size.height,
@@ -62,7 +62,6 @@ class _IndividualScreenState extends State<IndividualScreen> {
             child: ListView.builder(
               shrinkWrap: true,
               controller: _scrollController,
-              //{messages=context.read<SocketCubit>().state;},
               itemCount: messages.length + 1,
               itemBuilder: (context, index) {
                 if (index == messages.length) {
@@ -123,13 +122,11 @@ class _IndividualScreenState extends State<IndividualScreen> {
                                   _scrollController.position.maxScrollExtent,
                                   duration: Duration(microseconds: 300),
                                   curve: Curves.easeOut);
-                              context.read<SocketCubit>().sendMessage(
+                              sendMessage(
                                   _message_controller.text,
                                   DateTime.now().toString().substring(10, 16),
                                   context.read<UserCubit>().state.uuid,
                                   widget.chatModel.id);
-                              setMessages('sender', _message_controller.text,
-                                  DateTime.now().toString().substring(10, 16));
                               _message_controller.clear();
                             }
                           },
@@ -182,7 +179,9 @@ class _IndividualScreenState extends State<IndividualScreen> {
 
   void setMessages(String type, String msg, String time) {
     MessageModel message = MessageModel(type: type, message: msg, time: time);
-    messages.addMessages(message);
+    setState(() {
+      messages.add(message);
+    });
   }
 
   @override
