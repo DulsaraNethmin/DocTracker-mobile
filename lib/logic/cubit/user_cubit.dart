@@ -16,7 +16,8 @@ class UserCubit extends Cubit<UserState> {
                 email: "",
                 username: "",
                 role: "",
-                branch: "")));
+                branch: "",
+                branchId: "")));
 
   void setUser(String username, String uuid, User user) {
     emit(UserState(username: username, uuid: uuid, user: user));

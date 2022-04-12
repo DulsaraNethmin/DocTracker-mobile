@@ -5,9 +5,11 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-User userFromJson(String str) => User.fromJson(json.decode(str));
+List<User> userFromJson(String str) =>
+    List<User>.from(json.decode(str).map((x) => User.fromJson(x)));
 
-String userToJson(User data) => json.encode(data.toJson());
+String userToJson(List<User> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class User {
   User({
@@ -17,6 +19,7 @@ class User {
     required this.username,
     required this.role,
     required this.branch,
+    required this.branchId,
   });
 
   final String uuid;
@@ -25,6 +28,7 @@ class User {
   final String username;
   final String role;
   final String branch;
+  final String branchId;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         uuid: json["uuid"],
@@ -33,6 +37,7 @@ class User {
         username: json["username"],
         role: json["role"],
         branch: json["branch"],
+        branchId: json["branchId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,22 +47,6 @@ class User {
         "username": username,
         "role": role,
         "branch": branch,
+        "branchId": branchId,
       };
 }
-
-
-
-
-
-
-
-
-
-// {
-//   "uuid":"",
-//   "name":"",
-//   "email":"",
-//   "usenmae":"",
-//   "role":"",
-//   "branch":""
-// }
