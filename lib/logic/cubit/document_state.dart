@@ -1,6 +1,7 @@
 part of 'document_cubit.dart';
 
-@immutable
-abstract class DocumentState {}
+class DocumentState {
+  List<Document> docs;
 
-class DocumentInitial extends DocumentState {}
+  DocumentState({required this.docs});
+}
