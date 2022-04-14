@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../data/model/documentModel.dart';
 
 class ResultCard extends StatelessWidget {
-  const ResultCard({Key? key, Document? doc}) : super(key: key);
-
+  ResultCard({Key? key, required this.doc}) : super(key: key);
+  Document doc;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,11 +13,11 @@ class ResultCard extends StatelessWidget {
         child: Card(
           child: Column(
             children: [
-              Text("This is Doc Name"),
+              Text(doc.doc),
               SizedBox(
                 height: 10,
               ),
-              Text("This is description of the doc....")
+              Text("Current Owner: ${doc.customerName}")
             ],
           ),
         ),

@@ -39,7 +39,9 @@ class SearchDoc extends StatelessWidget {
 
     final result = BlocBuilder<DocumentCubit, DocumentState>(
       builder: (context, state) {
-        return SearchResult();
+        return SearchResult(
+          arr: state.docs,
+        );
       },
     );
     return Scaffold(
