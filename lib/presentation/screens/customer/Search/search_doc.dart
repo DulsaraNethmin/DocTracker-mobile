@@ -1,4 +1,5 @@
 import 'package:doctracker/logic/cubit/document_cubit.dart';
+import 'package:doctracker/presentation/screens/customer/Search/search_result.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ class SearchDoc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<DocumentCubit>().getAllDocs(context);
+    var no_of_docs = context.read<DocumentCubit>().state.docs.length;
+    print(no_of_docs);
     final search = Padding(
       padding: const EdgeInsets.all(20.0),
       child: TextField(
@@ -34,15 +37,17 @@ class SearchDoc extends StatelessWidget {
       ),
     );
 
+    final result = BlocBuilder<DocumentCubit, DocumentState>(
+      builder: (context, state) {
+        return SearchResult();
+      },
+    );
     return Scaffold(
       appBar: appBar('Search Document'),
       bottomNavigationBar: MyBottomNavBar(),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            search,
-            //result
-          ],
+          children: [search, result],
         ),
       ),
     );
