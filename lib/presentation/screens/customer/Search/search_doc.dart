@@ -1,3 +1,4 @@
+import 'package:doctracker/logic/cubit/document_cubit.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ class SearchDoc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<DocumentCubit>().getAllDocs(context);
     final search = Padding(
       padding: const EdgeInsets.all(20.0),
       child: TextField(

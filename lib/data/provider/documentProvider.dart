@@ -1,12 +1,18 @@
 import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 
 class DocumentProvider {
-  final base_url = 'http://10.0.2.2:8080';
+  String base_url = "http://10.0.2.2:8080";
+  //String base_url = "http://localhost:8080";
 
-  Future<Response> getAllDoc(String end_point) async {
-    final dio = Dio();
-    final url = base_url + end_point;
-    final result = await dio.get(url);
+  Future<Response> getAllDoc(String end_point, String branch_id) async {
+    var dio = Dio();
+    var url = base_url + end_point;
+    print(url + "?" + branch_id);
+    var result = await dio.get(url, queryParameters: {"branch_id": branch_id});
     return result;
   }
 }
+
+//nethmin
+//12345678

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'logic/cubit/document_cubit.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => QrCubit()),
         BlocProvider(create: (context) => BotnavbarCubit()),
         BlocProvider(create: (context) => UserCubit()),
+        BlocProvider(create: (context) => DocumentCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
