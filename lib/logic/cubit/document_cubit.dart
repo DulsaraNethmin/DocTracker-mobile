@@ -7,10 +7,11 @@ import '../../data/repository/documentRepo.dart';
 part 'document_state.dart';
 
 class DocumentCubit extends Cubit<DocumentState> {
-  DocumentCubit() : super(DocumentState(docs: []));
+  DocumentCubit() : super(DocumentLoading());
   final documentRepo = DocumentRepo();
   Future getAllDocs(BuildContext context) async {
+    emit(DocumentLoading());
     List<Document> doc_arr = await documentRepo.getAllDocument(context);
-    emit(DocumentState(docs: doc_arr));
+    emit(DocumentLoaded(docs: doc_arr));
   }
 }

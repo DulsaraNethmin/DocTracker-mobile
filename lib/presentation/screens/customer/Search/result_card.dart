@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../data/model/documentModel.dart';
 
 class ResultCard extends StatelessWidget {

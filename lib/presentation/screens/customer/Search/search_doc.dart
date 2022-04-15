@@ -10,9 +10,10 @@ class SearchDoc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<DocumentCubit>().getAllDocs(context);
-    var no_of_docs = context.read<DocumentCubit>().state.docs.length;
-    print(no_of_docs);
+    final state = context.read<DocumentCubit>().state;
+    if (!(state is DocumentLoaded)) {
+      context.read<DocumentCubit>().getAllDocs(context);
+    }
     final search = Padding(
       padding: const EdgeInsets.all(20.0),
       child: TextField(
@@ -39,9 +40,19 @@ class SearchDoc extends StatelessWidget {
 
     final result = BlocBuilder<DocumentCubit, DocumentState>(
       builder: (context, state) {
-        return SearchResult(
-          arr: state.docs,
-        );
+        if (state is DocumentLoading) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(child: CircularProgressIndicator.adaptive()),
+            ],
+          );
+        } else if (state is DocumentLoaded) {
+          return SearchResult(
+            arr: state.docs,
+          );
+        }
+        return CircularProgressIndicator();
       },
     );
     return Scaffold(

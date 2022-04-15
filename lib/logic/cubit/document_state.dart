@@ -1,7 +1,14 @@
 part of 'document_cubit.dart';
 
-class DocumentState {
+@immutable
+abstract class DocumentState {}
+
+class DocumentLoading extends DocumentState {}
+
+class DocumentLoaded extends DocumentState {
   List<Document> docs;
 
-  DocumentState({required this.docs});
+  DocumentLoaded({required this.docs});
 }
+
+class DocumentError extends DocumentState {}
