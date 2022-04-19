@@ -1,9 +1,9 @@
 import 'dart:convert';
-
+import '../../presentation/constants/constants.dart';
 import 'package:dio/dio.dart';
 
 class UserProvider {
-  String base_url = "http://10.0.2.2:8080";
+  String base_url = restAPI;
 
   Future<Response> getUser(String end_point, Map body) async {
     var dio = Dio();
