@@ -5,11 +5,11 @@ import 'package:dio/dio.dart';
 class BranchUserProvider {
   String base_url = restAPI;
 
-  Future<Response> getUser(String end_point, Map body) async {
+  Future<Response> getUser(String end_point, String branch_id) async {
     var dio = Dio();
     final url = base_url + end_point;
     print(url);
-    var res = await dio.post(url, data: body);
+    var res = await dio.get(url, queryParameters: {"branch_id": branch_id});
     return res;
   }
 }
