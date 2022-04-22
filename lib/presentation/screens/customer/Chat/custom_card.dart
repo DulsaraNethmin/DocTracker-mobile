@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({required this.chatModel});
-  final ChatModel chatModel;
+  final Chat chatModel;
   @override
   Widget build(BuildContext context) {
     return InkWell(
