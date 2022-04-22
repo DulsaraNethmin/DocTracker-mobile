@@ -151,7 +151,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
   }
 
   void connect() {
-    socket = IO.io(realTimeTest, <String, dynamic>{
+    socket = IO.io(realTime, <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
