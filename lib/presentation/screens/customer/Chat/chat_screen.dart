@@ -53,14 +53,18 @@ class _ChatScreenState extends State<ChatScreen> {
     ],
   );
 
-  final actionBtn = FloatingActionButton(
-    onPressed: () {},
-    backgroundColor: Color.fromARGB(255, 91, 57, 160),
-    child: Icon(
-      Icons.chat,
-      color: Colors.white,
-    ),
-  );
+  FloatingActionButton actionBtn(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.pushNamed(context, '/chat/search');
+      },
+      backgroundColor: Color.fromARGB(255, 91, 57, 160),
+      child: Icon(
+        Icons.chat,
+        color: Colors.white,
+      ),
+    );
+  }
 
   void connect() {
     socket = IO.io(realTime, <String, dynamic>{
@@ -128,7 +132,7 @@ class _ChatScreenState extends State<ChatScreen> {
     ];
     return Scaffold(
       appBar: appbar,
-      floatingActionButton: actionBtn,
+      floatingActionButton: actionBtn(context),
       body: ListView.builder(
         itemCount: chats.length,
         itemBuilder: (context, index) {

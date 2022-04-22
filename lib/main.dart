@@ -1,4 +1,5 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
 import 'package:doctracker/logic/cubit/chat_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => UserCubit()),
         BlocProvider(create: (context) => DocumentCubit()),
         BlocProvider(create: (context) => ChatCubit()),
+        BlocProvider(create: (context) => BranchUserCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

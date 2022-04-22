@@ -10,8 +10,8 @@ class BranchUserRepo {
   Future<List<User>> getUser(String branch_id) async {
     final response =
         await _branchUserProvider.getUser('/user/get/all', branch_id);
-    print(response.data[0]);
-    final data = response.data[0];
+    print(response.data);
+    final data = response.data;
     List<User> arr = [];
     for (int i = 0; i < data.length; i++) {
       final jsonData = jsonEncode(data[i]);
