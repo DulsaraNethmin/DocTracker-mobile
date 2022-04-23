@@ -52,6 +52,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
   }
 
   Container body(BuildContext context) {
+    final user_satate = context.read<UserCubit>().state;
     return Container(
       color: Color.fromARGB(255, 199, 181, 236),
       height: MediaQuery.of(context).size.height,
@@ -126,7 +127,9 @@ class _IndividualScreenState extends State<IndividualScreen> {
                               sendMessage(
                                   _message_controller.text,
                                   DateTime.now().toString().substring(10, 16),
-                                  context.read<UserCubit>().state.uuid,
+                                  (user_satate is UserLogedin)
+                                      ? user_satate.uuid
+                                      : '0000',
                                   widget.chatModel.id);
                               _message_controller.clear();
                             }
@@ -157,7 +160,8 @@ class _IndividualScreenState extends State<IndividualScreen> {
     });
     print("inside");
     socket.connect();
-    String id = context.read<UserCubit>().state.uuid;
+    final user_state = context.read<UserCubit>().state;
+    String id = (user_state is UserLogedin) ? user_state.uuid : "000";
     socket.emit('signin', id);
     socket.onConnect((data) {
       print("connected");

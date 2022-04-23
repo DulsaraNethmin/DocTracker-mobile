@@ -14,4 +14,8 @@ class DocumentCubit extends Cubit<DocumentState> {
     List<Document> doc_arr = await documentRepo.getAllDocument(context);
     emit(DocumentLoaded(docs: doc_arr));
   }
+
+  void toInitialState() {
+    emit(DocumentLoading());
+  }
 }

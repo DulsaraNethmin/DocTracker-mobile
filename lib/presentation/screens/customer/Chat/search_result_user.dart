@@ -12,9 +12,11 @@ class SearchResultUsers extends StatelessWidget {
   List<User> arr = [];
   @override
   Widget build(BuildContext context) {
+    final user_state = context.read<UserCubit>().state;
     List<CustomCardSearch> card = [];
     for (int i = 0; i < arr.length; i++) {
-      if (arr[i].uuid != context.read<UserCubit>().state.uuid)
+      if (arr[i].uuid !=
+          ((user_state is UserLogedin) ? user_state.uuid : "000"))
         card.add(CustomCardSearch(
           user: arr[i],
         ));

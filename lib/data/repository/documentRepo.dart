@@ -10,8 +10,10 @@ import '../../data/model/documentModel.dart';
 class DocumentRepo {
   final _documentProvider = DocumentProvider();
   Future<List<Document>> getAllDocument(BuildContext context) async {
-    final branch_id = context.read<UserCubit>().state.user.branchId;
-    final branch = context.read<UserCubit>().state.user.branch;
+    final user_state = context.read<UserCubit>().state;
+    final branch_id =
+        (user_state is UserLogedin) ? user_state.user.branchId : "000";
+    final branch = (user_state is UserLogedin) ? user_state.user.branch : "000";
     //final end_point = '/document/get/all?branch_id=${branch_id}';
     final end_point = '/document/get/by/branch';
     final res = await _documentProvider.getAllDoc(end_point, branch_id);

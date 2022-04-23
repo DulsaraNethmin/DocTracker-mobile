@@ -18,7 +18,10 @@ class _UserSearchState extends State<UserSearch> {
   @override
   Widget build(BuildContext context) {
     final state = context.read<BranchUserCubit>().state;
-    final branch = context.read<UserCubit>().state.user.branchId;
+    final user_state = context.read<UserCubit>().state;
+    //String id = (user_state is UserLogedin) ? user_state.uuid : "000";
+    final branch =
+        (user_state is UserLogedin) ? user_state.user.branchId : "000";
     if (!(state is BranchUserLoaded))
       context.read<BranchUserCubit>().getUser(branch);
 

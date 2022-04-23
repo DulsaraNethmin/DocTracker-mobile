@@ -11,10 +11,12 @@ class CustomCardSearch extends StatelessWidget {
   final User user;
   @override
   Widget build(BuildContext context) {
+    final user_state = context.read<UserCubit>().state;
+    //tring id = (user_state is UserLogedin) ? user_state.uuid : "000";
     return InkWell(
       onTap: () {
         print(
-            "New chat with: ${user.uuid} by : ${context.read<UserCubit>().state.uuid}");
+            "New chat with: ${user.uuid} by : ${user_state is UserLogedin ? user_state.uuid : "000"}");
         Navigator.pushNamed(context, '/chat');
       },
       child: Column(

@@ -73,7 +73,8 @@ class _ChatScreenState extends State<ChatScreen> {
     });
     print("inside");
     socket.connect();
-    String id = context.read<UserCubit>().state.uuid;
+    final user_state = context.read<UserCubit>().state;
+    String id = (user_state is UserLogedin) ? user_state.uuid : "000";
     socket.emit('signin', id);
     socket.onConnect((data) {
       print("connected");

@@ -9,10 +9,11 @@ class CustomCard extends StatelessWidget {
   final Chat chatModel;
   @override
   Widget build(BuildContext context) {
+    final user_state = context.read<UserCubit>().state;
     return InkWell(
       onTap: () {
         print(
-            "sender: ${context.read<UserCubit>().state.uuid} and targe : ${chatModel.id}");
+            "sender: ${(user_state is UserLogedin) ? user_state.uuid : "000"} and targe : ${chatModel.id}");
         Navigator.push(
             context,
             MaterialPageRoute(

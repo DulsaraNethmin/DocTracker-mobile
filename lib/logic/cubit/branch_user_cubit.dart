@@ -23,4 +23,8 @@ class BranchUserCubit extends Cubit<BranchUserState> {
       print(e.toString());
     }
   }
+
+  void toInitialState() {
+    emit(BranchUserLoading());
+  }
 }
