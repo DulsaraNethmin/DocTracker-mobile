@@ -1,4 +1,4 @@
-class ChatModel {
+class Chat {
   String name;
   String icon;
   String time;
@@ -6,7 +6,7 @@ class ChatModel {
   String status;
   bool select = false;
   String id;
-  ChatModel({
+  Chat({
     required this.name,
     required this.icon,
     required this.time,

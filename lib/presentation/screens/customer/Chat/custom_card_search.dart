@@ -1,33 +1,33 @@
-import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/data/model/userModel.dart';
+import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
+import 'package:doctracker/presentation/screens/customer/Chat/search_result_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomCard extends StatelessWidget {
-  const CustomCard({required this.chatModel});
-  final Chat chatModel;
+class CustomCardSearch extends StatelessWidget {
+  const CustomCardSearch({required this.user});
+  final User user;
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
+    //tring id = (user_state is UserLogedin) ? user_state.uuid : "000";
     return InkWell(
       onTap: () {
         print(
-            "sender: ${(user_state is UserLogedin) ? user_state.uuid : "000"} and targe : ${chatModel.id}");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => IndividualScreen(chatModel: chatModel)));
+            "New chat with: ${user.uuid} by : ${user_state is UserLogedin ? user_state.uuid : "000"}");
+        Navigator.pushNamed(context, '/chat');
       },
       child: Column(
         children: [
           ListTile(
             leading: CircleAvatar(
-              child: Image.asset(chatModel.icon),
+              child: Image.asset('assets/images/profile.png'),
               radius: 30,
             ),
             title: Text(
-              chatModel.name,
+              user.name,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             subtitle: Row(
@@ -37,12 +37,12 @@ class CustomCard extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  chatModel.currentMessage,
+                  user.role,
                   style: TextStyle(fontSize: 13),
                 ),
               ],
             ),
-            trailing: Text(chatModel.time),
+            //trailing: Text(chatModel.time),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 80, right: 20),

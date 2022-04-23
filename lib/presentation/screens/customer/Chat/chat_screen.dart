@@ -1,6 +1,10 @@
 import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
+import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/custom_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({Key? key}) : super(key: key);
@@ -10,6 +14,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  late IO.Socket socket;
   final appbar = AppBar(
     backgroundColor: Color.fromARGB(255, 91, 57, 160),
     title: Text("Mails"),
@@ -48,47 +53,77 @@ class _ChatScreenState extends State<ChatScreen> {
     ],
   );
 
-  final actionBtn = FloatingActionButton(
-    onPressed: () {},
-    backgroundColor: Color.fromARGB(255, 91, 57, 160),
-    child: Icon(
-      Icons.chat,
-      color: Colors.white,
-    ),
-  );
+  FloatingActionButton actionBtn(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.pushNamed(context, '/chat/search');
+      },
+      backgroundColor: Color.fromARGB(255, 91, 57, 160),
+      child: Icon(
+        Icons.chat,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  void connect() {
+    socket = IO.io(realTime, <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": false
+    });
+    print("inside");
+    socket.connect();
+    final user_state = context.read<UserCubit>().state;
+    String id = (user_state is UserLogedin) ? user_state.uuid : "000";
+    socket.emit('signin', id);
+    socket.onConnect((data) {
+      print("connected");
+      socket.on('msg', (msg) {
+        print(msg);
+      });
+    });
+    print(socket.connected);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    connect();
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<ChatModel> chats = [
-      ChatModel(
+    List<Chat> chats = [
+      Chat(
           name: "Sangeeth",
           icon: "assets/images/profile.png",
           time: "17:19",
           currentMessage: "Hello man",
           status: '',
           id: '1'),
-      ChatModel(
+      Chat(
           name: "Chamodhya",
           icon: "assets/images/profile.png",
           time: "17:19",
           currentMessage: "Hello man",
           status: '',
           id: '2'),
-      ChatModel(
+      Chat(
           name: "Chinthani",
           icon: "assets/images/profile.png",
           time: "14:00",
           currentMessage: "Hello man",
           status: '',
           id: '3'),
-      ChatModel(
+      Chat(
           name: "Nethmin",
           icon: "assets/images/profile.png",
           time: "07:20",
           currentMessage: "Hello man",
           status: '',
           id: '4'),
-      ChatModel(
+      Chat(
           name: "Harsha",
           icon: "assets/images/profile.png",
           time: "07:20",
@@ -98,7 +133,7 @@ class _ChatScreenState extends State<ChatScreen> {
     ];
     return Scaffold(
       appBar: appbar,
-      floatingActionButton: actionBtn,
+      floatingActionButton: actionBtn(context),
       body: ListView.builder(
         itemCount: chats.length,
         itemBuilder: (context, index) {

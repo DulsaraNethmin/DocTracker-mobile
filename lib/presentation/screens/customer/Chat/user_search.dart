@@ -1,19 +1,30 @@
-import 'package:doctracker/logic/cubit/document_cubit.dart';
-import 'package:doctracker/presentation/screens/customer/Search/search_result.dart';
+import 'package:doctracker/data/model/userModel.dart';
+import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
+import 'package:doctracker/presentation/screens/customer/Chat/search_result_user.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SearchDoc extends StatelessWidget {
-  const SearchDoc({Key? key}) : super(key: key);
+class UserSearch extends StatefulWidget {
+  UserSearch({Key? key}) : super(key: key);
 
   @override
+  State<UserSearch> createState() => _UserSearchState();
+}
+
+class _UserSearchState extends State<UserSearch> {
+  @override
   Widget build(BuildContext context) {
-    final state = context.read<DocumentCubit>().state;
-    if (!(state is DocumentLoaded)) {
-      context.read<DocumentCubit>().getAllDocs(context);
-    }
+    final state = context.read<BranchUserCubit>().state;
+    final user_state = context.read<UserCubit>().state;
+    //String id = (user_state is UserLogedin) ? user_state.uuid : "000";
+    final branch =
+        (user_state is UserLogedin) ? user_state.user.branchId : "000";
+    if (!(state is BranchUserLoaded))
+      context.read<BranchUserCubit>().getUser(branch);
+
     final search = Padding(
       padding: const EdgeInsets.all(20.0),
       child: TextField(
@@ -37,26 +48,25 @@ class SearchDoc extends StatelessWidget {
                 IconButton(icon: const Icon(Icons.clear), onPressed: () {})),
       ),
     );
-
-    final result = BlocBuilder<DocumentCubit, DocumentState>(
+    final result = BlocBuilder<BranchUserCubit, BranchUserState>(
       builder: (context, state) {
-        if (state is DocumentLoading) {
+        if (state is BranchUserLoading) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(child: CircularProgressIndicator.adaptive()),
             ],
           );
-        } else if (state is DocumentLoaded) {
-          return SearchResult(
-            arr: state.docs,
+        } else if (state is BranchUserLoaded) {
+          return SearchResultUsers(
+            arr: state.user,
           );
         }
         return CircularProgressIndicator();
       },
     );
     return Scaffold(
-      appBar: appBar('Search Document'),
+      appBar: appBar('New Chat'),
       bottomNavigationBar: MyBottomNavBar(),
       body: SingleChildScrollView(
         child: Column(

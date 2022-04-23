@@ -1,6 +1,7 @@
 import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/messageModel.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
+import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/own_message_card.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/reply_card.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class IndividualScreen extends StatefulWidget {
   IndividualScreen({required this.chatModel});
-  final ChatModel chatModel;
+  final Chat chatModel;
 
   @override
   State<IndividualScreen> createState() => _IndividualScreenState();
@@ -18,7 +19,7 @@ class IndividualScreen extends StatefulWidget {
 class _IndividualScreenState extends State<IndividualScreen> {
   late IO.Socket socket;
   final _message_controller = TextEditingController();
-  List<MessageModel> messages = [];
+  List<Message> messages = [];
   ScrollController _scrollController = ScrollController();
 
   AppBar appbar(BuildContext context) {
@@ -51,6 +52,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
   }
 
   Container body(BuildContext context) {
+    final user_satate = context.read<UserCubit>().state;
     return Container(
       color: Color.fromARGB(255, 199, 181, 236),
       height: MediaQuery.of(context).size.height,
@@ -125,7 +127,9 @@ class _IndividualScreenState extends State<IndividualScreen> {
                               sendMessage(
                                   _message_controller.text,
                                   DateTime.now().toString().substring(10, 16),
-                                  context.read<UserCubit>().state.uuid,
+                                  (user_satate is UserLogedin)
+                                      ? user_satate.uuid
+                                      : '0000',
                                   widget.chatModel.id);
                               _message_controller.clear();
                             }
@@ -150,20 +154,21 @@ class _IndividualScreenState extends State<IndividualScreen> {
   }
 
   void connect() {
-    socket = IO
-        .io("https://intense-anchorage-44762.herokuapp.com/", <String, dynamic>{
+    socket = IO.io(realTime, <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false
     });
     print("inside");
     socket.connect();
-    String id = context.read<UserCubit>().state.uuid;
+    final user_state = context.read<UserCubit>().state;
+    String id = (user_state is UserLogedin) ? user_state.uuid : "000";
     socket.emit('signin', id);
     socket.onConnect((data) {
       print("connected");
       socket.on('msg', (msg) {
         print(msg);
-        setMessages("target", msg["message"], msg["time"]);
+        setMessages(
+            "target", msg["message"], msg["time"], msg["from"], msg["to"]);
         _scrollController.animateTo(_scrollController.position.maxScrollExtent,
             duration: Duration(microseconds: 300), curve: Curves.easeOut);
       });
@@ -173,12 +178,14 @@ class _IndividualScreenState extends State<IndividualScreen> {
 
   void sendMessage(String message, String time, String sender, String target) {
     socket.emit('msg',
-        {"message": message, "time": time, "sender": sender, "target": target});
-    setMessages("sender", message, time);
+        {"message": message, "time": time, "from": sender, "to": target});
+    setMessages("sender", message, time, sender, target);
   }
 
-  void setMessages(String type, String msg, String time) {
-    MessageModel message = MessageModel(type: type, message: msg, time: time);
+  void setMessages(
+      String type, String msg, String time, String from, String to) {
+    Message message =
+        Message(type: type, message: msg, time: time, from: from, to: to);
     setState(() {
       messages.add(message);
     });

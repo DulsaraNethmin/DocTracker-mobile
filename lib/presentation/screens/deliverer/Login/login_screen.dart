@@ -58,11 +58,13 @@ class _LoginScreenState extends State<LoginScreen> {
               MaterialButton(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
                   color: kPrimaryColor,
-                  onPressed: () {
+                  onPressed: () async {
                     print(_username_controller.text);
-                    context.read<UserCubit>().setUser(
+                    await context.read<UserCubit>().getUser(
                         _username_controller.text, _password_controller.text);
-                    Navigator.pushNamed(context, '/customer/home');
+                    if (context.read<UserCubit>().state is UserLogedin) {
+                      Navigator.pushNamed(context, '/customer/home');
+                    }
                   },
                   child: Text(
                     "Sign In as Customer",

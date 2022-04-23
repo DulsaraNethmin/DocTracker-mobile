@@ -1,5 +1,8 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
+import 'package:doctracker/logic/cubit/document_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
+import 'package:doctracker/presentation/screens/deliverer/Login/login_screen.dart';
 import 'package:doctracker/presentation/widgets/analog_clock.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
@@ -13,12 +16,13 @@ class CustomerHome extends StatelessWidget {
   Widget build(BuildContext context) {
     //context.read<SocketCubit>().connect(context);
     context.read<BotnavbarCubit>().onSelect(0);
+    final user_state = context.read<UserCubit>().state;
     final bio = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            context.read<UserCubit>().state.username,
+            (user_state is UserLogedin) ? user_state.user.name : "Empty User",
             style: TextStyle(
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
@@ -52,6 +56,9 @@ class CustomerHome extends StatelessWidget {
         ),
       ),
     );
+
+    void logout() {}
+
     final topContainer = Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       color: Color.fromARGB(255, 240, 231, 239),
@@ -97,17 +104,33 @@ class CustomerHome extends StatelessWidget {
           ),
           Expanded(
             flex: 1,
-            child: Card(
-              color: Colors.blue,
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.money,
-                    size: 40,
-                    color: Colors.grey[350],
-                  ),
-                  Text('Payments')
-                ],
+            child: InkWell(
+              onTap: () {
+                print('logout');
+                //context.read<UserCubit>().logout();
+                context.read<BranchUserCubit>().toInitialState();
+                context.read<DocumentCubit>().toInitialState();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/login', (Route<dynamic> route) => true);
+                // Navigator.of(context).pushAndRemoveUntil(
+                //     MaterialPageRoute(builder: (context) => LoginScreen()),
+                //     (Route<dynamic> route) => false);
+                //Navigator.popUntil(context, ModalRoute.withName('/login'));
+                //Navigator.pushNamed(context, '/login');
+                //Navigator.of(context).popUntil(ModalRoute.withName('/login'));
+              },
+              child: Card(
+                color: Colors.blue,
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.logout,
+                      size: 40,
+                      color: Colors.grey[350],
+                    ),
+                    Text('Logout')
+                  ],
+                ),
               ),
             ),
           ),

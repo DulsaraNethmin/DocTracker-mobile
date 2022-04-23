@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
-class MessageModel {
+class Message {
+  String from;
+  String to;
   String type;
   String message;
   String time;
-  MessageModel({required this.message, required this.type, required this.time});
+  Message(
+      {required this.from,
+      required this.to,
+      required this.message,
+      required this.type,
+      required this.time});
 }
