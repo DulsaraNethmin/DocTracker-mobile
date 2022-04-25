@@ -1,17 +1,32 @@
 part of 'chat_cubit.dart';
 
 @immutable
-abstract class ChatState {}
+abstract class ChatState {
+  List<Chat> chat = [];
+  List<Message> message = [];
+}
 
 class ChatLoading extends ChatState {}
 
 class ChatError extends ChatState {}
 
 class ChatLoaded extends ChatState {
-  ChatLoaded({required this.chat});
-  List<Chat> chat;
+  ChatLoaded(List<Chat> c, List<Message> m) {
+    chat = c;
+    message = m;
+  }
 }
 
-class ChatIncoming extends ChatState {}
+class ChatIncoming extends ChatState {
+  ChatIncoming(Chat c, Message m) {
+    chat.add(c);
+    message.add(m);
+  }
+}
 
-class ChatOutgoing extends ChatState {}
+class ChatOutgoing extends ChatState {
+  ChatOutgoing(Chat c, Message m) {
+    chat.add(c);
+    message.add(m);
+  }
+}

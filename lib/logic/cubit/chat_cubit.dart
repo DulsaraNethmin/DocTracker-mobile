@@ -8,10 +8,6 @@ part 'chat_state.dart';
 class ChatCubit extends Cubit<ChatState> {
   ChatCubit() : super(ChatLoading());
 
-  void getChats() {
-    emit(ChatLoad(state.))
-  }
-
   void addIncomingChat(Chat chat, Message message) {
     emit(ChatIncoming(chat, message));
   }
