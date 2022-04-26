@@ -1,5 +1,6 @@
 import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/messageModel.dart';
+import 'package:doctracker/data/model/userModel.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/own_message_card.dart';
@@ -9,8 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class IndividualScreen extends StatefulWidget {
-  IndividualScreen({required this.chatModel});
-  final Chat chatModel;
+  IndividualScreen({required this.user});
+  final User user;
 
   @override
   State<IndividualScreen> createState() => _IndividualScreenState();
@@ -41,14 +42,14 @@ class _IndividualScreenState extends State<IndividualScreen> {
               size: 20,
             ),
             CircleAvatar(
-              child: Image.asset(widget.chatModel.icon),
+              child: Image.asset('assets/images/profile.png'),
               radius: 20,
             )
           ],
         ),
       ),
       title: Text(
-        widget.chatModel.name,
+        widget.user.name,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.5),
       ),
     );
@@ -96,9 +97,28 @@ class _IndividualScreenState extends State<IndividualScreen> {
             )));
   }
 
-  MaterialButton mail_button() {
+  void sendMail(BuildContext context) {
+    final user_state = context.read<UserCubit>().state;
+    final data = {
+      "from": (user_state is UserLogedin) ? user_state.uuid : "000",
+      "to": widget.user.uuid,
+      "time": DateTime.now().toString().substring(0, 19),
+      "seen": false,
+      "head": _head_controller.text,
+      "body": _body_controller.text
+    };
+    print(data);
+    //post mail to db
+    //emit event
+    //add mail to arr
+    //navigate to chat screen
+  }
+
+  MaterialButton mail_button(BuildContext context) {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: () {
+        sendMail(context);
+      },
       child: Text(
         'Send Mail',
         style: TextStyle(fontSize: 20, color: Colors.white),
@@ -125,7 +145,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
               height: 10,
             ),
             mail_body(),
-            mail_button()
+            mail_button(context)
           ],
         ),
       ),

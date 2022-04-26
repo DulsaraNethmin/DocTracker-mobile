@@ -14,10 +14,11 @@ class CustomCard extends StatelessWidget {
       onTap: () {
         print(
             "sender: ${(user_state is UserLogedin) ? user_state.uuid : "000"} and targe : ${chatModel.id}");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => IndividualScreen(chatModel: chatModel)));
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //     builder: (context) => IndividualScreen(chatModel: chatModel))
+        //         );
       },
       child: Column(
         children: [

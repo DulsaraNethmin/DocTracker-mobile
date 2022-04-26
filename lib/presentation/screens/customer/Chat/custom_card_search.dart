@@ -16,20 +16,12 @@ class CustomCardSearch extends StatelessWidget {
     //tring id = (user_state is UserLogedin) ? user_state.uuid : "000";
     return InkWell(
       onTap: () {
-        final chat_model = Chat(
-            currentMessage: 'This is a chat',
-            name: user.name,
-            time: DateTime.now().toString().substring(6, 10),
-            status: 'seen',
-            id: user.uuid,
-            icon: 'assets/images/profile.png',
-            select: true);
         print(
             "New chat with: ${user.uuid} by : ${user_state is UserLogedin ? user_state.uuid : "000"}");
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => IndividualScreen(chatModel: chat_model)));
+                builder: (context) => IndividualScreen(user: user)));
       },
       child: Column(
         children: [
