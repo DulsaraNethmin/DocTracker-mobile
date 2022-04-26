@@ -19,9 +19,12 @@ class IndividualScreen extends StatefulWidget {
 class _IndividualScreenState extends State<IndividualScreen> {
   late IO.Socket socket;
   final _message_controller = TextEditingController();
+  final _head_controller = TextEditingController();
+  final _body_controller = TextEditingController();
   List<Message> messages = [];
   ScrollController _scrollController = ScrollController();
 
+  //app bar......................................................................................
   AppBar appbar(BuildContext context) {
     return AppBar(
       elevation: 0,
@@ -51,96 +54,80 @@ class _IndividualScreenState extends State<IndividualScreen> {
     );
   }
 
+//body............................................................................................
+
+  Container mail_head() {
+    return Container(
+        width: MediaQuery.of(context).size.width - 60,
+        child: Card(
+            margin: EdgeInsets.only(left: 2, right: 2, bottom: 8),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child: TextFormField(
+              //textAlignVertical: TextAlignVertical.center,
+              controller: _head_controller,
+              keyboardType: TextInputType.multiline,
+              minLines: 1,
+              maxLines: 2,
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Mail Head',
+                  contentPadding: EdgeInsets.all(7)),
+            )));
+  }
+
+  Container mail_body() {
+    return Container(
+        width: MediaQuery.of(context).size.width - 60,
+        child: Card(
+            margin: EdgeInsets.only(left: 2, right: 2, bottom: 8),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child: TextFormField(
+              //textAlignVertical: TextAlignVertical.center,
+              controller: _body_controller,
+              keyboardType: TextInputType.multiline,
+              maxLines: 100,
+              minLines: 20,
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Type a message...',
+                  contentPadding: EdgeInsets.all(7)),
+            )));
+  }
+
+  MaterialButton mail_button() {
+    return MaterialButton(
+      onPressed: () {},
+      child: Text(
+        'Send Mail',
+        style: TextStyle(fontSize: 20, color: Colors.white),
+      ),
+      minWidth: MediaQuery.of(context).size.width - 60,
+      color: Color.fromARGB(255, 203, 51, 226),
+    );
+  }
+
   Container body(BuildContext context) {
     final user_satate = context.read<UserCubit>().state;
     return Container(
       color: Color.fromARGB(255, 199, 181, 236),
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          Expanded(
-            //height: MediaQuery.of(context).size.height - 140,
-            child: ListView.builder(
-              shrinkWrap: true,
-              controller: _scrollController,
-              itemCount: messages.length + 1,
-              itemBuilder: (context, index) {
-                if (index == messages.length) {
-                  return Container(
-                    height: 70,
-                  );
-                }
-                if (messages[index].type == "sender") {
-                  return OwnMessageCard(
-                    message: messages[index].message,
-                    time: messages[index].time,
-                  );
-                }
-                return ReplyCard(
-                  message: messages[index].message,
-                  time: messages[index].time,
-                );
-              },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Container(
-                      width: MediaQuery.of(context).size.width - 60,
-                      child: Card(
-                          margin: EdgeInsets.only(left: 2, right: 2, bottom: 8),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25)),
-                          child: TextFormField(
-                            //textAlignVertical: TextAlignVertical.center,
-                            controller: _message_controller,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 5,
-                            minLines: 1,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'Type a message...',
-                                contentPadding: EdgeInsets.all(7)),
-                          ))),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 8.0, right: 5, left: 5),
-                    child: CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 91, 57, 160),
-                        radius: 25,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.send,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            if (_message_controller.text.length > 0) {
-                              _scrollController.animateTo(
-                                  _scrollController.position.maxScrollExtent,
-                                  duration: Duration(microseconds: 300),
-                                  curve: Curves.easeOut);
-                              sendMessage(
-                                  _message_controller.text,
-                                  DateTime.now().toString().substring(10, 16),
-                                  (user_satate is UserLogedin)
-                                      ? user_satate.uuid
-                                      : '0000',
-                                  widget.chatModel.id);
-                              _message_controller.clear();
-                            }
-                          },
-                        )),
-                  )
-                ],
-              ),
+            mail_head(),
+            SizedBox(
+              height: 10,
             ),
-          )
-        ],
+            mail_body(),
+            mail_button()
+          ],
+        ),
       ),
     );
   }
@@ -153,6 +140,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
     connect();
   }
 
+//socket io.....................................................................................
   void connect() {
     socket = IO.io(realTime, <String, dynamic>{
       "transports": ["websocket"],
@@ -191,6 +179,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
     });
   }
 
+//build...............................................................................................................
   @override
   Widget build(BuildContext context) {
     return Scaffold(

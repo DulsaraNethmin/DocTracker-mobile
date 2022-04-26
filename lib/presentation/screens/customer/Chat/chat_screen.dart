@@ -60,7 +60,7 @@ class _ChatScreenState extends State<ChatScreen> {
       },
       backgroundColor: Color.fromARGB(255, 91, 57, 160),
       child: Icon(
-        Icons.chat,
+        Icons.mail_sharp,
         color: Colors.white,
       ),
     );
