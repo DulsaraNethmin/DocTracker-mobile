@@ -11,12 +11,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomerHome extends StatelessWidget {
   const CustomerHome({Key? key}) : super(key: key);
-
+//..................................................................................................................
   @override
   Widget build(BuildContext context) {
-    //context.read<SocketCubit>().connect(context);
     context.read<BotnavbarCubit>().onSelect(0);
     final user_state = context.read<UserCubit>().state;
+//..................................................................................................................
     final bio = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,10 +36,12 @@ class CustomerHome extends StatelessWidget {
         ],
       ),
     );
+//..................................................................................................................
     final pic = CircleAvatar(
       radius: 35,
       child: Image.asset('assets/images/profile.png'),
     );
+//..................................................................................................................
     final topcard = Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Card(
@@ -56,9 +58,7 @@ class CustomerHome extends StatelessWidget {
         ),
       ),
     );
-
-    void logout() {}
-
+//...............................................................................................................
     final topContainer = Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       color: Color.fromARGB(255, 240, 231, 239),
@@ -107,17 +107,10 @@ class CustomerHome extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 print('logout');
-                //context.read<UserCubit>().logout();
                 context.read<BranchUserCubit>().toInitialState();
                 context.read<DocumentCubit>().toInitialState();
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     '/login', (Route<dynamic> route) => true);
-                // Navigator.of(context).pushAndRemoveUntil(
-                //     MaterialPageRoute(builder: (context) => LoginScreen()),
-                //     (Route<dynamic> route) => false);
-                //Navigator.popUntil(context, ModalRoute.withName('/login'));
-                //Navigator.pushNamed(context, '/login');
-                //Navigator.of(context).popUntil(ModalRoute.withName('/login'));
               },
               child: Card(
                 color: Colors.blue,
@@ -137,35 +130,7 @@ class CustomerHome extends StatelessWidget {
         ],
       ),
     );
-
-    final middleBody = Container(
-      child: Column(
-        children: [
-          //row1,
-          //row2,
-        ],
-      ),
-    );
-
-    final row1 = Row(
-      children: [],
-    );
-
-    final button = MaterialButton(
-      child: Text('QR'),
-      color: Colors.amberAccent[400],
-      onPressed: () {
-        Navigator.pushNamed(context, '/qr');
-      },
-    );
-    final button2 = MaterialButton(
-      child: Text('hello'),
-      color: Colors.amberAccent[400],
-      onPressed: () {
-        print('hello button');
-      },
-    );
-
+//..................................................................................................................
     return Scaffold(
       appBar: appBar('Home'),
       body: SafeArea(
@@ -173,9 +138,6 @@ class CustomerHome extends StatelessWidget {
         children: [
           topcard,
           topContainer,
-          //Text('home'),
-          //button,
-          //button2,
         ],
       )),
       bottomNavigationBar: MyBottomNavBar(),
