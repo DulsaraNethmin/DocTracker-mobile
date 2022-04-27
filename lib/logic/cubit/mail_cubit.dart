@@ -8,7 +8,7 @@ part 'mail_state.dart';
 class MailCubit extends Cubit<MailState> {
   MailCubit() : super(MailLoading());
 
-  void getMails(String uuid) async {
+  Future getMails(String uuid) async {
     MailRepo mailRepo = MailRepo();
     final mail_state = state;
     try {
@@ -21,7 +21,7 @@ class MailCubit extends Cubit<MailState> {
     }
   }
 
-  void sendMail(Map body) async {
+  Future sendMail(Map body) async {
     MailRepo mailRepo = MailRepo();
     final mail_state = state;
     try {

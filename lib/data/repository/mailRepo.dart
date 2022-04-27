@@ -35,11 +35,11 @@ class MailRepo {
 
   Future<Mail> sendMail(Map body) async {
     final response = await _mailProvider.sendMail('/mail/add', body);
-    print(response.data);
-    final data = response.data;
+    print(response.statusCode);
+    final data = response.data[0];
     final jsonData = jsonEncode(data);
     print(jsonData);
-    final mail = Mail.fromJson(jsonDecode(jsonData));
+    Mail mail = Mail.fromJson(jsonDecode(jsonData));
     print("hi");
     return mail;
   }

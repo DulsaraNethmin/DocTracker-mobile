@@ -2,6 +2,7 @@ import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/mailModel.dart';
 import 'package:doctracker/data/model/messageModel.dart';
 import 'package:doctracker/data/model/userModel.dart';
+import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/own_message_card.dart';
@@ -100,6 +101,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
 
   void sendMail(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
+    final mail_state = context.read<MailCubit>().state;
     final data = {
       "from": (user_state is UserLogedin) ? user_state.uuid : "000",
       "to": widget.user.uuid,
@@ -108,9 +110,12 @@ class _IndividualScreenState extends State<IndividualScreen> {
       "head": _head_controller.text,
       "body": _body_controller.text
     };
-    print(data);
-    //post mail to db
 
+    //post mail to db
+    if (mail_state is MailLoaded) {
+      print(data);
+      context.read<MailCubit>().sendMail(data);
+    }
     //emit event
     //add mail to arr
     //navigate to chat screen
