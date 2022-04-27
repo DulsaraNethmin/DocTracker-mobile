@@ -6,6 +6,7 @@ abstract class MailState {}
 class MailLoading extends MailState {}
 
 class MailLoaded extends MailState {
-  List<Mail> mails = [];
-  MailLoaded({required this.mails});
+  List<Mail> sentMails = [];
+  List<Mail> receivedMails = [];
+  MailLoaded({required this.sentMails, required this.receivedMails});
 }
