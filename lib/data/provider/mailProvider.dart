@@ -2,7 +2,7 @@ import 'dart:convert';
 import '../../presentation/constants/constants.dart';
 import 'package:dio/dio.dart';
 
-class UserProvider {
+class MailProvider {
   String base_url = restAPI;
 
   Future<Response> getMail(String end_point, String uuid) async {
