@@ -1,4 +1,6 @@
 import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/data/model/mailModel.dart';
+import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/custom_card.dart';
@@ -15,44 +17,18 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   late IO.Socket socket;
+
+  //......................................................................................................................
   final appbar = AppBar(
     backgroundColor: Color.fromARGB(255, 91, 57, 160),
     title: Text("Mails"),
     elevation: 0,
     actions: [
       IconButton(icon: Icon(Icons.search), onPressed: () {}),
-      PopupMenuButton<String>(
-        onSelected: (value) {
-          print(value);
-        },
-        itemBuilder: (BuildContext contesxt) {
-          return [
-            PopupMenuItem(
-              child: Text("New group"),
-              value: "New group",
-            ),
-            PopupMenuItem(
-              child: Text("New broadcast"),
-              value: "New broadcast",
-            ),
-            PopupMenuItem(
-              child: Text("Whatsapp Web"),
-              value: "Whatsapp Web",
-            ),
-            PopupMenuItem(
-              child: Text("Starred messages"),
-              value: "Starred messages",
-            ),
-            PopupMenuItem(
-              child: Text("Settings"),
-              value: "Settings",
-            ),
-          ];
-        },
-      )
     ],
   );
 
+//......................................................................................................................
   FloatingActionButton actionBtn(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
@@ -66,6 +42,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+//......................................................................................................................
   void connect() {
     socket = IO.io(realTime, <String, dynamic>{
       "transports": ["websocket"],
@@ -92,6 +69,7 @@ class _ChatScreenState extends State<ChatScreen> {
     connect();
   }
 
+//......................................................................................................................
   @override
   Widget build(BuildContext context) {
     List<Chat> chats = [
@@ -131,14 +109,20 @@ class _ChatScreenState extends State<ChatScreen> {
           status: '',
           id: '5'),
     ];
+
+    final mail_state = context.read<MailCubit>().state;
+    List<Mail> sentMail =
+        (mail_state is MailLoaded) ? mail_state.sentMails : [];
+
+    //......................................................................................................................
     return Scaffold(
       appBar: appbar,
       floatingActionButton: actionBtn(context),
       body: ListView.builder(
-        itemCount: chats.length,
+        itemCount: sentMail.length,
         itemBuilder: (context, index) {
           return CustomCard(
-            chatModel: chats[index],
+            mail: sentMail[index],
           );
         },
       ),

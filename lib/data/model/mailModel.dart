@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final mail = mailFromJson(jsonString);
-
 import 'package:meta/meta.dart';
 import 'dart:convert';
 

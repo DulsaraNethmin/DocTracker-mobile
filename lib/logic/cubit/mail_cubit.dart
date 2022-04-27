@@ -37,4 +37,8 @@ class MailCubit extends Cubit<MailState> {
       print(e.toString());
     }
   }
+
+  void toInitialState() {
+    emit(MailLoading());
+  }
 }

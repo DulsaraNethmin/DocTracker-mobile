@@ -116,6 +116,7 @@ class CustomerHome extends StatelessWidget {
                 print('logout');
                 context.read<BranchUserCubit>().toInitialState();
                 context.read<DocumentCubit>().toInitialState();
+                context.read<MailCubit>().toInitialState();
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     '/login', (Route<dynamic> route) => true);
               },
