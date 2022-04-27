@@ -1,4 +1,5 @@
 import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/data/model/mailModel.dart';
 import 'package:doctracker/data/model/messageModel.dart';
 import 'package:doctracker/data/model/userModel.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
@@ -109,6 +110,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
     };
     print(data);
     //post mail to db
+
     //emit event
     //add mail to arr
     //navigate to chat screen
