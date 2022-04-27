@@ -1,6 +1,7 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
 import 'package:doctracker/logic/cubit/document_cubit.dart';
+import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/deliverer/Login/login_screen.dart';
 import 'package:doctracker/presentation/widgets/analog_clock.dart';
@@ -15,7 +16,13 @@ class CustomerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<BotnavbarCubit>().onSelect(0);
+    final mail_state = context.read<MailCubit>().state;
     final user_state = context.read<UserCubit>().state;
+    if (mail_state is MailLoading) {
+      context
+          .read<MailCubit>()
+          .getMails(user_state is UserLogedin ? user_state.uuid : "000");
+    }
 //..................................................................................................................
     final bio = Container(
       child: Column(
