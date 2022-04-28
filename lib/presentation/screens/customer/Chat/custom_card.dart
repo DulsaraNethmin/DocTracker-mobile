@@ -29,13 +29,21 @@ class CustomCard extends StatelessWidget {
             ),
             subtitle: Row(
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.55,
-                ),
-                Icon(Icons.delete_sharp),
+                Text("To - ${mail.toName}"),
               ],
             ),
-            trailing: Text(mail.time.toString().substring(5, 9)),
+            trailing: Column(
+              children: [
+                Text(mail.time.toString().substring(5, 9)),
+                SizedBox(
+                  height: 10,
+                ),
+                Icon(
+                  Icons.delete_sharp,
+                  color: Colors.black,
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 80, right: 20),

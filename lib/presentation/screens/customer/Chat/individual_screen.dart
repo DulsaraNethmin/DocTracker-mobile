@@ -99,7 +99,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
             )));
   }
 
-  void sendMail(BuildContext context) {
+  Future sendMail(BuildContext context) async {
     final user_state = context.read<UserCubit>().state;
     final mail_state = context.read<MailCubit>().state;
     final data = {
@@ -114,7 +114,8 @@ class _IndividualScreenState extends State<IndividualScreen> {
     //post mail to db
     if (mail_state is MailLoaded) {
       print(data);
-      context.read<MailCubit>().sendMail(data);
+      await context.read<MailCubit>().sendMail(data);
+      Navigator.pop(context);
     }
     //emit event
     //add mail to arr

@@ -4,6 +4,7 @@ import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/custom_card.dart';
+import 'package:doctracker/presentation/screens/customer/Chat/user_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -24,7 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
     title: Text("Mails"),
     elevation: 0,
     actions: [
-      IconButton(icon: Icon(Icons.search), onPressed: () {}),
+      IconButton(icon: Icon(Icons.mail), onPressed: () {}),
     ],
     bottom: TabBar(
       indicatorColor: Colors.white,
@@ -109,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
             Center(child: Text('CATS')),
-            Center(child: Text('BIRDS')),
+            Center(child: UserSearch()),
           ],
         ),
       ),

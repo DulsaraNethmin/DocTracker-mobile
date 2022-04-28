@@ -66,8 +66,8 @@ class _UserSearchState extends State<UserSearch> {
       },
     );
     return Scaffold(
-      appBar: appBar('New Chat'),
-      bottomNavigationBar: MyBottomNavBar(),
+      //appBar: appBar('New Chat'),
+      //bottomNavigationBar: MyBottomNavBar(),
       body: SingleChildScrollView(
         child: Column(
           children: [search, result],
