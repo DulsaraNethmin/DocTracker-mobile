@@ -9,4 +9,4 @@ const kPrimaryLightColor = Color(0xFFF1E6FF);
 
 //dev mode
 const restAPI = 'http://192.168.1.2:8080';
-const realTime = 'http://192.168.1.3:8000';
+const realTime = 'http://192.168.1.2:8000';

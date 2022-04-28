@@ -118,6 +118,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
       Navigator.pushNamed(context, '/chat');
     }
     //emit event
+    socket.emit('new_msg', "new message sent");
     //add mail to arr
     //navigate to chat screen
   }
