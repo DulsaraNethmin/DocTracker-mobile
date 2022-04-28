@@ -13,7 +13,7 @@ class MailCubit extends Cubit<MailState> {
     final mail_state = state;
     try {
       List<Mail> sentMails = await mailRepo.getSentMail(uuid);
-      List<Mail> receivedMails = await mailRepo.getSentMail(uuid);
+      List<Mail> receivedMails = await mailRepo.getReceivedMail(uuid);
       emit(MailLoaded(sentMails: sentMails, receivedMails: receivedMails));
     } catch (e) {
       print('error');

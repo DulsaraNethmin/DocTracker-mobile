@@ -87,6 +87,8 @@ class _ChatScreenState extends State<ChatScreen> {
     final mail_state = context.read<MailCubit>().state;
     List<Mail> sentMail =
         (mail_state is MailLoaded) ? mail_state.sentMails : [];
+    List<Mail> receivedMail =
+        (mail_state is MailLoaded) ? mail_state.receivedMails : [];
 
     //......................................................................................................................
     return DefaultTabController(
@@ -117,7 +119,18 @@ class _ChatScreenState extends State<ChatScreen> {
                 );
               },
             ),
-            Center(child: Text('CATS')),
+            BlocBuilder<MailCubit, MailState>(
+              builder: (context, state) {
+                return ListView.builder(
+                  itemCount: receivedMail.length,
+                  itemBuilder: (context, index) {
+                    return CustomCard(
+                      mail: receivedMail[index],
+                    );
+                  },
+                );
+              },
+            ),
             Center(child: UserSearch()),
           ],
         ),
