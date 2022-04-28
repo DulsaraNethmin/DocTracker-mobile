@@ -1,10 +1,12 @@
 import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/mailModel.dart';
+import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/custom_card.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/user_search.dart';
+import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -32,7 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
       tabs: [
         Tab(text: 'Sent', icon: Icon(Icons.send)),
         Tab(text: 'Received', icon: Icon(Icons.call_received)),
-        Tab(text: 'Search', icon: Icon(Icons.search)),
+        Tab(text: 'New', icon: Icon(Icons.new_label)),
       ],
     ),
   );
@@ -81,6 +83,7 @@ class _ChatScreenState extends State<ChatScreen> {
 //......................................................................................................................
   @override
   Widget build(BuildContext context) {
+    context.read<BotnavbarCubit>().onSelect(4);
     final mail_state = context.read<MailCubit>().state;
     List<Mail> sentMail =
         (mail_state is MailLoaded) ? mail_state.sentMails : [];
@@ -90,7 +93,7 @@ class _ChatScreenState extends State<ChatScreen> {
       length: 3,
       child: Scaffold(
         appBar: appbar,
-        floatingActionButton: actionBtn(context),
+        //floatingActionButton: actionBtn(context),
         // body: ListView.builder(
         //   itemCount: sentMail.length,
         //   itemBuilder: (context, index) {
@@ -99,13 +102,18 @@ class _ChatScreenState extends State<ChatScreen> {
         //     );
         //   },
         // ),
+        bottomNavigationBar: MyBottomNavBar(),
         body: TabBarView(
           children: [
-            ListView.builder(
-              itemCount: sentMail.length,
-              itemBuilder: (context, index) {
-                return CustomCard(
-                  mail: sentMail[index],
+            BlocBuilder<MailCubit, MailState>(
+              builder: (context, state) {
+                return ListView.builder(
+                  itemCount: sentMail.length,
+                  itemBuilder: (context, index) {
+                    return CustomCard(
+                      mail: sentMail[index],
+                    );
+                  },
                 );
               },
             ),
