@@ -26,6 +26,14 @@ class _ChatScreenState extends State<ChatScreen> {
     actions: [
       IconButton(icon: Icon(Icons.search), onPressed: () {}),
     ],
+    bottom: TabBar(
+      indicatorColor: Colors.white,
+      tabs: [
+        Tab(text: 'Sent', icon: Icon(Icons.send)),
+        Tab(text: 'Received', icon: Icon(Icons.call_received)),
+        Tab(text: 'Search', icon: Icon(Icons.search)),
+      ],
+    ),
   );
 
 //......................................................................................................................
@@ -72,59 +80,38 @@ class _ChatScreenState extends State<ChatScreen> {
 //......................................................................................................................
   @override
   Widget build(BuildContext context) {
-    List<Chat> chats = [
-      Chat(
-          name: "Sangeeth",
-          icon: "assets/images/profile.png",
-          time: "17:19",
-          currentMessage: "Hello man",
-          status: '',
-          id: '1'),
-      Chat(
-          name: "Chamodhya",
-          icon: "assets/images/profile.png",
-          time: "17:19",
-          currentMessage: "Hello man",
-          status: '',
-          id: '2'),
-      Chat(
-          name: "Chinthani",
-          icon: "assets/images/profile.png",
-          time: "14:00",
-          currentMessage: "Hello man",
-          status: '',
-          id: '3'),
-      Chat(
-          name: "Nethmin",
-          icon: "assets/images/profile.png",
-          time: "07:20",
-          currentMessage: "Hello man",
-          status: '',
-          id: '4'),
-      Chat(
-          name: "Harsha",
-          icon: "assets/images/profile.png",
-          time: "07:20",
-          currentMessage: "Hello man",
-          status: '',
-          id: '5'),
-    ];
-
     final mail_state = context.read<MailCubit>().state;
     List<Mail> sentMail =
         (mail_state is MailLoaded) ? mail_state.sentMails : [];
 
     //......................................................................................................................
-    return Scaffold(
-      appBar: appbar,
-      floatingActionButton: actionBtn(context),
-      body: ListView.builder(
-        itemCount: sentMail.length,
-        itemBuilder: (context, index) {
-          return CustomCard(
-            mail: sentMail[index],
-          );
-        },
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: appbar,
+        floatingActionButton: actionBtn(context),
+        // body: ListView.builder(
+        //   itemCount: sentMail.length,
+        //   itemBuilder: (context, index) {
+        //     return CustomCard(
+        //       mail: sentMail[index],
+        //     );
+        //   },
+        // ),
+        body: TabBarView(
+          children: [
+            ListView.builder(
+              itemCount: sentMail.length,
+              itemBuilder: (context, index) {
+                return CustomCard(
+                  mail: sentMail[index],
+                );
+              },
+            ),
+            Center(child: Text('CATS')),
+            Center(child: Text('BIRDS')),
+          ],
+        ),
       ),
     );
   }
