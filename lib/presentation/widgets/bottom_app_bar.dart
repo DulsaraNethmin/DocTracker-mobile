@@ -55,8 +55,8 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
           icon: Icon(Icons.home_filled),
         ),
         BottomNavigationBarItem(
-          label: 'Search',
-          icon: Icon(Icons.search),
+          label: 'Document',
+          icon: Icon(Icons.document_scanner),
         ),
         BottomNavigationBarItem(
           label: 'Scan',

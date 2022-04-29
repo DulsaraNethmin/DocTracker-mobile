@@ -1,48 +1,49 @@
 import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/data/model/mailModel.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({required this.chatModel});
-  final Chat chatModel;
+  const CustomCard({required this.mail});
+  final Mail mail;
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
     return InkWell(
       onTap: () {
         print(
-            "sender: ${(user_state is UserLogedin) ? user_state.uuid : "000"} and targe : ${chatModel.id}");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => IndividualScreen(chatModel: chatModel)));
+            "sender: ${(user_state is UserLogedin) ? user_state.uuid : "000"} and targe : ${mail.toId}");
       },
       child: Column(
         children: [
           ListTile(
             leading: CircleAvatar(
-              child: Image.asset(chatModel.icon),
+              child: Icon(Icons.mark_email_unread),
               radius: 30,
             ),
             title: Text(
-              chatModel.name,
+              "${mail.head} - ${mail.fromName}",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             subtitle: Row(
               children: [
-                Icon(Icons.done_all),
+                Text("To - ${mail.toName}"),
+              ],
+            ),
+            trailing: Column(
+              children: [
+                Text(mail.time.toString().substring(5, 9)),
                 SizedBox(
-                  width: 10,
+                  height: 10,
                 ),
-                Text(
-                  chatModel.currentMessage,
-                  style: TextStyle(fontSize: 13),
+                Icon(
+                  Icons.delete_sharp,
+                  color: Colors.black,
                 ),
               ],
             ),
-            trailing: Text(chatModel.time),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 80, right: 20),

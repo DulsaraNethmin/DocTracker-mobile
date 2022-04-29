@@ -1,7 +1,12 @@
 import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/data/model/mailModel.dart';
+import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/custom_card.dart';
+import 'package:doctracker/presentation/screens/customer/Chat/user_search.dart';
+import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -15,44 +20,26 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   late IO.Socket socket;
+
+  //......................................................................................................................
   final appbar = AppBar(
     backgroundColor: Color.fromARGB(255, 91, 57, 160),
     title: Text("Mails"),
     elevation: 0,
     actions: [
-      IconButton(icon: Icon(Icons.search), onPressed: () {}),
-      PopupMenuButton<String>(
-        onSelected: (value) {
-          print(value);
-        },
-        itemBuilder: (BuildContext contesxt) {
-          return [
-            PopupMenuItem(
-              child: Text("New group"),
-              value: "New group",
-            ),
-            PopupMenuItem(
-              child: Text("New broadcast"),
-              value: "New broadcast",
-            ),
-            PopupMenuItem(
-              child: Text("Whatsapp Web"),
-              value: "Whatsapp Web",
-            ),
-            PopupMenuItem(
-              child: Text("Starred messages"),
-              value: "Starred messages",
-            ),
-            PopupMenuItem(
-              child: Text("Settings"),
-              value: "Settings",
-            ),
-          ];
-        },
-      )
+      IconButton(icon: Icon(Icons.mail), onPressed: () {}),
     ],
+    bottom: TabBar(
+      indicatorColor: Colors.white,
+      tabs: [
+        Tab(text: 'Sent', icon: Icon(Icons.send)),
+        Tab(text: 'Received', icon: Icon(Icons.call_received)),
+        Tab(text: 'New', icon: Icon(Icons.new_label)),
+      ],
+    ),
   );
 
+//......................................................................................................................
   FloatingActionButton actionBtn(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
@@ -60,12 +47,13 @@ class _ChatScreenState extends State<ChatScreen> {
       },
       backgroundColor: Color.fromARGB(255, 91, 57, 160),
       child: Icon(
-        Icons.chat,
+        Icons.mail_sharp,
         color: Colors.white,
       ),
     );
   }
 
+//......................................................................................................................
   void connect() {
     socket = IO.io(realTime, <String, dynamic>{
       "transports": ["websocket"],
@@ -92,55 +80,60 @@ class _ChatScreenState extends State<ChatScreen> {
     connect();
   }
 
+//......................................................................................................................
   @override
   Widget build(BuildContext context) {
-    List<Chat> chats = [
-      Chat(
-          name: "Sangeeth",
-          icon: "assets/images/profile.png",
-          time: "17:19",
-          currentMessage: "Hello man",
-          status: '',
-          id: '1'),
-      Chat(
-          name: "Chamodhya",
-          icon: "assets/images/profile.png",
-          time: "17:19",
-          currentMessage: "Hello man",
-          status: '',
-          id: '2'),
-      Chat(
-          name: "Chinthani",
-          icon: "assets/images/profile.png",
-          time: "14:00",
-          currentMessage: "Hello man",
-          status: '',
-          id: '3'),
-      Chat(
-          name: "Nethmin",
-          icon: "assets/images/profile.png",
-          time: "07:20",
-          currentMessage: "Hello man",
-          status: '',
-          id: '4'),
-      Chat(
-          name: "Harsha",
-          icon: "assets/images/profile.png",
-          time: "07:20",
-          currentMessage: "Hello man",
-          status: '',
-          id: '5'),
-    ];
-    return Scaffold(
-      appBar: appbar,
-      floatingActionButton: actionBtn(context),
-      body: ListView.builder(
-        itemCount: chats.length,
-        itemBuilder: (context, index) {
-          return CustomCard(
-            chatModel: chats[index],
-          );
-        },
+    context.read<BotnavbarCubit>().onSelect(4);
+    final mail_state = context.read<MailCubit>().state;
+    List<Mail> sentMail =
+        (mail_state is MailLoaded) ? mail_state.sentMails : [];
+    List<Mail> receivedMail =
+        (mail_state is MailLoaded) ? mail_state.receivedMails : [];
+
+    //......................................................................................................................
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: appbar,
+        //floatingActionButton: actionBtn(context),
+        // body: ListView.builder(
+        //   itemCount: sentMail.length,
+        //   itemBuilder: (context, index) {
+        //     return CustomCard(
+        //       mail: sentMail[index],
+        //     );
+        //   },
+        // ),
+        bottomNavigationBar: MyBottomNavBar(),
+        body: TabBarView(
+          children: [
+            BlocBuilder<MailCubit, MailState>(
+              builder: (context, state) {
+                return ListView.builder(
+                  itemCount: sentMail.length,
+                  itemBuilder: (context, index) {
+                    return CustomCard(
+                      mail: sentMail[index],
+                    );
+                  },
+                );
+              },
+            ),
+            BlocBuilder<MailCubit, MailState>(
+              builder: (context, state) {
+                return ListView.builder(
+                  itemCount: receivedMail.length,
+                  itemBuilder: (context, index) {
+                    return CustomCard(
+                      mail: receivedMail[index],
+                    );
+                  },
+                );
+              },
+            ),
+            Center(child: UserSearch()),
+          ],
+        ),
       ),
     );
   }

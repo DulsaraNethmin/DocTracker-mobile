@@ -7,46 +7,32 @@ part 'qr_state.dart';
 class QrCubit extends Cubit<QrState> {
   QrCubit()
       : super(QrState(
-            uuid: "",
-            name: "",
-            branch: "",
-            department: "",
-            type: deliverType.internal));
+          uuid: "",
+          branch: "",
+        ));
 
-  void setQR(String uuid, String name, String branch, String department,
-      deliverType type) {
+  void setQR(String uuid, String branch) {
     emit(QrState(
-        uuid: uuid,
-        name: name,
-        branch: branch,
-        department: department,
-        type: type));
+      uuid: uuid,
+      branch: branch,
+    ));
   }
 
   void setInternal() {
     emit(QrState(
-        uuid: state.uuid,
-        name: state.name,
-        branch: state.branch,
-        department: state.department,
-        type: deliverType.internal));
+      uuid: state.uuid,
+      branch: state.branch,
+    ));
   }
 
   void setExternal() {
     emit(QrState(
-        uuid: state.uuid,
-        name: state.name,
-        branch: state.branch,
-        department: state.department,
-        type: deliverType.external));
+      uuid: state.uuid,
+      branch: state.branch,
+    ));
   }
 
   void reset() {
-    emit(QrState(
-        uuid: '',
-        name: state.name,
-        branch: '',
-        department: state.department,
-        type: state.type));
+    emit(QrState(uuid: '', branch: ''));
   }
 }
