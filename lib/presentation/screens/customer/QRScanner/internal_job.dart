@@ -23,7 +23,7 @@ class InternalJob extends StatelessWidget {
         children: [
           ListTile(
             title: Text('Name'),
-            subtitle: Text(context.read<QrCubit>().state.name),
+            //subtitle: Text(context.read<QrCubit>().state.name),
           ),
         ],
       ),
@@ -33,7 +33,7 @@ class InternalJob extends StatelessWidget {
         children: [
           ListTile(
             title: Text('Department'),
-            subtitle: Text(context.read<QrCubit>().state.department),
+            // subtitle: Text(context.read<QrCubit>().state.department),
           ),
         ],
       ),

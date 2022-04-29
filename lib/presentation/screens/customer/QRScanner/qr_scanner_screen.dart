@@ -74,22 +74,17 @@ class _QRScannerState extends State<QRScanner> {
   void set() {
     try {
       if (barcode != null) {
+        print('qr get');
         var data = jsonDecode(barcode!.code.toString());
+        print(data);
         if (data["uuid"] != null) {
-          context.read<QrCubit>().setQR(data["uuid"], data["name"],
-              data["branch"], data["department"], deliverType.internal);
+          context.read<QrCubit>().setQR(data["uuid"], data["branch"]);
           //Navigator.pushNamed(context, '/qrnext');
         }
       }
     } catch (e) {
       print("hhh");
     }
-
-    // var data = jsonDecode(barcode!.code.toString());
-    // if (data["uuid"] != null) {
-    //   context.read<QrCubit>().setQR(
-    //       data["uuid"], data["name"], data["branch"], data["department"]);
-    // }
   }
 
   Widget buildResult() {
@@ -105,7 +100,7 @@ class _QRScannerState extends State<QRScanner> {
           if (state.uuid != null) {
             return Text(
               barcode != null
-                  ? "Last time Scanned : ${context.read<QrCubit>().state.name} document"
+                  ? "Last time Scanned : ${context.read<QrCubit>().state.uuid} document"
                   : "Scan a barcode",
               maxLines: 4,
             );
