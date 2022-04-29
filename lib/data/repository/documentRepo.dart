@@ -26,10 +26,6 @@ class DocumentRepo {
       final doc_data = Document.fromJson(jsondata2);
       arr.add(doc_data);
     }
-    // final jsonData = jsonEncode(res);
-    // final jsondata2 = jsonDecode(jsonData);
-    // arr = Document.fromJson(jsondata2);
-    //print(arr[0].customerName);
     return arr;
   }
 }
