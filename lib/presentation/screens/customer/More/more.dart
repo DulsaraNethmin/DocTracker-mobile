@@ -1,7 +1,8 @@
 import 'dart:io';
-
+import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -31,8 +32,22 @@ class _MoreScreenState extends State<MoreScreen> {
     }
   }
 
+  Future selectImageFromcamera(BuildContext context) async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
+      final temp_img = File(image.path);
+      setState(() {
+        this.image = temp_img;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    context.read<BotnavbarCubit>().onSelect(4);
     final bottom_sheet = GFBottomSheet(
         controller: _bottom_sheet_controller,
         maxContentHeight: 160,
@@ -51,8 +66,10 @@ class _MoreScreenState extends State<MoreScreen> {
                 text: "From Gallery",
               ),
               GFButton(
-                onPressed: () {},
-                text: "From camara",
+                onPressed: () {
+                  selectImageFromcamera(context);
+                },
+                text: "From camera",
               ),
               GFButton(
                 onPressed: () {},
