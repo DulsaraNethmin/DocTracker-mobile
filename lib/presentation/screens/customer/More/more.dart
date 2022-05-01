@@ -1,5 +1,6 @@
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
@@ -14,13 +15,19 @@ class MoreScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: Center(
-                child: ClipOval(
-                    child: Image.asset(
-                  'assets/images/profile.png',
-                  width: 100,
-                  height: 100,
-                )),
+                child: GFAvatar(
+                  backgroundImage: AssetImage('assets/images/profile.png'),
+                  radius: 50,
+                ),
               ),
+            ),
+            GFButton(
+              onPressed: () {},
+              text: "Upload an Image",
+              type: GFButtonType.transparent,
+            ),
+            Divider(
+              thickness: 2,
             )
           ],
         ),
