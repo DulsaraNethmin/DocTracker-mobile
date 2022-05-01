@@ -4,6 +4,7 @@ import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:getwidget/getwidget.dart';
 
 class QRScanner extends StatefulWidget {
   const QRScanner({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class QRScanner extends StatefulWidget {
 
 class _QRScannerState extends State<QRScanner> {
   final qrKey = GlobalKey(debugLabel: 'QR');
+  final GFBottomSheetController _bottom_sheet_controller =
+      GFBottomSheetController();
   QRViewController? controller;
   Barcode? barcode;
   @override
@@ -43,12 +46,17 @@ class _QRScannerState extends State<QRScanner> {
     final button = BlocBuilder<QrCubit, QrState>(
       builder: (context, state) {
         if (state.uuid != '' && state.branch != '') {
+          // _bottom_sheet_controller.showBottomSheet();
           return MaterialButton(
             minWidth: MediaQuery.of(context).size.width * 0.8,
             child: Text('Next1'),
             color: Colors.amberAccent[400],
             onPressed: () {
-              Navigator.pushNamed(context, '/qrnext');
+              (_bottom_sheet_controller.isBottomSheetOpened)
+                  ? _bottom_sheet_controller.hideBottomSheet()
+                  : _bottom_sheet_controller.showBottomSheet();
+              //_bottom_sheet_controller.showBottomSheet();
+              //Navigator.pushNamed(context, '/qrnext');
             },
           );
         } else {
@@ -56,9 +64,51 @@ class _QRScannerState extends State<QRScanner> {
         }
       },
     );
+
+    final botton_sheet = GFBottomSheet(
+      controller: _bottom_sheet_controller,
+      contentBody: Container(
+        height: 200,
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: ListView(
+          shrinkWrap: true,
+          physics: const ScrollPhysics(),
+          children: const [
+            Center(
+                child: Text(
+              'Getwidget reduces your overall app development time to minimum 30% because of its pre-build clean UI widget that you can use in flutter app development. We have spent more than 1000+ hours to build this library to make flutter developer’s life easy.',
+              style:
+                  TextStyle(fontSize: 15, wordSpacing: 0.3, letterSpacing: 0.2),
+            ))
+          ],
+        ),
+      ),
+      stickyFooter: Container(
+        color: GFColors.SUCCESS,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              'Get in touch',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            Text(
+              'info@getwidget.dev',
+              style: TextStyle(fontSize: 15, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+      stickyFooterHeight: 50,
+    );
+
     set();
     return SafeArea(
       child: Scaffold(
+        bottomSheet: botton_sheet,
         body: Stack(
           alignment: Alignment.center,
           children: [
@@ -74,6 +124,7 @@ class _QRScannerState extends State<QRScanner> {
   void set() {
     try {
       if (barcode != null) {
+        //_bottom_sheet_controller.showBottomSheet();
         print('qr get');
         var data = jsonDecode(barcode!.code.toString());
         print(data);
