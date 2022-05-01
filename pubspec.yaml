@@ -38,6 +38,7 @@ dependencies:
   socket_io_client: ^1.0.2
   dio: ^4.0.6
   getwidget: ^2.0.5
+  image_picker: ^0.8.5
 
 dev_dependencies:
 
