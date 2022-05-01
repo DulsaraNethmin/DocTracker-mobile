@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
@@ -11,13 +13,26 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
+  File? image;
   final ImagePicker _picker = ImagePicker();
   final GFBottomSheetController _bottom_sheet_controller =
       GFBottomSheetController();
+
+  Future selectImageFromGallery(BuildContext context) async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final temp_img = File(image.path);
+      setState(() {
+        this.image = temp_img;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future selectImage(BuildContext context) async {}
-
     final bottom_sheet = GFBottomSheet(
         controller: _bottom_sheet_controller,
         maxContentHeight: 160,
@@ -30,12 +45,14 @@ class _MoreScreenState extends State<MoreScreen> {
             physics: const ScrollPhysics(),
             children: [
               GFButton(
-                onPressed: () {},
+                onPressed: () {
+                  selectImageFromGallery(context);
+                },
                 text: "From Gallery",
               ),
               GFButton(
                 onPressed: () {},
-                text: "from camara",
+                text: "From camara",
               ),
               GFButton(
                 onPressed: () {},
@@ -57,18 +74,28 @@ class _MoreScreenState extends State<MoreScreen> {
         bottomSheet: bottom_sheet,
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Center(
-                child: InkWell(
-                  onTap: () {
-                    onTapAvatar();
-                  },
-                  child: GFAvatar(
-                    backgroundImage: AssetImage('assets/images/profile.png'),
-                    radius: 50,
-                  ),
-                ),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: InkWell(
+                onTap: () {
+                  onTapAvatar();
+                },
+                child: (image != null)
+                    ? ClipOval(
+                        child: Image.file(
+                        image!,
+                        width: 110,
+                        height: 110,
+                        fit: BoxFit.cover,
+                      ))
+                    : ClipOval(
+                        child: Image.asset(
+                        'assets/images/profile.png',
+                        width: 110,
+                        height: 110,
+                      )),
               ),
             ),
             Divider(
