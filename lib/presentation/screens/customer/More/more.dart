@@ -23,9 +23,9 @@ class _MoreScreenState extends State<MoreScreen> {
 
   Future selectImageFromGallery(BuildContext context) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
-      final temp_img = File(image.path);
+      final File temp_img = File(image.path);
       setState(() {
         this.image = temp_img;
       });
@@ -35,7 +35,10 @@ class _MoreScreenState extends State<MoreScreen> {
       await context
           .read<ImageCubit>()
           .getURLs(fileType.substring(0, fileType.length - 1));
-      //Uint8List byte = await image.readAsBytes();
+      //Uint8List byte = await this.image!.readAsBytesSync();
+      await context
+          .read<ImageCubit>()
+          .uploadImage(image, fileType.substring(1, fileType.length - 1));
     } catch (e) {
       print(e);
     }
@@ -43,7 +46,7 @@ class _MoreScreenState extends State<MoreScreen> {
 
   Future selectImageFromcamera(BuildContext context) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
       final temp_img = File(image.path);
       setState(() {
@@ -106,6 +109,7 @@ class _MoreScreenState extends State<MoreScreen> {
       child: Scaffold(
         bottomNavigationBar: MyBottomNavBar(),
         bottomSheet: bottom_sheet,
+        backgroundColor: Colors.amber[300],
         body: Column(
           children: [
             const SizedBox(
@@ -117,20 +121,42 @@ class _MoreScreenState extends State<MoreScreen> {
                   onTap: () {
                     onTapAvatar();
                   },
-                  child: (image != null)
-                      ? ClipOval(
-                          child: Image.file(
-                          image!,
+                  child: BlocBuilder<ImageCubit, ImageState>(
+                      builder: (context, state) {
+                    if ((state is ImageLoading) || (state is ImageError)) {
+                      return CircularProgressIndicator.adaptive();
+                    } else if (state is ImageUploaded) {
+                      return ClipOval(
+                        child: Image.network(
+                          (state.download_url),
                           width: 110,
                           height: 110,
-                          fit: BoxFit.cover,
-                        ))
-                      : ClipOval(
-                          child: Image.asset(
-                          'assets/images/profile.png',
-                          width: 110,
-                          height: 110,
-                        )),
+                        ),
+                      );
+                    }
+                    return ClipOval(
+                      child: Image.asset(
+                        ('assets/images/profile.png'),
+                        width: 110,
+                        height: 110,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  }),
+                  // child: (image != null)
+                  //     ? ClipOval(
+                  //         child: Image.network(
+                  //         this.image!,
+                  //         width: 110,
+                  //         height: 110,
+                  //         fit: BoxFit.cover,
+                  //       ))
+                  //     : ClipOval(
+                  //         child: Image.asset(
+                  //         'assets/images/profile.png',
+                  //         width: 110,
+                  //         height: 110,
+                  //       )),
                 ),
                 Positioned(
                     bottom: 10,
