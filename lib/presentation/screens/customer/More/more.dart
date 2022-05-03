@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/logic/cubit/image_cubit.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +29,13 @@ class _MoreScreenState extends State<MoreScreen> {
       setState(() {
         this.image = temp_img;
       });
+      print(this.image.toString().split('/').last.split('.').last);
+      final fileType =
+          '.' + this.image.toString().split('/').last.split('.').last;
+      await context
+          .read<ImageCubit>()
+          .getURLs(fileType.substring(0, fileType.length - 1));
+      //Uint8List byte = await image.readAsBytes();
     } catch (e) {
       print(e);
     }
