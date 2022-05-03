@@ -15,4 +15,6 @@ class UserLogedin extends UserState {
   UserLogedin({required this.username, required this.uuid, required this.user});
 }
 
+class UserPicUpdateError extends UserState {}
+
 class UserError extends UserState {}

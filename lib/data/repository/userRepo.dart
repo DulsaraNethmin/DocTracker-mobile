@@ -17,4 +17,15 @@ class UserRepo {
     print("hi");
     return user;
   }
+
+  Future<User> updateProfilePic(String download_url, String uuid) async {
+    final response = await _userProvider.updateProfilePic(download_url, uuid);
+    print(response.data[0]);
+    final data = response.data[0];
+    final jsonData = jsonEncode(data);
+    print(jsonData);
+    final user = User.fromJson(jsonDecode(jsonData));
+    print("hi");
+    return user;
+  }
 }

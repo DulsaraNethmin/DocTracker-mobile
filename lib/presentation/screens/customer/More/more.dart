@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/logic/cubit/image_cubit.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,6 +40,9 @@ class _MoreScreenState extends State<MoreScreen> {
       await context
           .read<ImageCubit>()
           .uploadImage(image, fileType.substring(1, fileType.length - 1));
+      final image_state = context.read<ImageCubit>().state;
+      await context.read<UserCubit>().updateProfilePic(
+          (image_state is ImageUploaded) ? image_state.download_url : "");
     } catch (e) {
       print(e);
     }

@@ -67,4 +67,8 @@ class ImageCubit extends Cubit<ImageState> {
       emit(ImageError());
     }
   }
+
+  void toInitialState() {
+    emit(ImageInitial());
+  }
 }
