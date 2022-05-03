@@ -20,6 +20,7 @@ class User {
     required this.role,
     required this.branch,
     required this.branchId,
+    required this.image_url,
   });
 
   final String uuid;
@@ -29,6 +30,7 @@ class User {
   final String role;
   final String branch;
   final String branchId;
+  final String image_url;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         uuid: json["uuid"],
@@ -38,6 +40,7 @@ class User {
         role: json["role"],
         branch: json["branch"],
         branchId: json["branchId"],
+        image_url: json["image_url"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -48,5 +51,6 @@ class User {
         "role": role,
         "branch": branch,
         "branchId": branchId,
+        "image_url": image_url,
       };
 }

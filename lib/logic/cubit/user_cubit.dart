@@ -32,6 +32,28 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+  Future updateProfilePic(String download_url) async {
+    UserRepo userRepo = UserRepo();
+    try {
+      final user_state = state;
+      User user = await userRepo.updateProfilePic(
+          download_url, (user_state is UserLogedin) ? user_state.uuid : "000");
+      print(user.name);
+      if (user.username != null) {
+        //emit(UserLogedin(username: user.username, uuid: user.uuid, user: user));
+        setUser(user.username, user.uuid, user);
+      } else {
+        emit(UserLogedout(is_logout: true));
+      }
+      //emit(UserState(username: user.name, uuid: user.uuid, user: user));
+    } catch (e) {
+      print('error');
+      //emit(UserState(username: "No Body", uuid: uuid, user: user))
+      emit(UserPicUpdateError());
+      print(e.toString());
+    }
+  }
+
   void logout() {
     emit(UserLogedin(
         username: '',
@@ -43,7 +65,8 @@ class UserCubit extends Cubit<UserState> {
             email: '',
             role: '',
             branch: '',
-            branchId: '')));
+            branchId: '',
+            image_url: '')));
     emit(UserLogedout(is_logout: true));
   }
 }

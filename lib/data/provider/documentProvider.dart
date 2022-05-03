@@ -4,8 +4,6 @@ import '../../presentation/constants/constants.dart';
 
 class DocumentProvider {
   String base_url = restAPI;
-  //String base_url = "http://10.0.2.2:8080";
-  //String base_url = "http://localhost:8080";
 
   Future<Response> getAllDoc(String end_point, String branch_id) async {
     var dio = Dio();
@@ -15,6 +13,3 @@ class DocumentProvider {
     return result;
   }
 }
-
-//nethmin
-//12345678

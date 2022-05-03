@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final document = documentFromJson(jsonString);
-
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -18,6 +14,8 @@ class Document {
     required this.docType,
     required this.customerId,
     required this.customerName,
+    required this.branchId,
+    required this.branch,
   });
 
   final String docId;
@@ -25,6 +23,8 @@ class Document {
   final String docType;
   final String customerId;
   final String customerName;
+  final String branchId;
+  final String branch;
 
   factory Document.fromJson(Map<String, dynamic> json) => Document(
         docId: json["doc_id"],
@@ -32,6 +32,8 @@ class Document {
         docType: json["doc_type"],
         customerId: json["customer_id"],
         customerName: json["customer_name"],
+        branchId: json["branch_id"],
+        branch: json["branch"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,5 +42,7 @@ class Document {
         "doc_type": docType,
         "customer_id": customerId,
         "customer_name": customerName,
+        "branch_id": branchId,
+        "branch": branch,
       };
 }

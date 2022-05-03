@@ -25,6 +25,13 @@ class ResultCard extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
+                  "Branch: ${doc.branch}",
+                  style: TextStyle(fontSize: 15),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
                   "Current Owner: ${doc.customerName}",
                   style: TextStyle(fontSize: 15),
                 )
