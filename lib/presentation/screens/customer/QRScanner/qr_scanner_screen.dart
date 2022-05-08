@@ -126,12 +126,17 @@ class _QRScannerState extends State<QRScanner> {
       if (barcode != null) {
         //_bottom_sheet_controller.showBottomSheet();
         print('qr get');
-        var data = jsonDecode(barcode!.code.toString());
-        print(data);
-        if (data["uuid"] != null) {
-          context.read<QrCubit>().setQR(data["uuid"], data["branch"]);
-          //Navigator.pushNamed(context, '/qrnext');
-        }
+        //var data = jsonDecode(barcode!.code.toString());
+        var data = barcode!.code.toString();
+        var uuid = data
+            .split(',')[0]
+            .split(':')[1]
+            .substring(0, data.split(',')[0].split(':')[1].length - 1);
+        print(data.split(',')[0].split(':')[1]);
+        // if (data["uuid"] != null) {
+        //   context.read<QrCubit>().setQR(data["uuid"], data["branch"]);
+        //   //Navigator.pushNamed(context, '/qrnext');
+        // }
       }
     } catch (e) {
       print("hhh");
