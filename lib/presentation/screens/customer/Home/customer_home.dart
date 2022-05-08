@@ -49,7 +49,7 @@ class CustomerHome extends StatelessWidget {
       child: Image.network(
         (user_state is UserLogedin)
             ? user_state.user.image_url
-            : 'https://nethmin.s3.amazonaws.com/a5f62fd7-35e3-4803-a3fe-5cba4650a845.png',
+            : 'https://nethmin-bucket.s3.ap-south-1.amazonaws.com/profile.png',
         width: 110,
         height: 110,
       ),
