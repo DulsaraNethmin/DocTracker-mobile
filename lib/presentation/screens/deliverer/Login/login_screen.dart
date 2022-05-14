@@ -1,6 +1,6 @@
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
-import 'package:doctracker/presentation/screens/deliverer/Login/text_field_container.dart';
+import 'package:doctracker/presentation/widgets/text_field_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -73,7 +73,9 @@ class _LoginScreenState extends State<LoginScreen> {
               MaterialButton(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
                   color: kPrimaryColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/deliverer/home');
+                  },
                   child: Text(
                     "Sign in as Deliverer",
                     style: TextStyle(color: Colors.white),
