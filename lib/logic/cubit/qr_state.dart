@@ -1,12 +1,15 @@
 part of 'qr_cubit.dart';
 
-enum deliverType { internal, external }
+@immutable
+abstract class QrState {}
 
-class QrState {
-  String uuid;
-  String branch;
-  QrState({
-    required this.uuid,
-    required this.branch,
-  });
+class QrInitial extends QrState {}
+
+class QrVerified extends QrState {
+  QrScan scan_data;
+  QrVerified({required this.scan_data});
 }
+
+class QrVerifing extends QrState {}
+
+class QrVerifingError extends QrState {}

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -42,7 +43,10 @@ class _QRScannerState extends State<QRScanner> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<QrCubit>().reset();
+    //context.read<QrCubit>().reset();
+
+    final user_state = context.read<UserCubit>().state;
+    final uuid = (user_state is UserLogedin) ? user_state.uuid : "000";
     final button = BlocBuilder<QrCubit, QrState>(
       builder: (context, state) {
         if (state.uuid != '' && state.branch != '') {
@@ -105,7 +109,7 @@ class _QRScannerState extends State<QRScanner> {
       stickyFooterHeight: 50,
     );
 
-    set();
+    set(context);
     return SafeArea(
       child: Scaffold(
         bottomSheet: botton_sheet,
@@ -121,22 +125,14 @@ class _QRScannerState extends State<QRScanner> {
     );
   }
 
-  void set() {
+  void set(BuildContext context) async {
     try {
       if (barcode != null) {
-        //_bottom_sheet_controller.showBottomSheet();
         print('qr get');
-        //var data = jsonDecode(barcode!.code.toString());
         var data = barcode!.code.toString();
-        var uuid = data
-            .split(',')[0]
-            .split(':')[1]
-            .substring(0, data.split(',')[0].split(':')[1].length - 1);
-        print(data.split(',')[0].split(':')[1]);
-        // if (data["uuid"] != null) {
-        //   context.read<QrCubit>().setQR(data["uuid"], data["branch"]);
-        //   //Navigator.pushNamed(context, '/qrnext');
-        // }
+        print(data);
+        final url = data + "&customer_id=${uuid}";
+        await context.read<QrCubit>().verify(url);
       }
     } catch (e) {
       print("hhh");
