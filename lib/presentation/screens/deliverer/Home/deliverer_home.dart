@@ -57,23 +57,23 @@ class DelivererHome extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            child: GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 8,
-              childAspectRatio: 1.0,
-              children: [
-                selectBoxes(
-                  //image: 'assets/images/logo.png',
-                  name: 'Tracking',
-                ),
-                selectBoxes(
-                  //image: 'assets/images/logo.png',
-                  name: 'Payments',
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   child: GridView.count(
+          //     crossAxisCount: 2,
+          //     crossAxisSpacing: 8,
+          //     childAspectRatio: 1.0,
+          //     children: [
+          //       selectBoxes(
+          //         //image: 'assets/images/logo.png',
+          //         name: 'Tracking',
+          //       ),
+          //       selectBoxes(
+          //         //image: 'assets/images/logo.png',
+          //         name: 'Payments',
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
       //),

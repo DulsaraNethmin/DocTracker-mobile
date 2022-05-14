@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
                   color: kPrimaryColor,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/deliverer/home');
+                    Navigator.pushNamed(context, '/deleverer/home');
                   },
                   child: Text(
                     "Sign in as Deliverer",

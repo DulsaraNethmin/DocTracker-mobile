@@ -47,8 +47,8 @@ class BottomNavBarState extends State<BottomNavBar> {
             Navigator.pushNamed(context, '/deliverer/home');
             break;
           case 1:
-            //  context.read<BottomNavBarCubit>().onSelect(1);
-            Navigator.pushNamed(context, '/search');
+            context.read<BottomNavBarCubit>().onSelect(1);
+            //Navigator.pushNamed(context, '/search');
             break;
           case 2:
             context.read<BottomNavBarCubit>().onSelect(2);
