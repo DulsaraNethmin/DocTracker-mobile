@@ -9,8 +9,9 @@ class QrRepo {
     final response = await qr_provider.verify(url);
     print(response.data);
     final data = response.data;
-    final jsonData = jsonEncode(data);
+    final jsonData = jsonEncode(data[0]);
     QrScan qr_scan_data = QrScan.fromJson(jsonDecode(jsonData));
+    print('repo ok');
     return qr_scan_data;
   }
 }

@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final qrScan = qrScanFromJson(jsonString);
+
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -14,6 +18,8 @@ class QrScan {
     required this.type,
     required this.branchId,
     required this.branch,
+    required this.currentUserId,
+    required this.currentUserName,
   });
 
   final String docId;
@@ -21,6 +27,8 @@ class QrScan {
   final String type;
   final String branchId;
   final String branch;
+  final String currentUserId;
+  final String currentUserName;
 
   factory QrScan.fromJson(Map<String, dynamic> json) => QrScan(
         docId: json["doc_id"],
@@ -28,6 +36,8 @@ class QrScan {
         type: json["type"],
         branchId: json["branch_id"],
         branch: json["branch"],
+        currentUserId: json["current_user_id"],
+        currentUserName: json["current_user_name"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,5 +46,7 @@ class QrScan {
         "type": type,
         "branch_id": branchId,
         "branch": branch,
+        "current_user_id": currentUserId,
+        "current_user_name": currentUserName,
       };
 }

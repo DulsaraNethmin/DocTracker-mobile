@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:bloc/bloc.dart';
 import 'package:doctracker/data/model/qr_scanModel.dart';
 import 'package:doctracker/data/repository/qrRepo.dart';
@@ -15,6 +13,7 @@ class QrCubit extends Cubit<QrState> {
   Future verify(String url) async {
     QrRepo qr_repo = QrRepo();
     try {
+      print("url is: ${url}");
       QrScan qr_scan_data = await qr_repo.verify(url);
       emit(QrVerified(scan_data: qr_scan_data));
     } catch (e) {
@@ -22,6 +21,14 @@ class QrCubit extends Cubit<QrState> {
       print(e.toString());
       emit(QrVerifingError());
     }
+  }
+
+  void verifing() {
+    emit(QrVerifing());
+  }
+
+  void initial() {
+    QrInitial();
   }
 
   // void setQR(String uuid, String branch) {

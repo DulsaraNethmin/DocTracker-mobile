@@ -13,7 +13,7 @@ class InternalJob extends StatelessWidget {
         children: [
           ListTile(
             title: Text('UUID'),
-            subtitle: Text(context.read<QrCubit>().state.uuid),
+            //subtitle: Text(context.read<QrCubit>().state.uuid),
           ),
         ],
       ),
@@ -60,7 +60,7 @@ class InternalJob extends StatelessWidget {
         child: Text('Request from Admin'),
         color: Colors.amberAccent[400],
         onPressed: () {
-          context.read<QrCubit>().setInternal();
+          //context.read<QrCubit>().setInternal();
           Navigator.pushNamed(context, '/internaljob');
         });
     return SafeArea(

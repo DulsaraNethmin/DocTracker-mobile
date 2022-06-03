@@ -44,16 +44,18 @@ class _QRScannerState extends State<QRScanner> {
   @override
   Widget build(BuildContext context) {
     //context.read<QrCubit>().reset();
-
+    context.read<QrCubit>().initial();
     final user_state = context.read<UserCubit>().state;
+    final qr_state = context.read<QrCubit>().state;
     final uuid = (user_state is UserLogedin) ? user_state.uuid : "000";
     final button = BlocBuilder<QrCubit, QrState>(
       builder: (context, state) {
-        if (state.uuid != '' && state.branch != '') {
+        if (qr_state is QrVerified) {
           // _bottom_sheet_controller.showBottomSheet();
+          print('init state');
           return MaterialButton(
             minWidth: MediaQuery.of(context).size.width * 0.8,
-            child: Text('Next1'),
+            child: Text('Next'),
             color: Colors.amberAccent[400],
             onPressed: () {
               (_bottom_sheet_controller.isBottomSheetOpened)
@@ -109,6 +111,72 @@ class _QRScannerState extends State<QRScanner> {
       stickyFooterHeight: 50,
     );
 
+    void set(BuildContext context) async {
+      try {
+        if (barcode != null) {
+          context.read<QrCubit>().verifing();
+          print('qr get');
+          var data = await barcode!.code.toString();
+          print(data);
+          //final uuid = (user_state is UserLogedin) ? user_state.uuid : "000";
+          final url = data;
+          //print(url);
+          await context.read<QrCubit>().verify(url);
+          controller!.pauseCamera();
+          print("hi hello");
+        }
+      } catch (e) {
+        print("hhh");
+      }
+    }
+
+    Widget buildResult() {
+      return Container(
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white24,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: BlocBuilder<QrCubit, QrState>(
+          builder: (context, state) {
+            //Widget wid = Text('data');
+            if (state is QrVerified) {
+              return Text(
+                barcode != null
+                    ? "Last time Scanned : ${(qr_state is QrVerified) ? qr_state.scan_data.docName : "000"} document"
+                    : "Scan a barcode",
+                maxLines: 4,
+              );
+            } else {
+              return Text('qr1');
+            }
+          },
+        ),
+      );
+    }
+
+    // Widget buildQrView(BuildContext context) => QRView(
+    //       key: qrKey,
+    //       onQRViewCreated: onQRViewCreated,
+    //       overlay: QrScannerOverlayShape(
+    //         cutOutSize: MediaQuery.of(context).size.width * 0.8,
+    //         borderWidth: 10,
+    //         borderLength: 20,
+    //         borderRadius: 10,
+    //         borderColor: Colors.greenAccent,
+    //       ),
+    //     );
+    // void onQRViewCreated(QRViewController controller) {
+    //   setState(() {
+    //     this.controller = controller;
+    //   });
+    //   controller.scannedDataStream.listen((barcode) {
+    //     setState(() => this.barcode = barcode);
+    //   });
+    // }
+    // if (!(qr_state is QrVerified ||
+    //     qr_state is QrVerifing ||
+    //     qr_state is QrVerifingError))
     set(context);
     return SafeArea(
       child: Scaffold(
@@ -125,44 +193,45 @@ class _QRScannerState extends State<QRScanner> {
     );
   }
 
-  void set(BuildContext context) async {
-    try {
-      if (barcode != null) {
-        print('qr get');
-        var data = barcode!.code.toString();
-        print(data);
-        final url = data + "&customer_id=${uuid}";
-        await context.read<QrCubit>().verify(url);
-      }
-    } catch (e) {
-      print("hhh");
-    }
-  }
+  // void set(BuildContext context) async {
+  //   try {
+  //     if (barcode != null) {
+  //       print('qr get');
+  //       var data = barcode!.code.toString();
+  //       print(data);
+  //       final uuid = (user_state is UserLogedin) ? user_state.uuid : "000";
+  //       final url = data + "&customer_id=${uuid}";
+  //       await context.read<QrCubit>().verify(url);
+  //     }
+  //   } catch (e) {
+  //     print("hhh");
+  //   }
+  // }
 
-  Widget buildResult() {
-    return Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white24,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: BlocBuilder<QrCubit, QrState>(
-        builder: (context, state) {
-          //Widget wid = Text('data');
-          if (state.uuid != null) {
-            return Text(
-              barcode != null
-                  ? "Last time Scanned : ${context.read<QrCubit>().state.uuid} document"
-                  : "Scan a barcode",
-              maxLines: 4,
-            );
-          } else {
-            return Text('qr');
-          }
-        },
-      ),
-    );
-  }
+  // Widget buildResult() {
+  //   return Container(
+  //     padding: EdgeInsets.all(12),
+  //     decoration: BoxDecoration(
+  //       color: Colors.white24,
+  //       borderRadius: BorderRadius.circular(8),
+  //     ),
+  //     child: BlocBuilder<QrCubit, QrState>(
+  //       builder: (context, state) {
+  //         //Widget wid = Text('data');
+  //         if (state.uuid != null) {
+  //           return Text(
+  //             barcode != null
+  //                 ? "Last time Scanned : ${context.read<QrCubit>().state.uuid} document"
+  //                 : "Scan a barcode",
+  //             maxLines: 4,
+  //           );
+  //         } else {
+  //           return Text('qr');
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
 
   Widget buildQrView(BuildContext context) => QRView(
         key: qrKey,
