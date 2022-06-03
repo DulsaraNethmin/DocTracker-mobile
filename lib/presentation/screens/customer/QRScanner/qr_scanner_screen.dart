@@ -38,6 +38,7 @@ class _QRScannerState extends State<QRScanner> {
   @override
   void initState() {
     super.initState();
+    context.read<QrCubit>().initial();
     //set();
   }
 
@@ -45,7 +46,7 @@ class _QRScannerState extends State<QRScanner> {
   Widget build(BuildContext context) {
     //context.read<QrCubit>().reset();
     print("start of nuild");
-    context.read<QrCubit>().initial();
+    //context.read<QrCubit>().initial();
     final user_state = context.read<UserCubit>().state;
     final qr_state = context.read<QrCubit>().state;
     final uuid = (user_state is UserLogedin) ? user_state.uuid : "000";
@@ -149,7 +150,7 @@ class _QRScannerState extends State<QRScanner> {
                 maxLines: 4,
               );
             } else {
-              return Text('qr1');
+              return Text('Scan a Document');
             }
           },
         ),
