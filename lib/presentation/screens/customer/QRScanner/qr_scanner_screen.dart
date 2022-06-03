@@ -64,7 +64,7 @@ class _QRScannerState extends State<QRScanner> {
                   ? _bottom_sheet_controller.hideBottomSheet()
                   : _bottom_sheet_controller.showBottomSheet();
               //_bottom_sheet_controller.showBottomSheet();
-              //Navigator.pushNamed(context, '/qrnext');
+              Navigator.pushNamed(context, '/qr/action');
             },
           );
         } else {
@@ -73,45 +73,45 @@ class _QRScannerState extends State<QRScanner> {
       },
     );
 
-    final botton_sheet = GFBottomSheet(
-      controller: _bottom_sheet_controller,
-      contentBody: Container(
-        height: 200,
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        child: ListView(
-          shrinkWrap: true,
-          physics: const ScrollPhysics(),
-          children: const [
-            Center(
-                child: Text(
-              'Getwidget reduces your overall app development time to minimum 30% because of its pre-build clean UI widget that you can use in flutter app development. We have spent more than 1000+ hours to build this library to make flutter developer’s life easy.',
-              style:
-                  TextStyle(fontSize: 15, wordSpacing: 0.3, letterSpacing: 0.2),
-            ))
-          ],
-        ),
-      ),
-      stickyFooter: Container(
-        color: GFColors.SUCCESS,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              'Get in touch',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-            ),
-            Text(
-              'info@getwidget.dev',
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-          ],
-        ),
-      ),
-      stickyFooterHeight: 50,
-    );
+    // final botton_sheet = GFBottomSheet(
+    //   controller: _bottom_sheet_controller,
+    //   contentBody: Container(
+    //     height: 200,
+    //     margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+    //     child: ListView(
+    //       shrinkWrap: true,
+    //       physics: const ScrollPhysics(),
+    //       children: const [
+    //         Center(
+    //             child: Text(
+    //           'Getwidget reduces your overall app development time to minimum 30% because of its pre-build clean UI widget that you can use in flutter app development. We have spent more than 1000+ hours to build this library to make flutter developer’s life easy.',
+    //           style:
+    //               TextStyle(fontSize: 15, wordSpacing: 0.3, letterSpacing: 0.2),
+    //         ))
+    //       ],
+    //     ),
+    //   ),
+    //   stickyFooter: Container(
+    //     color: GFColors.SUCCESS,
+    //     child: Row(
+    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //       children: [
+    //         Text(
+    //           'Get in touch',
+    //           style: TextStyle(
+    //               fontSize: 18,
+    //               fontWeight: FontWeight.bold,
+    //               color: Colors.white),
+    //         ),
+    //         Text(
+    //           'info@getwidget.dev',
+    //           style: TextStyle(fontSize: 15, color: Colors.white),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    //   stickyFooterHeight: 50,
+    // );
 
     void set(BuildContext context) async {
       try {
@@ -182,7 +182,7 @@ class _QRScannerState extends State<QRScanner> {
     set(context);
     return SafeArea(
       child: Scaffold(
-        bottomSheet: botton_sheet,
+        //bottomSheet: botton_sheet,
         body: Stack(
           alignment: Alignment.center,
           children: [

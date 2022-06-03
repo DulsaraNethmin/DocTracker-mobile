@@ -4,6 +4,7 @@ import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.
 import 'package:doctracker/presentation/screens/customer/Chat/user_search.dart';
 import 'package:doctracker/presentation/screens/customer/More/more.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/internal_job.dart';
+import 'package:doctracker/presentation/screens/customer/QRScanner/qr_action.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_next.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_scanner_screen.dart';
 import 'package:doctracker/presentation/screens/customer/Search/search_doc.dart';
@@ -57,6 +58,9 @@ class AppRouter {
         break;
       case '/more':
         return MaterialPageRoute(builder: (_) => MoreScreen());
+        break;
+      case '/qr/action':
+        return MaterialPageRoute(builder: (_) => QrActionScreen());
         break;
       default:
         return MaterialPageRoute(builder: (_) => CustomerHome());
