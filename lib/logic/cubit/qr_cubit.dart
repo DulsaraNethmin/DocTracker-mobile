@@ -28,7 +28,7 @@ class QrCubit extends Cubit<QrState> {
   }
 
   void initial() {
-    QrInitial();
+    emit(QrInitial());
   }
 
   // void setQR(String uuid, String branch) {

@@ -44,6 +44,7 @@ class _QRScannerState extends State<QRScanner> {
   @override
   Widget build(BuildContext context) {
     //context.read<QrCubit>().reset();
+    print("start of nuild");
     context.read<QrCubit>().initial();
     final user_state = context.read<UserCubit>().state;
     final qr_state = context.read<QrCubit>().state;
