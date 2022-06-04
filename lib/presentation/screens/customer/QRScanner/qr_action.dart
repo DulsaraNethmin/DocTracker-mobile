@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:doctracker/data/model/qr_scanModel.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getwidget/getwidget.dart';
@@ -20,6 +21,7 @@ class _QrActionScreenState extends State<QrActionScreen> {
   @override
   Widget build(BuildContext context) {
     final qr_state = context.read<QrCubit>().state;
+    final user_state = context.read<UserCubit>().state;
     //final qr_data = (qr_state is QrVerified) ? qr_state.scan_data : null;
     var qr_data = new QrScan(
         docId: '000',
@@ -78,6 +80,14 @@ class _QrActionScreenState extends State<QrActionScreen> {
       color: Colors.amber,
     );
 
+    final snackbar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      content: Text('Text label'),
+      action: SnackBarAction(
+        label: 'Action',
+        onPressed: () {},
+      ),
+    );
     final botton_sheet = GFBottomSheet(
       controller: _bottom_sheet_controller,
       contentBody: Container(
@@ -91,7 +101,14 @@ class _QrActionScreenState extends State<QrActionScreen> {
                 child: InkWell(
               onTap: () {
                 print('clicked');
-                Navigator.pushNamed(context, '/qrnext');
+                final uuid =
+                    (user_state is UserLogedin) ? user_state.uuid : '000';
+                if (qr_data.currentUserId == uuid)
+                  Navigator.pushNamed(context, '/qrnext');
+                else {
+                  //Scaffold.of(context).showSnackBar(snackbar);
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                }
               },
               child: Container(
                 height: 60,

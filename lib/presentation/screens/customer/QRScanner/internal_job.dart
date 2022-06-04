@@ -108,7 +108,7 @@ class InternalJob extends StatelessWidget {
         color: Colors.amberAccent[400],
         onPressed: () {
           //context.read<QrCubit>().setInternal();
-          Navigator.pushNamed(context, '/internaljob');
+          Navigator.pushNamed(context, '/qr');
         });
     return SafeArea(
         child: Scaffold(
