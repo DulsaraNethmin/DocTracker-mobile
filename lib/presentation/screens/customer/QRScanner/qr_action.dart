@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:doctracker/data/model/qr_scanModel.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:flutter/material.dart';
@@ -89,10 +91,20 @@ class _QrActionScreenState extends State<QrActionScreen> {
                 child: InkWell(
               onTap: () {
                 print('clicked');
+                Navigator.pushNamed(context, '/qrnext');
               },
               child: Container(
                 height: 60,
                 color: Colors.amber,
+                child: Center(
+                  child: Text(
+                    "New Job",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
             )),
             SizedBox(
@@ -106,6 +118,15 @@ class _QrActionScreenState extends State<QrActionScreen> {
               child: Container(
                 height: 60,
                 color: Color.fromARGB(255, 216, 208, 184),
+                child: Center(
+                  child: Text(
+                    "Accept Document",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
             )),
             SizedBox(
@@ -119,6 +140,15 @@ class _QrActionScreenState extends State<QrActionScreen> {
               child: Container(
                 height: 60,
                 color: Color.fromARGB(255, 61, 60, 58),
+                child: Center(
+                  child: Text(
+                    "Request Document",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
             )),
             SizedBox(
