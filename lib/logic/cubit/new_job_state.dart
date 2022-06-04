@@ -6,5 +6,5 @@ abstract class NewJobState {}
 class NewJobInitial extends NewJobState {}
 
 class NewJobs extends NewJobState {
-  List<NewJob> jobs = [];
+  static List<NewJob> jobs = [];
 }
