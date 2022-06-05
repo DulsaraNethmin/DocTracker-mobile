@@ -3,6 +3,7 @@ import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
 import 'package:doctracker/logic/cubit/document_cubit.dart';
 import 'package:doctracker/logic/cubit/image_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
+import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/deliverer/Login/login_screen.dart';
 import 'package:doctracker/presentation/widgets/analog_clock.dart';
@@ -49,7 +50,7 @@ class CustomerHome extends StatelessWidget {
       child: Image.network(
         (user_state is UserLogedin)
             ? user_state.user.image_url
-            : 'https://nethmin.s3.amazonaws.com/a5f62fd7-35e3-4803-a3fe-5cba4650a845.png',
+            : 'https://nethmin-bucket.s3.ap-south-1.amazonaws.com/profile.png',
         width: 110,
         height: 110,
       ),
@@ -125,6 +126,7 @@ class CustomerHome extends StatelessWidget {
                 context.read<DocumentCubit>().toInitialState();
                 context.read<MailCubit>().toInitialState();
                 context.read<ImageCubit>().toInitialState();
+                context.read<QrCubit>().initial();
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     '/login', (Route<dynamic> route) => true);
               },

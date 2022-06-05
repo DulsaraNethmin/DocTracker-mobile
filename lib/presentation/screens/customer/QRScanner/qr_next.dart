@@ -14,7 +14,7 @@ class QRNext extends StatelessWidget {
         child: Text('Internal'),
         color: Colors.amberAccent[400],
         onPressed: () {
-          context.read<QrCubit>().setInternal();
+          //context.read<QrCubit>().setInternal();
           Navigator.pushNamed(context, '/internaljob');
         });
     final externalButton = MaterialButton(
@@ -22,7 +22,7 @@ class QRNext extends StatelessWidget {
         child: Text('External'),
         color: Colors.amberAccent[400],
         onPressed: () {
-          context.read<QrCubit>().setExternal();
+          //context.read<QrCubit>().setExternal();
           Navigator.pushNamed(context, '/externaljob');
         });
     return SafeArea(
