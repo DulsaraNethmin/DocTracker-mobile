@@ -1,5 +1,4 @@
 import 'package:doctracker/presentation/screens/Customer/Home/customer_home.dart';
-import 'package:doctracker/presentation/screens/More/more_screen.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/chat_screen.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/user_search.dart';
@@ -12,6 +11,7 @@ import 'package:doctracker/presentation/screens/deliverer/Admin/admin_select.dar
 import 'package:doctracker/presentation/screens/deliverer/Home/deliverer_home.dart';
 import 'package:doctracker/presentation/screens/deliverer/Job/job_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Login/login_screen.dart';
+import 'package:doctracker/presentation/screens/deliverer/More/more_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Organization/org_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Personal/personal_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Welcome/welcome_screen.dart';

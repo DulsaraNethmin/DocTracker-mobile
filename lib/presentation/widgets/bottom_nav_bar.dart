@@ -57,6 +57,7 @@ class BottomNavBarState extends State<BottomNavBar> {
             break;
           case 3:
             context.read<BotnavbarCubit>().onSelect(3);
+            print("clicked");
             Navigator.pushNamed(context, '/deliverer/more');
             index = 3;
             break;
