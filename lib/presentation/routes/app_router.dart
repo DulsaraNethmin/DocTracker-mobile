@@ -1,4 +1,5 @@
 import 'package:doctracker/presentation/screens/Customer/Home/customer_home.dart';
+import 'package:doctracker/presentation/screens/More/more_screen.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/chat_screen.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/user_search.dart';
@@ -66,6 +67,9 @@ class AppRouter {
         break;
       case '/deleverer/home':
         return MaterialPageRoute(builder: (_) => DelivererHome());
+        break;
+      case '/deleverer/more':
+        return MaterialPageRoute(builder: (_) => DelMoreScreen());
         break;
       case '/jobs':
         return MaterialPageRoute(builder: (_) => JobsScreen());
