@@ -86,11 +86,11 @@ class CustomerHome extends StatelessWidget {
               color: Colors.red,
               child: Column(
                 children: [
-                  Icon(
-                    Icons.punch_clock,
-                    size: 40,
-                    color: Colors.grey[350],
-                  ),
+                  // Icon(
+                  //   //Icons.punch_clock,
+                  //   size: 40,
+                  //   color: Colors.grey[350],
+                  // ),
                   Text('Pending')
                 ],
               ),

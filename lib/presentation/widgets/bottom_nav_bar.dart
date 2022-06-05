@@ -21,7 +21,7 @@ class BottomNavBarState extends State<BottomNavBar> {
       unselectedItemColor: Colors.white.withOpacity(.60),
       selectedFontSize: 14,
       unselectedFontSize: 14,
-      //currentIndex: context.read<BottomNavBarCubit>().state.index,
+      currentIndex: context.read<BotnavbarCubit>().state.index,
       items: [
         BottomNavigationBarItem(
           label: 'Home',
@@ -43,21 +43,23 @@ class BottomNavBarState extends State<BottomNavBar> {
       onTap: (value) {
         switch (value) {
           case 0:
-            //context.read<BottomNavBarCubit>().onSelect(0);
+            context.read<BotnavbarCubit>().onSelect(0);
             Navigator.pushNamed(context, '/deliverer/home');
             break;
           case 1:
-            //context.read<BottomNavBarCubit>().onSelect(1);
-            Navigator.pushNamed(context, '/search');
+            context.read<BotnavbarCubit>().onSelect(1);
+            //Navigator.pushNamed(context, '/search');
             break;
           case 2:
-            //context.read<BottomNavBarCubit>().onSelect(2);
+            context.read<BotnavbarCubit>().onSelect(2);
+            break;
             Navigator.pushNamed(context, '/jobs');
             index = 2;
             break;
           case 3:
             context.read<BotnavbarCubit>().onSelect(3);
-            Navigator.pushNamed(context, '/more');
+            print("clicked");
+            Navigator.pushNamed(context, '/deliverer/more');
             index = 3;
             break;
         }
