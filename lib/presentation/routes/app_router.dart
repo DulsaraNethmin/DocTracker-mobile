@@ -7,6 +7,7 @@ import 'package:doctracker/presentation/screens/customer/QRScanner/internal_job.
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_action.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_next.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_scanner_screen.dart';
+import 'package:doctracker/presentation/screens/customer/QRScanner/select_customer.dart';
 import 'package:doctracker/presentation/screens/customer/Search/search_doc.dart';
 import 'package:doctracker/presentation/screens/deliverer/Admin/admin_select.dart';
 import 'package:doctracker/presentation/screens/deliverer/Home/deliverer_home.dart';
@@ -77,6 +78,9 @@ class AppRouter {
         break;
       case '/jobs':
         return MaterialPageRoute(builder: (_) => JobsScreen());
+        break;
+      case '/select/customer':
+        return MaterialPageRoute(builder: (_) => SelectCustomer());
         break;
       default:
         return MaterialPageRoute(builder: (_) => CustomerHome());

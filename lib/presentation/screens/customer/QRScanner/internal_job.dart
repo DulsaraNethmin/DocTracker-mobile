@@ -3,6 +3,7 @@ import 'package:doctracker/data/model/qr_scanModel.dart';
 import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
+import 'package:doctracker/main.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,22 +88,36 @@ class InternalJob extends StatelessWidget {
       ),
     );
 
-    final endCustomer = Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: TextFormField(
-          controller: end_customer_controller,
-          maxLength: 100,
-          decoration: InputDecoration(
-            labelText: 'End Customer',
-            labelStyle: TextStyle(
-              fontSize: 15,
-              color: Color.fromARGB(255, 50, 49, 51),
+    final endCustomer = Card(
+      child: Column(
+        children: [
+          ListTile(
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/select/customer');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'End Customer',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Icon(Icons.arrow_right)
+                    ],
+                  ),
+                ),
+                Text(qr_data.type)
+              ],
             ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Color.fromARGB(255, 30, 30, 31)),
-            ),
+            // subtitle: Text(context.read<QrCubit>().state.department),
           ),
-        ));
+        ],
+      ),
+    );
 
     final done_button = MaterialButton(
         minWidth: MediaQuery.of(context).size.width * 0.8,
@@ -111,11 +126,11 @@ class InternalJob extends StatelessWidget {
         onPressed: () {
           //context.read<QrCubit>().setInternal();
           //Navigator.pushNamed(context, '/internaljob');
-          context.read<NewJobCubit>().addToJobArray(NewJob(
-              doc_id: qr_data.docId,
-              doc_name: qr_data.docName,
-              end_customer: end_customer_controller.text,
-              from_customer: user_id));
+          // context.read<NewJobCubit>().addToJobArray(NewJob(
+          //     doc_id: qr_data.docId,
+          //     doc_name: qr_data.docName,
+          //     end_customer: end_customer_controller.text,
+          //     from_customer: user_id));
         });
 
     // final add_more_button = MaterialButton(
