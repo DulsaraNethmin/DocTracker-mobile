@@ -1,6 +1,9 @@
 import 'package:doctracker/data/model/chatModel.dart';
+import 'package:doctracker/data/model/new_job_model.dart';
 import 'package:doctracker/data/model/userModel.dart';
 import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
+import 'package:doctracker/logic/cubit/new_job_cubit.dart';
+import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
 import 'package:doctracker/presentation/screens/customer/Chat/search_result_user.dart';
@@ -16,12 +19,17 @@ class CustomCardSearch extends StatelessWidget {
     //tring id = (user_state is UserLogedin) ? user_state.uuid : "000";
     return InkWell(
       onTap: () {
-        print(
-            "New chat with: ${user.uuid} by : ${user_state is UserLogedin ? user_state.uuid : "000"}");
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => IndividualScreen(user: user)));
+        final new_job_state = context.read<NewJobCubit>().state;
+        if (new_job_state is NewJobs) {
+          print("name is ...");
+        } else {
+          print(
+              "New chat with: ${user.uuid} by : ${user_state is UserLogedin ? user_state.uuid : "000"}");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => IndividualScreen(user: user)));
+        }
       },
       child: Column(
         children: [
@@ -36,7 +44,7 @@ class CustomCardSearch extends StatelessWidget {
             ),
             subtitle: Row(
               children: [
-                Icon(Icons.done_all),
+                //Icon(Icons.done_all),
                 SizedBox(
                   width: 10,
                 ),

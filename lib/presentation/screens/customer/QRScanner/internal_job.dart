@@ -12,6 +12,7 @@ class InternalJob extends StatelessWidget {
   const InternalJob({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    context.read<NewJobCubit>().jobArray();
     final qr_state = context.read<QrCubit>().state;
     final end_customer_controller = TextEditingController();
     final user_state = context.read<UserCubit>().state;

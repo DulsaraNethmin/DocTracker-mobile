@@ -3,6 +3,7 @@ import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
 import 'package:doctracker/logic/cubit/chat_cubit.dart';
 import 'package:doctracker/logic/cubit/image_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
+import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/routes/app_router.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => BranchUserCubit()),
         BlocProvider(create: (context) => MailCubit()),
         BlocProvider(create: (context) => ImageCubit()),
+        BlocProvider(create: (context) => NewJobCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
