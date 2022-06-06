@@ -22,6 +22,7 @@ class CustomCardSearch extends StatelessWidget {
         final new_job_state = context.read<NewJobCubit>().state;
         if (new_job_state is NewJobs) {
           print("name is ...");
+          Navigator.pop(context);
         } else {
           print(
               "New chat with: ${user.uuid} by : ${user_state is UserLogedin ? user_state.uuid : "000"}");
