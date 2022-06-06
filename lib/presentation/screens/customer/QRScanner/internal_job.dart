@@ -1,5 +1,6 @@
 import 'package:doctracker/data/model/new_job_model.dart';
 import 'package:doctracker/data/model/qr_scanModel.dart';
+import 'package:doctracker/logic/cubit/end_customer_cubit.dart';
 import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
@@ -17,6 +18,7 @@ class InternalJob extends StatelessWidget {
     final end_customer_controller = TextEditingController();
     final user_state = context.read<UserCubit>().state;
     final user_id = (user_state is UserLogedin) ? user_state.uuid : "000";
+    //final end_customer_select_state = context.read<EndCustomerCubit>().state;
     //final new_job_state = context.read<NewJobCubit>().state;
     var qr_data = new QrScan(
         docId: '000',
@@ -111,7 +113,15 @@ class InternalJob extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text(qr_data.type)
+                //Text(qr_data.type),
+                BlocBuilder<EndCustomerCubit, EndCustomerState>(
+                    builder: (context, state) {
+                  if (state is EndCustomerSelected) {
+                    return Text(state.name);
+                  } else {
+                    return (Text("Select the destination"));
+                  }
+                })
               ],
             ),
             // subtitle: Text(context.read<QrCubit>().state.department),

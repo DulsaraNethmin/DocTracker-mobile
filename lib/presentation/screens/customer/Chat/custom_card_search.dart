@@ -2,6 +2,7 @@ import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/new_job_model.dart';
 import 'package:doctracker/data/model/userModel.dart';
 import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
+import 'package:doctracker/logic/cubit/end_customer_cubit.dart';
 import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
@@ -22,6 +23,9 @@ class CustomCardSearch extends StatelessWidget {
         final new_job_state = context.read<NewJobCubit>().state;
         if (new_job_state is NewJobs) {
           print("name is ...");
+          context
+              .read<EndCustomerCubit>()
+              .selectEndCustomer(user.name, user.uuid);
           Navigator.pop(context);
         } else {
           print(
