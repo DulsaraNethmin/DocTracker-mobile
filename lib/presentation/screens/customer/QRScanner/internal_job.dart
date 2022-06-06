@@ -13,12 +13,11 @@ class InternalJob extends StatelessWidget {
   const InternalJob({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    context.read<NewJobCubit>().jobArray();
     final qr_state = context.read<QrCubit>().state;
     final end_customer_controller = TextEditingController();
     final user_state = context.read<UserCubit>().state;
     final user_id = (user_state is UserLogedin) ? user_state.uuid : "000";
-    //final end_customer_select_state = context.read<EndCustomerCubit>().state;
+    final end_customer_select_state = context.read<EndCustomerCubit>().state;
     //final new_job_state = context.read<NewJobCubit>().state;
     var qr_data = new QrScan(
         docId: '000',
@@ -137,30 +136,58 @@ class InternalJob extends StatelessWidget {
         onPressed: () {
           //context.read<QrCubit>().setInternal();
           //Navigator.pushNamed(context, '/internaljob');
-          // context.read<NewJobCubit>().addToJobArray(NewJob(
-          //     doc_id: qr_data.docId,
-          //     doc_name: qr_data.docName,
-          //     end_customer: end_customer_controller.text,
-          //     from_customer: user_id));
+          context.read<NewJobCubit>().addToJobArray(NewJob(
+                doc_id: qr_data.docId,
+                doc_name: qr_data.docName,
+                end_customer: (end_customer_select_state is EndCustomerSelected)
+                    ? end_customer_select_state.uuid
+                    : "000",
+                from_customer:
+                    (user_state is UserLogedin) ? user_state.uuid : "000",
+              ));
         });
 
-    // final add_more_button = MaterialButton(
-    //     minWidth: MediaQuery.of(context).size.width * 0.8,
-    //     child: Text('Add another Job'),
+    // final create_button = MaterialButton(
+    //     minWidth: MediaQuery.of(context).size.width * 0.9,
+    //     child: Text('Create Job'),
     //     color: Colors.amberAccent[400],
     //     onPressed: () {
     //       //context.read<QrCubit>().setInternal();
     //       Navigator.pushNamed(context, '/qr');
     //     });
+    // final create_button_potition = Align(
+    //   child: create_button,
+    //   alignment: Alignment.bottomLeft,
+    // );
     final action_button = FloatingActionButton(
       onPressed: () {
         Navigator.pushNamed(context, '/qr');
       },
       child: Icon(Icons.add),
     );
+
+    final appbar = AppBar(
+      backgroundColor: Color.fromARGB(255, 91, 57, 160),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Internal Job",
+            style: TextStyle(fontSize: 20, color: Colors.grey[200]),
+          ),
+          TextButton(
+              onPressed: () {},
+              child: Text(
+                "Finish",
+                style: TextStyle(color: Colors.white),
+              ))
+        ],
+      ),
+      elevation: 0,
+    );
     return SafeArea(
         child: Scaffold(
-      appBar: appBar('Internal Job'),
+      appBar: appbar,
       floatingActionButton: action_button,
       body: SingleChildScrollView(
         child: Column(
@@ -171,6 +198,7 @@ class InternalJob extends StatelessWidget {
             department,
             endCustomer,
             done_button,
+            //create_button_potition,
             //add_more_button,
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class QRNext extends StatelessWidget {
         color: Colors.amberAccent[400],
         onPressed: () {
           //context.read<QrCubit>().setInternal();
+          context.read<NewJobCubit>().jobArray();
           Navigator.pushNamed(context, '/internaljob');
         });
     final externalButton = MaterialButton(
