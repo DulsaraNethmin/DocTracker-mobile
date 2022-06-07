@@ -64,6 +64,7 @@ class _MoreScreenState extends State<MoreScreen> {
       onTap: () {},
       child: GFListTile(
           avatar: GFAvatar(
+            backgroundColor: Colors.grey[600],
             child: Icon(Icons.mail_rounded),
           ),
           titleText: 'Mails',
@@ -74,6 +75,7 @@ class _MoreScreenState extends State<MoreScreen> {
       onTap: () {},
       child: GFListTile(
           avatar: GFAvatar(
+            backgroundColor: Colors.grey[600],
             child: Icon(Icons.settings),
           ),
           titleText: 'Settings',
@@ -83,7 +85,9 @@ class _MoreScreenState extends State<MoreScreen> {
   final help = InkWell(
       onTap: () {},
       child: GFListTile(
-          avatar: GFAvatar(child: Icon(Icons.help_center)),
+          avatar: GFAvatar(
+              backgroundColor: Colors.grey[600],
+              child: Icon(Icons.help_center)),
           titleText: 'Help',
           subTitleText: 'How to use the app.',
           icon: Icon(Icons.arrow_right)));
@@ -92,6 +96,7 @@ class _MoreScreenState extends State<MoreScreen> {
       onTap: () {},
       child: GFListTile(
           avatar: GFAvatar(
+            backgroundColor: Colors.grey[600],
             child: Icon(Icons.info),
           ),
           titleText: 'About',
@@ -102,6 +107,7 @@ class _MoreScreenState extends State<MoreScreen> {
       onTap: () {},
       child: GFListTile(
           avatar: GFAvatar(
+            backgroundColor: Colors.grey[600],
             child: Icon(Icons.logout),
           ),
           titleText: 'Logout',
