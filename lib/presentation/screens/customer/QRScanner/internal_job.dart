@@ -5,20 +5,27 @@ import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/main.dart';
+import 'package:doctracker/presentation/screens/customer/QRScanner/job_card.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class InternalJob extends StatelessWidget {
+class InternalJob extends StatefulWidget {
   const InternalJob({Key? key}) : super(key: key);
+
+  @override
+  State<InternalJob> createState() => _InternalJobState();
+}
+
+class _InternalJobState extends State<InternalJob> {
   @override
   Widget build(BuildContext context) {
     final qr_state = context.read<QrCubit>().state;
     final end_customer_controller = TextEditingController();
     final user_state = context.read<UserCubit>().state;
     final user_id = (user_state is UserLogedin) ? user_state.uuid : "000";
-    final end_customer_select_state = context.read<EndCustomerCubit>().state;
-    //final new_job_state = context.read<NewJobCubit>().state;
+    final new_job_state = context.read<NewJobCubit>().state;
+    var end_customer = "000";
     var qr_data = new QrScan(
         docId: '000',
         docName: '000',
@@ -116,6 +123,9 @@ class InternalJob extends StatelessWidget {
                 BlocBuilder<EndCustomerCubit, EndCustomerState>(
                     builder: (context, state) {
                   if (state is EndCustomerSelected) {
+                    // setState(() {
+                    //   end_customer = state.uuid;
+                    // });
                     return Text(state.name);
                   } else {
                     return (Text("Select the destination"));
@@ -134,17 +144,20 @@ class InternalJob extends StatelessWidget {
         child: Text('Add to List'),
         color: Colors.amberAccent[400],
         onPressed: () {
-          //context.read<QrCubit>().setInternal();
-          //Navigator.pushNamed(context, '/internaljob');
-          context.read<NewJobCubit>().addToJobArray(NewJob(
-                doc_id: qr_data.docId,
-                doc_name: qr_data.docName,
-                end_customer: (end_customer_select_state is EndCustomerSelected)
-                    ? end_customer_select_state.uuid
-                    : "000",
-                from_customer:
-                    (user_state is UserLogedin) ? user_state.uuid : "000",
-              ));
+          final end_customer_select_state =
+              context.read<EndCustomerCubit>().state;
+          List<NewJob> temp_arr =
+              (new_job_state is NewJobs) ? new_job_state.jobs : [];
+          temp_arr.add(NewJob(
+            doc_id: qr_data.docId,
+            doc_name: qr_data.docName,
+            end_customer: (end_customer_select_state is EndCustomerSelected)
+                ? end_customer_select_state.uuid
+                : "000",
+            from_customer:
+                (user_state is UserLogedin) ? user_state.uuid : "000",
+          ));
+          context.read<NewJobCubit>().jobArray(temp_arr);
         });
 
     // final create_button = MaterialButton(
@@ -185,6 +198,24 @@ class InternalJob extends StatelessWidget {
       ),
       elevation: 0,
     );
+    //List<JobCard> all_jobs = [];
+    final new_jobs =
+        BlocBuilder<NewJobCubit, NewJobState>(builder: (context, state) {
+      print('inside builder');
+      List<JobCard> all_jobs = [];
+      if (state is NewJobs) {
+        for (int i = 0; i < state.jobs.length; i++) {
+          all_jobs.add(JobCard(newjob: state.jobs[i]));
+        }
+      }
+      return Column(
+        children: all_jobs,
+      );
+    });
+
+    // final jobs_showcase = Column(
+    //   children: all_jobs,
+    // );
     return SafeArea(
         child: Scaffold(
       appBar: appbar,
@@ -198,6 +229,7 @@ class InternalJob extends StatelessWidget {
             department,
             endCustomer,
             done_button,
+            new_jobs,
             //create_button_potition,
             //add_more_button,
           ],

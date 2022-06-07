@@ -10,13 +10,15 @@ class QRNext extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final job_state = context.read<NewJobCubit>().state;
     final internalButton = MaterialButton(
         minWidth: MediaQuery.of(context).size.width * 0.7,
         child: Text('Internal'),
         color: Colors.amberAccent[400],
         onPressed: () {
           //context.read<QrCubit>().setInternal();
-          context.read<NewJobCubit>().jobArray();
+
+          if (!(job_state is NewJobs)) context.read<NewJobCubit>().jobArray([]);
           Navigator.pushNamed(context, '/internaljob');
         });
     final externalButton = MaterialButton(

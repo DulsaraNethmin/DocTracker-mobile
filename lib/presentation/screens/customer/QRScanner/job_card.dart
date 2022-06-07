@@ -9,9 +9,14 @@ class JobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GFListTile(
-        avatar: GFAvatar(),
+        avatar: GFAvatar(
+          child: Image.asset(
+            'assets/images/new_job_icon.png',
+            fit: BoxFit.cover,
+          ),
+        ),
         titleText: newjob.doc_name,
-        subTitleText: 'to: '+newjob.end_customer,
+        subTitleText: 'to: ' + newjob.end_customer,
         icon: Icon(Icons.delete));
   }
 }
