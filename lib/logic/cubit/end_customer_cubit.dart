@@ -9,4 +9,8 @@ class EndCustomerCubit extends Cubit<EndCustomerState> {
   void selectEndCustomer(String name, String uuid) {
     emit(EndCustomerSelected(name: name, uuid: uuid));
   }
+
+  void toInitialState() {
+    emit(EndCustomerInitial());
+  }
 }

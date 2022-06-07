@@ -197,6 +197,8 @@ class _InternalJobState extends State<InternalJob> {
                         builder: (BuildContext context) =>
                             const CustomerHome()),
                     (route) => false);
+                context.read<NewJobCubit>().toInitialState();
+                context.read<EndCustomerCubit>().toInitialState();
               },
               child: Text(
                 "Finish",
