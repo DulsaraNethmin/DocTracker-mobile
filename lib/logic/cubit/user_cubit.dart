@@ -66,7 +66,8 @@ class UserCubit extends Cubit<UserState> {
             role: '',
             branch: '',
             branchId: '',
-            image_url: '')));
+            image_url: '',
+            token: '')));
     emit(UserLogedout(is_logout: true));
   }
 }
