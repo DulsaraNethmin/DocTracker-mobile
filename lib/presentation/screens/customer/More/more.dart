@@ -60,6 +60,53 @@ class _MoreScreenState extends State<MoreScreen> {
     }
   }
 
+  final mails = InkWell(
+      onTap: () {},
+      child: GFListTile(
+          avatar: GFAvatar(
+            child: Icon(Icons.mail_rounded),
+          ),
+          titleText: 'Mails',
+          subTitleText: 'Mails and System notifications.',
+          icon: Icon(Icons.arrow_right)));
+
+  final settings = InkWell(
+      onTap: () {},
+      child: GFListTile(
+          avatar: GFAvatar(
+            child: Icon(Icons.settings),
+          ),
+          titleText: 'Settings',
+          subTitleText: 'Change app settings here.',
+          icon: Icon(Icons.arrow_right)));
+
+  final help = InkWell(
+      onTap: () {},
+      child: GFListTile(
+          avatar: GFAvatar(child: Icon(Icons.help_center)),
+          titleText: 'Help',
+          subTitleText: 'How to use the app.',
+          icon: Icon(Icons.arrow_right)));
+
+  final about = InkWell(
+      onTap: () {},
+      child: GFListTile(
+          avatar: GFAvatar(
+            child: Icon(Icons.info),
+          ),
+          titleText: 'About',
+          subTitleText: 'Learn more about us.',
+          icon: Icon(Icons.arrow_right)));
+
+  final logout = InkWell(
+      onTap: () {},
+      child: GFListTile(
+          avatar: GFAvatar(
+            child: Icon(Icons.logout),
+          ),
+          titleText: 'Logout',
+          subTitleText: 'Logout from the system.',
+          icon: Icon(Icons.arrow_right)));
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
@@ -153,20 +200,6 @@ class _MoreScreenState extends State<MoreScreen> {
                           );
                     return ClipOval(child: image);
                   }),
-                  // child: (image != null)
-                  //     ? ClipOval(
-                  //         child: Image.network(
-                  //         this.image!,
-                  //         width: 110,
-                  //         height: 110,
-                  //         fit: BoxFit.cover,
-                  //       ))
-                  //     : ClipOval(
-                  //         child: Image.asset(
-                  //         'assets/images/profile.png',
-                  //         width: 110,
-                  //         height: 110,
-                  //       )),
                 ),
                 Positioned(
                     bottom: 10,
@@ -180,7 +213,12 @@ class _MoreScreenState extends State<MoreScreen> {
             ),
             const Divider(
               thickness: 2,
-            )
+            ),
+            mails,
+            settings,
+            help,
+            about,
+            logout,
           ],
         ),
       ),
