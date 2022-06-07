@@ -21,7 +21,6 @@ class User {
     required this.branch,
     required this.branchId,
     required this.image_url,
-    required this.token,
   });
 
   final String uuid;
@@ -32,7 +31,6 @@ class User {
   final String branch;
   final String branchId;
   final String image_url;
-  final String token;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         uuid: json["uuid"],
@@ -43,7 +41,6 @@ class User {
         branch: json["branch"],
         branchId: json["branchId"],
         image_url: json["image_url"],
-        token: json["token"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -55,6 +52,5 @@ class User {
         "branch": branch,
         "branchId": branchId,
         "image_url": image_url,
-        "token": token,
       };
 }
