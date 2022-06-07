@@ -5,6 +5,7 @@ import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/main.dart';
+import 'package:doctracker/presentation/screens/customer/Home/customer_home.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/job_card.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +153,7 @@ class _InternalJobState extends State<InternalJob> {
             doc_id: qr_data.docId,
             doc_name: qr_data.docName,
             end_customer: (end_customer_select_state is EndCustomerSelected)
-                ? end_customer_select_state.uuid
+                ? end_customer_select_state.name
                 : "000",
             from_customer:
                 (user_state is UserLogedin) ? user_state.uuid : "000",
@@ -189,7 +190,14 @@ class _InternalJobState extends State<InternalJob> {
             style: TextStyle(fontSize: 20, color: Colors.grey[200]),
           ),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            const CustomerHome()),
+                    (route) => false);
+              },
               child: Text(
                 "Finish",
                 style: TextStyle(color: Colors.white),
