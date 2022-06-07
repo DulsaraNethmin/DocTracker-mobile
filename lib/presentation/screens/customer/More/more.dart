@@ -21,7 +21,6 @@ class _MoreScreenState extends State<MoreScreen> {
   final ImagePicker _picker = ImagePicker();
   final GFBottomSheetController _bottom_sheet_controller =
       GFBottomSheetController();
-
   Future selectImageFromGallery(BuildContext context) async {
     try {
       XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -63,6 +62,7 @@ class _MoreScreenState extends State<MoreScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user_state = context.read<UserCubit>().state;
     context.read<BotnavbarCubit>().onSelect(4);
     final bottom_sheet = GFBottomSheet(
         controller: _bottom_sheet_controller,
@@ -113,7 +113,7 @@ class _MoreScreenState extends State<MoreScreen> {
       child: Scaffold(
         bottomNavigationBar: MyBottomNavBar(),
         bottomSheet: bottom_sheet,
-        backgroundColor: Colors.amber[300],
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: Column(
           children: [
             const SizedBox(
@@ -138,14 +138,20 @@ class _MoreScreenState extends State<MoreScreen> {
                         ),
                       );
                     }
-                    return ClipOval(
-                      child: Image.asset(
-                        ('assets/images/profile.png'),
-                        width: 110,
-                        height: 110,
-                        fit: BoxFit.cover,
-                      ),
-                    );
+                    final image = (user_state is UserLogedin)
+                        ? Image.network(
+                            user_state.user.image_url,
+                            width: 110,
+                            height: 110,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset(
+                            ('assets/images/profile.png'),
+                            width: 110,
+                            height: 110,
+                            fit: BoxFit.cover,
+                          );
+                    return ClipOval(child: image);
                   }),
                   // child: (image != null)
                   //     ? ClipOval(
