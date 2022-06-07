@@ -60,63 +60,68 @@ class _MoreScreenState extends State<MoreScreen> {
     }
   }
 
-  final mails = InkWell(
-      onTap: () {},
-      child: GFListTile(
-          avatar: GFAvatar(
-            backgroundColor: Colors.grey[600],
-            child: Icon(Icons.mail_rounded),
-          ),
-          titleText: 'Mails',
-          subTitleText: 'Mails and System notifications.',
-          icon: Icon(Icons.arrow_right)));
-
-  final settings = InkWell(
-      onTap: () {},
-      child: GFListTile(
-          avatar: GFAvatar(
-            backgroundColor: Colors.grey[600],
-            child: Icon(Icons.settings),
-          ),
-          titleText: 'Settings',
-          subTitleText: 'Change app settings here.',
-          icon: Icon(Icons.arrow_right)));
-
-  final help = InkWell(
-      onTap: () {},
-      child: GFListTile(
-          avatar: GFAvatar(
-              backgroundColor: Colors.grey[600],
-              child: Icon(Icons.help_center)),
-          titleText: 'Help',
-          subTitleText: 'How to use the app.',
-          icon: Icon(Icons.arrow_right)));
-
-  final about = InkWell(
-      onTap: () {},
-      child: GFListTile(
-          avatar: GFAvatar(
-            backgroundColor: Colors.grey[600],
-            child: Icon(Icons.info),
-          ),
-          titleText: 'About',
-          subTitleText: 'Learn more about us.',
-          icon: Icon(Icons.arrow_right)));
-
-  final logout = InkWell(
-      onTap: () {},
-      child: GFListTile(
-          avatar: GFAvatar(
-            backgroundColor: Colors.grey[600],
-            child: Icon(Icons.logout),
-          ),
-          titleText: 'Logout',
-          subTitleText: 'Logout from the system.',
-          icon: Icon(Icons.arrow_right)));
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
+    //final user_data=(user_state is )
     context.read<BotnavbarCubit>().onSelect(4);
+
+    final mails = InkWell(
+        onTap: () {
+          Navigator.pushNamed(context, '/chat');
+        },
+        child: GFListTile(
+            avatar: GFAvatar(
+              backgroundColor: Colors.grey[600],
+              child: Icon(Icons.mail_rounded),
+            ),
+            titleText: 'Mails',
+            subTitleText: 'Mails and System notifications.',
+            icon: Icon(Icons.arrow_right)));
+
+    final settings = InkWell(
+        onTap: () {},
+        child: GFListTile(
+            avatar: GFAvatar(
+              backgroundColor: Colors.grey[600],
+              child: Icon(Icons.settings),
+            ),
+            titleText: 'Settings',
+            subTitleText: 'Change app settings here.',
+            icon: Icon(Icons.arrow_right)));
+
+    final help = InkWell(
+        onTap: () {},
+        child: GFListTile(
+            avatar: GFAvatar(
+                backgroundColor: Colors.grey[600],
+                child: Icon(Icons.help_center)),
+            titleText: 'Help',
+            subTitleText: 'How to use the app.',
+            icon: Icon(Icons.arrow_right)));
+
+    final about = InkWell(
+        onTap: () {},
+        child: GFListTile(
+            avatar: GFAvatar(
+              backgroundColor: Colors.grey[600],
+              child: Icon(Icons.info),
+            ),
+            titleText: 'About',
+            subTitleText: 'Learn more about us.',
+            icon: Icon(Icons.arrow_right)));
+
+    final logout = InkWell(
+        onTap: () {},
+        child: GFListTile(
+            avatar: GFAvatar(
+              backgroundColor: Colors.grey[600],
+              child: Icon(Icons.logout),
+            ),
+            titleText: 'Logout',
+            subTitleText: 'Logout from the system.',
+            icon: Icon(Icons.arrow_right)));
+
     final bottom_sheet = GFBottomSheet(
         controller: _bottom_sheet_controller,
         animationDuration: 250,
@@ -162,6 +167,44 @@ class _MoreScreenState extends State<MoreScreen> {
           : _bottom_sheet_controller.showBottomSheet();
     }
 
+    final more_title = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'More',
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+        )
+      ],
+    );
+
+    final user_data = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          (user_state is UserLogedin) ? user_state.user.name : "000",
+          style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          (user_state is UserLogedin) ? user_state.user.role : "000",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        ),
+        Text(
+          (user_state is UserLogedin) ? user_state.user.branch : "000",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        ),
+        Text(
+          (user_state is UserLogedin) ? user_state.user.email : "000",
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        ),
+      ],
+    );
+
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: MyBottomNavBar(),
@@ -169,53 +212,63 @@ class _MoreScreenState extends State<MoreScreen> {
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         body: Column(
           children: [
+            more_title,
             const SizedBox(
               height: 20,
             ),
-            Center(
-              child: Stack(children: [
-                InkWell(
-                  onTap: () {
-                    onTapAvatar();
-                  },
-                  child: BlocBuilder<ImageCubit, ImageState>(
-                      builder: (context, state) {
-                    if ((state is ImageLoading) || (state is ImageError)) {
-                      return CircularProgressIndicator.adaptive();
-                    } else if (state is ImageUploaded) {
-                      return ClipOval(
-                        child: Image.network(
-                          (state.download_url),
-                          width: 110,
-                          height: 110,
-                        ),
-                      );
-                    }
-                    final image = (user_state is UserLogedin)
-                        ? Image.network(
-                            user_state.user.image_url,
-                            width: 110,
-                            height: 110,
-                            fit: BoxFit.cover,
-                          )
-                        : Image.asset(
-                            ('assets/images/profile.png'),
-                            width: 110,
-                            height: 110,
-                            fit: BoxFit.cover,
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Stack(children: [
+                    InkWell(
+                      onTap: () {
+                        onTapAvatar();
+                      },
+                      child: BlocBuilder<ImageCubit, ImageState>(
+                          builder: (context, state) {
+                        if ((state is ImageLoading) || (state is ImageError)) {
+                          return CircularProgressIndicator.adaptive();
+                        } else if (state is ImageUploaded) {
+                          return ClipOval(
+                            child: Image.network(
+                              (state.download_url),
+                              width: 110,
+                              height: 110,
+                            ),
                           );
-                    return ClipOval(child: image);
-                  }),
+                        }
+                        final image = (user_state is UserLogedin)
+                            ? Image.network(
+                                user_state.user.image_url,
+                                width: 110,
+                                height: 110,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                ('assets/images/profile.png'),
+                                width: 110,
+                                height: 110,
+                                fit: BoxFit.cover,
+                              );
+                        return ClipOval(child: image);
+                      }),
+                    ),
+                    Positioned(
+                        bottom: 10,
+                        right: 5,
+                        child: const Icon(
+                          Icons.camera_alt_sharp,
+                          color: Color.fromARGB(255, 174, 171, 171),
+                          size: 30,
+                        ))
+                  ]),
                 ),
-                Positioned(
-                    bottom: 10,
-                    right: 5,
-                    child: const Icon(
-                      Icons.camera_alt_sharp,
-                      color: Color.fromARGB(255, 174, 171, 171),
-                      size: 30,
-                    ))
-              ]),
+                SizedBox(
+                  width: 10,
+                ),
+                user_data
+              ],
             ),
             const Divider(
               thickness: 2,
