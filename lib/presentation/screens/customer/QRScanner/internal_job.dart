@@ -7,6 +7,7 @@ import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/main.dart';
 import 'package:doctracker/presentation/screens/customer/Home/customer_home.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/job_card.dart';
+import 'package:doctracker/presentation/screens/customer/QRScanner/qr_scanner_screen.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -175,7 +176,11 @@ class _InternalJobState extends State<InternalJob> {
     // );
     final action_button = FloatingActionButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/qr');
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute<void>(
+                builder: (BuildContext context) => const QRScanner()),
+            (route) => false);
       },
       child: Icon(Icons.add),
     );
