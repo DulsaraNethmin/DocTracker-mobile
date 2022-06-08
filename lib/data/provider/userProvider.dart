@@ -15,11 +15,13 @@ class UserProvider {
     return res;
   }
 
-  Future<Response> updateProfilePic(String download_url, String uuid) async {
+  Future<Response> updateProfilePic(
+      String download_url, String uuid, String token) async {
     var dio = Dio();
     final url = restAPI + '/user/update/pic';
-    var res = await dio
-        .put(url, data: {"url": download_url}, queryParameters: {"uuid": uuid});
+    var res = await dio.put(url,
+        data: {"url": download_url},
+        queryParameters: {"uuid": uuid, "token": token});
     return res;
   }
 }

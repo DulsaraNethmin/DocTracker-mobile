@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:doctracker/logic/cubit/jwt_token_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import '../../data/model/userModel.dart';
 import '../../data/repository/userRepo.dart';
@@ -33,16 +35,18 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-  Future updateProfilePic(String download_url) async {
+  Future updateProfilePic(String download_url, BuildContext context) async {
     print(download_url);
     UserRepo userRepo = UserRepo();
     try {
       final user_state = state;
-      User user = await userRepo.updateProfilePic(
-          download_url, (user_state is UserLogedin) ? user_state.uuid : "000");
+      final jwt_token_state = context.read<JwtTokenCubit>().state;
+      final token =
+          (jwt_token_state is JwtTokenFetched) ? jwt_token_state.token : "";
+      User user = await userRepo.updateProfilePic(download_url,
+          (user_state is UserLogedin) ? user_state.uuid : "000", token);
       print(user.name);
       if (user.username != null) {
-        //emit(UserLogedin(username: user.username, uuid: user.uuid, user: user));
         setUser(user.username, user.uuid, user);
       } else {
         emit(UserLogedout(is_logout: true));

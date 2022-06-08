@@ -41,7 +41,8 @@ class _MoreScreenState extends State<MoreScreen> {
           .uploadImage(image, fileType.substring(1, fileType.length - 1));
       final image_state = context.read<ImageCubit>().state;
       await context.read<UserCubit>().updateProfilePic(
-          (image_state is ImageUploaded) ? image_state.download_url : "");
+          (image_state is ImageUploaded) ? image_state.download_url : "",
+          context);
     } catch (e) {
       print(e);
     }
@@ -241,9 +242,9 @@ class _MoreScreenState extends State<MoreScreen> {
                           );
                         }
                         //return Text('');
-                        final image = Image.asset(
-                          'assets/images/profile.png',
-                          //image_url,
+                        final image = Image.network(
+                          //'assets/images/profile.png',
+                          image_url,
                           width: 110,
                           height: 110,
                           fit: BoxFit.cover,

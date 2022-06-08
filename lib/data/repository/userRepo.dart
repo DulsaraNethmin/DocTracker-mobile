@@ -25,9 +25,11 @@ class UserRepo {
     return user;
   }
 
-  Future<User> updateProfilePic(String download_url, String uuid) async {
+  Future<User> updateProfilePic(
+      String download_url, String uuid, String token) async {
     print(download_url + "   " + uuid);
-    final response = await _userProvider.updateProfilePic(download_url, uuid);
+    final response =
+        await _userProvider.updateProfilePic(download_url, uuid, token);
     print(response.data[0]);
     final data = response.data[0];
     final jsonData = jsonEncode(data);
