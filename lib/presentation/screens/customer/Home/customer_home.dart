@@ -19,6 +19,7 @@ class CustomerHome extends StatelessWidget {
           .read<MailCubit>()
           .getMails(user_state is UserLogedin ? user_state.uuid : "000");
     }
+
 //..................................................................................................................
     return Scaffold(
       //appBar: appBar('Home'),
@@ -51,7 +52,8 @@ class CustomerHome extends StatelessWidget {
                       ),
                     )
                   ],
-                )
+                ),
+                Row()
               ],
             ),
           )
