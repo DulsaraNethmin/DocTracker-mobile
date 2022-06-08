@@ -61,7 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () async {
                     print(_username_controller.text);
                     await context.read<UserCubit>().getUser(
-                        _username_controller.text, _password_controller.text);
+                        _username_controller.text,
+                        _password_controller.text,
+                        context);
                     if (context.read<UserCubit>().state is UserLogedin) {
                       Navigator.pushNamed(context, '/customer/home');
                     }

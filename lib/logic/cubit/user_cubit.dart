@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import '../../data/model/userModel.dart';
@@ -13,10 +14,10 @@ class UserCubit extends Cubit<UserState> {
     emit(UserLogedin(username: username, uuid: uuid, user: user));
   }
 
-  Future getUser(String username, String password) async {
+  Future getUser(String username, String password, BuildContext context) async {
     UserRepo userRepo = UserRepo();
     try {
-      User user = await userRepo.getUser(username, password);
+      User user = await userRepo.getUser(username, password, context);
       print(user.name);
       if (user.username == username) {
         setUser(user.username, user.uuid, user);
