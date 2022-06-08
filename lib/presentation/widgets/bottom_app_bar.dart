@@ -15,7 +15,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
     int index = 0;
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: Color.fromARGB(251, 111, 69, 196),
+      backgroundColor: Color.fromARGB(255, 49, 62, 130),
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white.withOpacity(.60),
       selectedFontSize: 14,
