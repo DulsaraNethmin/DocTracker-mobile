@@ -123,6 +123,7 @@ class _MoreScreenState extends State<MoreScreen> {
           context.read<MailCubit>().toInitialState();
           context.read<ImageCubit>().toInitialState();
           context.read<QrCubit>().initial();
+          context.read<BotnavbarCubit>().toInitialState();
           Navigator.of(context).pushNamedAndRemoveUntil(
               '/login', (Route<dynamic> route) => false);
         },

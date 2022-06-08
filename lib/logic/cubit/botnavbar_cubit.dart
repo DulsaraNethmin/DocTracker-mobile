@@ -8,4 +8,8 @@ class BotnavbarCubit extends Cubit<BotnavbarState> {
   void onSelect(int index) {
     emit(BotnavbarState(index: index));
   }
+
+  void toInitialState() {
+    emit(BotnavbarState(index: 0));
+  }
 }
