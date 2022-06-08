@@ -226,75 +226,78 @@ class _MoreScreenState extends State<MoreScreen> {
         bottomNavigationBar: MyBottomNavBar(),
         bottomSheet: bottom_sheet,
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        body: Column(
-          children: [
-            more_title,
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Stack(children: [
-                    InkWell(
-                      onTap: () {
-                        onTapAvatar();
-                      },
-                      child: BlocBuilder<ImageCubit, ImageState>(
-                          builder: (context, state) {
-                        if ((state is ImageLoading) || (state is ImageError)) {
-                          return CircularProgressIndicator.adaptive();
-                        } else if (state is ImageUploaded) {
-                          return CircleAvatar(
-                            radius: 55,
-                            child: ClipOval(
-                              child: Image.network(
-                                (state.download_url),
-                                width: 110,
-                                height: 110,
-                                fit: BoxFit.cover,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              more_title,
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Stack(children: [
+                      InkWell(
+                        onTap: () {
+                          onTapAvatar();
+                        },
+                        child: BlocBuilder<ImageCubit, ImageState>(
+                            builder: (context, state) {
+                          if ((state is ImageLoading) ||
+                              (state is ImageError)) {
+                            return CircularProgressIndicator.adaptive();
+                          } else if (state is ImageUploaded) {
+                            return CircleAvatar(
+                              radius: 55,
+                              child: ClipOval(
+                                child: Image.network(
+                                  (state.download_url),
+                                  width: 110,
+                                  height: 110,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
+                            );
+                          }
+                          //return Text('');
+                          final image = Image.network(
+                            //'assets/images/profile.png',
+                            image_url,
+                            width: 110,
+                            height: 110,
+                            fit: BoxFit.cover,
                           );
-                        }
-                        //return Text('');
-                        final image = Image.network(
-                          //'assets/images/profile.png',
-                          image_url,
-                          width: 110,
-                          height: 110,
-                          fit: BoxFit.cover,
-                        );
 
-                        return ClipOval(child: image);
-                      }),
-                    ),
-                    Positioned(
-                        bottom: 10,
-                        right: 5,
-                        child: const Icon(
-                          Icons.camera_alt_sharp,
-                          color: Color.fromARGB(255, 174, 171, 171),
-                          size: 30,
-                        ))
-                  ]),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                user_data
-              ],
-            ),
-            const Divider(
-              thickness: 2,
-            ),
-            mails,
-            settings,
-            help,
-            about,
-            logout,
-          ],
+                          return ClipOval(child: image);
+                        }),
+                      ),
+                      Positioned(
+                          bottom: 10,
+                          right: 5,
+                          child: const Icon(
+                            Icons.camera_alt_sharp,
+                            color: Color.fromARGB(255, 174, 171, 171),
+                            size: 30,
+                          ))
+                    ]),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  user_data
+                ],
+              ),
+              const Divider(
+                thickness: 2,
+              ),
+              mails,
+              settings,
+              help,
+              about,
+              logout,
+            ],
+          ),
         ),
       ),
     );

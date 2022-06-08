@@ -1,12 +1,6 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
-import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
-import 'package:doctracker/logic/cubit/document_cubit.dart';
-import 'package:doctracker/logic/cubit/image_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
-import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
-import 'package:doctracker/presentation/screens/deliverer/Login/login_screen.dart';
-import 'package:doctracker/presentation/widgets/analog_clock.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -27,8 +21,42 @@ class CustomerHome extends StatelessWidget {
     }
 //..................................................................................................................
     return Scaffold(
-      appBar: appBar('Home'),
+      //appBar: appBar('Home'),
       bottomNavigationBar: MyBottomNavBar(),
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.3,
+            // decoration: BoxDecoration(
+            //     image: DecorationImage(
+            //         image: AssetImage('assets/images/background2.png'))),
+            child: Image.asset(
+              'assets/images/background2.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          SafeArea(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 13, top: 8),
+                      child: Text(
+                        'DocTracker',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
