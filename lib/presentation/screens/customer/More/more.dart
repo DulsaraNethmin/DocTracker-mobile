@@ -1,7 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
+import 'package:doctracker/logic/cubit/document_cubit.dart';
 import 'package:doctracker/logic/cubit/image_cubit.dart';
+import 'package:doctracker/logic/cubit/mail_cubit.dart';
+import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +116,16 @@ class _MoreScreenState extends State<MoreScreen> {
             icon: Icon(Icons.arrow_right)));
 
     final logout = InkWell(
-        onTap: () {},
+        onTap: () {
+          print('logout');
+          context.read<BranchUserCubit>().toInitialState();
+          context.read<DocumentCubit>().toInitialState();
+          context.read<MailCubit>().toInitialState();
+          context.read<ImageCubit>().toInitialState();
+          context.read<QrCubit>().initial();
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              '/login', (Route<dynamic> route) => true);
+        },
         child: GFListTile(
             avatar: GFAvatar(
               backgroundColor: Colors.grey[600],
@@ -233,11 +246,15 @@ class _MoreScreenState extends State<MoreScreen> {
                         if ((state is ImageLoading) || (state is ImageError)) {
                           return CircularProgressIndicator.adaptive();
                         } else if (state is ImageUploaded) {
-                          return ClipOval(
-                            child: Image.network(
-                              (state.download_url),
-                              width: 110,
-                              height: 110,
+                          return CircleAvatar(
+                            radius: 55,
+                            child: ClipOval(
+                              child: Image.network(
+                                (state.download_url),
+                                width: 110,
+                                height: 110,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           );
                         }
