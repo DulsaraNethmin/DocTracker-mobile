@@ -63,7 +63,6 @@ class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
-    //final user_data=(user_state is )
     context.read<BotnavbarCubit>().onSelect(4);
 
     final mails = InkWell(
@@ -205,6 +204,9 @@ class _MoreScreenState extends State<MoreScreen> {
       ],
     );
 
+    final image_url = (user_state is UserLogedin)
+        ? user_state.user.image_url
+        : "https://nethmin-bucket.s3.ap-south-1.amazonaws.com/profile.png";
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: MyBottomNavBar(),
@@ -238,19 +240,15 @@ class _MoreScreenState extends State<MoreScreen> {
                             ),
                           );
                         }
-                        final image = (user_state is UserLogedin)
-                            ? Image.network(
-                                user_state.user.image_url,
-                                width: 110,
-                                height: 110,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.asset(
-                                ('assets/images/profile.png'),
-                                width: 110,
-                                height: 110,
-                                fit: BoxFit.cover,
-                              );
+                        //return Text('');
+                        final image = Image.asset(
+                          'assets/images/profile.png',
+                          //image_url,
+                          width: 110,
+                          height: 110,
+                          fit: BoxFit.cover,
+                        );
+
                         return ClipOval(child: image);
                       }),
                     ),

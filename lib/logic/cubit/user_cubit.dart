@@ -33,6 +33,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future updateProfilePic(String download_url) async {
+    print(download_url);
     UserRepo userRepo = UserRepo();
     try {
       final user_state = state;
