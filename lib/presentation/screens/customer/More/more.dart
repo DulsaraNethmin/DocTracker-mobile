@@ -124,7 +124,7 @@ class _MoreScreenState extends State<MoreScreen> {
           context.read<ImageCubit>().toInitialState();
           context.read<QrCubit>().initial();
           Navigator.of(context).pushNamedAndRemoveUntil(
-              '/login', (Route<dynamic> route) => true);
+              '/login', (Route<dynamic> route) => false);
         },
         child: GFListTile(
             avatar: GFAvatar(
