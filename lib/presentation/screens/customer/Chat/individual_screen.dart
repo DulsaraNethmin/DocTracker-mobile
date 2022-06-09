@@ -115,7 +115,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
     if (mail_state is MailLoaded) {
       print(data);
       await context.read<MailCubit>().sendMail(data);
-      Navigator.pushNamed(context, '/chat');
+      Navigator.pushNamed(context, 'chat');
     }
     //emit event
     socket.emit('new_msg', widget.user.uuid);
