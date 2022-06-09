@@ -3,6 +3,8 @@ import 'package:doctracker/presentation/widgets/text_field_container.dart';
 import 'package:flutter/material.dart';
 
 class OrgScreen extends StatelessWidget {
+  //TextEditingController org = TextEditingController();
+  //TextEditingController branch = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +22,7 @@ class OrgScreen extends StatelessWidget {
           children: <Widget>[
             TextFieldContainer(
               child: TextField(
+                //controller: org,
                 decoration: InputDecoration(
                   hintText: "Organization",
                   border: InputBorder.none,
@@ -28,6 +31,7 @@ class OrgScreen extends StatelessWidget {
             ),
             TextFieldContainer(
               child: TextField(
+                  //controller: branch,
                   decoration: InputDecoration(
                 hintText: "Branch",
                 border: InputBorder.none,
