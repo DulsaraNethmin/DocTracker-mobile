@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         _password_controller.text,
                         context);
                     if (context.read<UserCubit>().state is UserLogedin) {
-                      Navigator.pushNamed(context, '/customer/home');
+                      Navigator.pushNamed(context, 'customerhome');
                     }
                   },
                   child: Text(
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
                   color: kPrimaryColor,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/deleverer/home');
+                    Navigator.pushNamed(context, 'delivererhome');
                   },
                   child: Text(
                     "Sign in as Deliverer",

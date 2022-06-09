@@ -64,7 +64,7 @@ class _QRScannerState extends State<QRScanner> {
                   ? _bottom_sheet_controller.hideBottomSheet()
                   : _bottom_sheet_controller.showBottomSheet();
               //_bottom_sheet_controller.showBottomSheet();
-              Navigator.pushNamed(context, '/qr/action');
+              Navigator.pushNamed(context, 'qraction');
             },
           );
         } else {

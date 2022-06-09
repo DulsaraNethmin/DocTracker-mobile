@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomNavBar extends StatefulWidget {
-  //MyBottomNavBar({Key? key}) : super(key: key);
+  BottomNavBar({Key? key}) : super(key: key);
 
   @override
   State<BottomNavBar> createState() => BottomNavBarState();
@@ -44,7 +44,7 @@ class BottomNavBarState extends State<BottomNavBar> {
         switch (value) {
           case 0:
             context.read<BotnavbarCubit>().onSelect(0);
-            Navigator.pushNamed(context, '/deliverer/home');
+            Navigator.pushNamed(context, 'delivererhome');
             break;
           case 1:
             context.read<BotnavbarCubit>().onSelect(1);
@@ -59,7 +59,7 @@ class BottomNavBarState extends State<BottomNavBar> {
           case 3:
             context.read<BotnavbarCubit>().onSelect(3);
             print("clicked");
-            Navigator.pushNamed(context, '/deliverer/more');
+            Navigator.pushNamed(context, 'deliverermore');
             index = 3;
             break;
         }

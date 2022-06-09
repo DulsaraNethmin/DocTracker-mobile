@@ -74,6 +74,12 @@ class DelivererHome extends StatelessWidget {
           //     ],
           //   ),
           // ),
+          MaterialButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/more/del');
+            },
+            child: Text('More screen'),
+          )
         ],
       ),
       //),

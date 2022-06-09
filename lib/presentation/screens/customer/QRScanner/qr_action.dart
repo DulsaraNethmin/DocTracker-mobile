@@ -104,7 +104,7 @@ class _QrActionScreenState extends State<QrActionScreen> {
                 final uuid =
                     (user_state is UserLogedin) ? user_state.uuid : '000';
                 if (qr_data.currentUserId == uuid)
-                  Navigator.pushNamed(context, '/qrnext');
+                  Navigator.pushNamed(context, 'qrnext');
                 else {
                   //Scaffold.of(context).showSnackBar(snackbar);
                   ScaffoldMessenger.of(context).showSnackBar(snackbar);

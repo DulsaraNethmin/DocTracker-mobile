@@ -72,7 +72,7 @@ class _MoreScreenState extends State<MoreScreen> {
 
     final mails = InkWell(
         onTap: () {
-          Navigator.pushNamed(context, '/chat');
+          Navigator.pushNamed(context, 'chat');
         },
         child: GFListTile(
             avatar: GFAvatar(
@@ -125,7 +125,7 @@ class _MoreScreenState extends State<MoreScreen> {
           context.read<QrCubit>().initial();
           context.read<BotnavbarCubit>().toInitialState();
           Navigator.of(context).pushNamedAndRemoveUntil(
-              '/login', (Route<dynamic> route) => false);
+              'login', (Route<dynamic> route) => false);
         },
         child: GFListTile(
             avatar: GFAvatar(

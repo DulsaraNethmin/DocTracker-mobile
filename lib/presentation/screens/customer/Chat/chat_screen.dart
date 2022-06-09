@@ -43,7 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
   FloatingActionButton actionBtn(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/chat/search');
+        Navigator.pushNamed(context, 'chatsearch');
       },
       backgroundColor: Color.fromARGB(255, 91, 57, 160),
       child: Icon(

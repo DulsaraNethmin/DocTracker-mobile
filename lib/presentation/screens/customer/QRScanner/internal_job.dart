@@ -108,7 +108,7 @@ class _InternalJobState extends State<InternalJob> {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/select/customer');
+                    Navigator.pushNamed(context, 'selectcustomer');
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

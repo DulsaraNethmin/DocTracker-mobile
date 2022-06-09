@@ -38,7 +38,7 @@ class WelcomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
                 color: kPrimaryColor,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login');
+                  Navigator.pushNamed(context, 'login');
                 },
                 child: Text(
                   "Sign In",
@@ -50,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
                 color: kPrimaryColor,
                 onPressed: () {
-                  Navigator.pushNamed(context, '/org');
+                  Navigator.pushNamed(context, 'org');
                 },
                 child: Text(
                   "Join an Organization",

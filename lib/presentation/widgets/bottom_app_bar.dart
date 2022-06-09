@@ -26,25 +26,25 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
         switch (value) {
           case 0:
             context.read<BotnavbarCubit>().onSelect(0);
-            Navigator.pushNamed(context, '/customer/home');
+            Navigator.pushNamed(context, 'customerhome');
             break;
           case 1:
             context.read<BotnavbarCubit>().onSelect(1);
-            Navigator.pushNamed(context, '/search');
+            Navigator.pushNamed(context, 'search');
             break;
           case 2:
             context.read<BotnavbarCubit>().onSelect(2);
-            Navigator.pushNamed(context, '/qr');
+            Navigator.pushNamed(context, 'qr');
             index = 2;
             break;
           case 3:
             context.read<BotnavbarCubit>().onSelect(3);
-            Navigator.pushNamed(context, '/track');
+            Navigator.pushNamed(context, 'track');
             index = 3;
             break;
           case 4:
             context.read<BotnavbarCubit>().onSelect(4);
-            Navigator.pushNamed(context, '/more');
+            Navigator.pushNamed(context, 'more');
             index = 4;
             break;
         }

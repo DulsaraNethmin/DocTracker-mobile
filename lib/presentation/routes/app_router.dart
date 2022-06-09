@@ -25,61 +25,61 @@ import '../screens/customer/QRScanner/external_job.dart';
 class AppRouter {
   Route onGeneratedRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case '/':
+      case 'welcome':
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
         break;
-      case '/login':
+      case 'login':
         return MaterialPageRoute(builder: (_) => LoginScreen());
         break;
-      case '/org':
+      case 'org':
         return MaterialPageRoute(builder: (_) => OrgScreen());
         break;
-      case '/admin':
+      case 'admin':
         return MaterialPageRoute(builder: (_) => AdminSelect());
         break;
-      case '/personal':
+      case 'personal':
         return MaterialPageRoute(builder: (_) => Personal());
         break;
-      case '/customer/home':
+      case 'customerhome':
         return MaterialPageRoute(builder: (_) => CustomerHome());
         break;
-      case '/qr':
+      case 'qr':
         return MaterialPageRoute(builder: (_) => QRScanner());
         break;
-      case '/qrnext':
+      case 'qrnext':
         return MaterialPageRoute(builder: (_) => QRNext());
         break;
-      case '/internaljob':
+      case 'internaljob':
         return MaterialPageRoute(builder: (_) => InternalJob());
         break;
-      case '/externaljob':
+      case 'externaljob':
         return MaterialPageRoute(builder: (_) => ExternalJob());
         break;
-      case '/search':
+      case 'search':
         return MaterialPageRoute(builder: (_) => SearchDoc());
         break;
-      case '/chat':
+      case 'chat':
         return MaterialPageRoute(builder: (_) => ChatScreen());
         break;
-      case '/chat/search':
+      case 'chatsearch':
         return MaterialPageRoute(builder: (_) => UserSearch());
         break;
-      case '/more':
+      case 'more':
         return MaterialPageRoute(builder: (_) => MoreScreen());
         break;
-      case '/qr/action':
+      case 'qraction':
         return MaterialPageRoute(builder: (_) => QrActionScreen());
         break;
-      case '/deleverer/home':
+      case 'delivererhome':
         return MaterialPageRoute(builder: (_) => DelivererHome());
         break;
-      case '/deleverer/more':
+      case 'deliverermore':
         return MaterialPageRoute(builder: (_) => DelMoreScreen());
         break;
-      case '/jobs':
+      case 'jobs':
         return MaterialPageRoute(builder: (_) => JobsScreen());
         break;
-      case '/select/customer':
+      case 'selectcustomer':
         return MaterialPageRoute(builder: (_) => SelectCustomer());
         break;
       default:
