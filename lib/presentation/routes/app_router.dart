@@ -25,7 +25,7 @@ import '../screens/customer/QRScanner/external_job.dart';
 class AppRouter {
   Route onGeneratedRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
-      case 'welcome':
+      case '/':
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
         break;
       case 'login':
