@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: kPrimaryColor,
                   onPressed: () async {
                     print(_username_controller.text);
-                    await context.read<UserCubit>().getUser(
+                    await context.read<UserCubit>().verifyCustomer(
                         _username_controller.text,
                         _password_controller.text,
                         context);
