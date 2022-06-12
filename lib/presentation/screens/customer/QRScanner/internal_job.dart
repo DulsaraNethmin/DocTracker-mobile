@@ -1,5 +1,6 @@
 import 'package:doctracker/data/model/new_job_model.dart';
 import 'package:doctracker/data/model/qr_scanModel.dart';
+import 'package:doctracker/logic/algorithms/single_job_validator.dart';
 import 'package:doctracker/logic/cubit/end_customer_cubit.dart';
 import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
@@ -140,40 +141,38 @@ class _InternalJobState extends State<InternalJob> {
         ],
       ),
     );
-
+    final snackbar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      content: Text('Selected Document is already in the Job Ayyay.'),
+      action: SnackBarAction(
+        label: 'Action',
+        onPressed: () {},
+      ),
+    );
     final done_button = MaterialButton(
         minWidth: MediaQuery.of(context).size.width * 0.8,
         child: Text('Add to List'),
         color: Colors.amberAccent[400],
         onPressed: () {
-          final end_customer_select_state =
-              context.read<EndCustomerCubit>().state;
-          List<NewJob> temp_arr =
-              (new_job_state is NewJobs) ? new_job_state.jobs : [];
-          temp_arr.add(NewJob(
-            doc_id: qr_data.docId,
-            doc_name: qr_data.docName,
-            end_customer: (end_customer_select_state is EndCustomerSelected)
-                ? end_customer_select_state.name
-                : "000",
-            from_customer:
-                (user_state is UserLogedin) ? user_state.uuid : "000",
-          ));
-          context.read<NewJobCubit>().jobArray(temp_arr);
+          if (!isJobExist(qr_data.docId, context)) {
+            final end_customer_select_state =
+                context.read<EndCustomerCubit>().state;
+            List<NewJob> temp_arr =
+                (new_job_state is NewJobs) ? new_job_state.jobs : [];
+            temp_arr.add(NewJob(
+              doc_id: qr_data.docId,
+              doc_name: qr_data.docName,
+              end_customer: (end_customer_select_state is EndCustomerSelected)
+                  ? end_customer_select_state.name
+                  : "000",
+              from_customer:
+                  (user_state is UserLogedin) ? user_state.uuid : "000",
+            ));
+            context.read<NewJobCubit>().jobArray(temp_arr);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          }
         });
-
-    // final create_button = MaterialButton(
-    //     minWidth: MediaQuery.of(context).size.width * 0.9,
-    //     child: Text('Create Job'),
-    //     color: Colors.amberAccent[400],
-    //     onPressed: () {
-    //       //context.read<QrCubit>().setInternal();
-    //       Navigator.pushNamed(context, '/qr');
-    //     });
-    // final create_button_potition = Align(
-    //   child: create_button,
-    //   alignment: Alignment.bottomLeft,
-    // );
     final action_button = FloatingActionButton(
       onPressed: () {
         Navigator.pushAndRemoveUntil(
