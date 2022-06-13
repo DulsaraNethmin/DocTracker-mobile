@@ -38,6 +38,23 @@ class MailCubit extends Cubit<MailState> {
     }
   }
 
+  Future sendRequestMail(Map body, {String}) async {
+    MailRepo mailRepo = MailRepo();
+    final mail_state = state;
+    try {
+      Mail mail = await mailRepo.sendMail(body);
+      print(mail);
+      // List<Mail> arr = (mail_state is MailLoaded) ? mail_state.sentMails : [];
+      // List<Mail> arr2 =
+      //     (mail_state is MailLoaded) ? mail_state.receivedMails : [];
+      // arr.add(mail);
+      // emit(MailLoaded(sentMails: arr, receivedMails: arr2));
+    } catch (e) {
+      print('error');
+      print(e.toString());
+    }
+  }
+
   void toInitialState() {
     emit(MailLoading());
   }

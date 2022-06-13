@@ -1,4 +1,5 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/logic/cubit/branch_admin_cubit.dart';
 import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
 import 'package:doctracker/logic/cubit/chat_cubit.dart';
 import 'package:doctracker/logic/cubit/end_customer_cubit.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => NewJobCubit()),
         BlocProvider(create: (context) => EndCustomerCubit()),
         BlocProvider(create: (context) => JwtTokenCubit()),
+        BlocProvider(create: (context) => BranchAdminCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -24,4 +24,12 @@ class UserProvider {
         queryParameters: {"uuid": uuid, "token": token});
     return res;
   }
+
+  Future<Response> getAdminId(String end_point, String branch) async {
+    var dio = Dio();
+    final url = restAPI + end_point;
+    print(url);
+    var res = await dio.get(url, queryParameters: {"branch": branch});
+    return res;
+  }
 }

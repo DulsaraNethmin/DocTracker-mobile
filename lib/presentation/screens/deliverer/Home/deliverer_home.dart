@@ -57,58 +57,15 @@ class DelivererHome extends StatelessWidget {
               ),
             ),
           ),
-          // Container(
-          //   child: GridView.count(
-          //     crossAxisCount: 2,
-          //     crossAxisSpacing: 8,
-          //     childAspectRatio: 1.0,
-          //     children: [
-          //       selectBoxes(
-          //         //image: 'assets/images/logo.png',
-          //         name: 'Tracking',
-          //       ),
-          //       selectBoxes(
-          //         //image: 'assets/images/logo.png',
-          //         name: 'Payments',
-          //       ),
-          //     ],
-          //   ),
-          // ),
           MaterialButton(
             onPressed: () {
               Navigator.pushNamed(context, '/more/del');
             },
-            child: Text('More screen'),
+            //child: Text('More screen'),
           )
         ],
       ),
-      //),
       bottomNavigationBar: BottomNavBar(),
     );
   }
-}
-
-Widget selectBoxes({required String name}) {
-  return Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5.0),
-        border: Border.all(color: Colors.black, width: 2)),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Container(
-        //   height: 8,
-        //   decoration:
-        //       BoxDecoration(image: DecorationImage(image: AssetImage(image))),
-        // ),
-        SizedBox(
-          height: 3,
-        ),
-        Text(
-          name,
-          style: TextStyle(fontSize: 5),
-        ),
-      ],
-    ),
-  );
 }

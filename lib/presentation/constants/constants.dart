@@ -8,5 +8,5 @@ const kPrimaryLightColor = Color(0xFFF1E6FF);
 //......const realTime = 'https://intense-anchorage-44762.herokuapp.com/';
 
 //dev mode
-const restAPI = 'http://192.168.204.118:8080';
+const restAPI = 'http://192.168.1.7:8080';
 const realTime = 'http://192.168.1.3:8000';
