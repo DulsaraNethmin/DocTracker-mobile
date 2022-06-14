@@ -33,7 +33,7 @@ class Personal extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextFieldContainer(
-                  child: TextField(
+                  child: TextFormField(
                     decoration: InputDecoration(
                       hintText: "Name",
                       border: InputBorder.none,
@@ -50,17 +50,21 @@ class Personal extends StatelessWidget {
                     ),
                     validator: (email) =>
                         email != null && !EmailValidator.validate(email)
-                            ? 'Enter valid'
+                            ? 'Enter valid email'
                             : null,
                     controller: emailController,
                   ),
                 ),
                 TextFieldContainer(
-                  child: TextField(
+                  child: TextFormField(
                     decoration: InputDecoration(
                       hintText: "Mobile Number",
                       border: InputBorder.none,
                     ),
+                    validator: (phone) =>
+                        phone != null && !RegExp('^[0-9]{10}').hasMatch(phone)
+                            ? 'Enter correct phone number'
+                            : null,
                     controller: mobileNoController,
                   ),
                 ),
@@ -71,6 +75,7 @@ class Personal extends StatelessWidget {
                     final form = formkey.currentState;
                     if (form!.validate()) {
                       final email = emailController.text;
+                      final phone = mobileNoController.text;
 
                       String body =
                           " Name : ${nameController.text} Email : ${emailController.text} Mobile No. : ${mobileNoController.text}";
