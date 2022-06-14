@@ -1,5 +1,6 @@
 import 'package:doctracker/data/model/new_job_model.dart';
 import 'package:doctracker/data/model/qr_scanModel.dart';
+import 'package:doctracker/data/provider/newJobProvider.dart';
 import 'package:doctracker/logic/algorithms/single_job_validator.dart';
 import 'package:doctracker/logic/cubit/end_customer_cubit.dart';
 import 'package:doctracker/logic/cubit/new_job_cubit.dart';
@@ -149,6 +150,15 @@ class _InternalJobState extends State<InternalJob> {
         onPressed: () {},
       ),
     );
+
+    final snackbar_job_error = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      content: Text('job create error.'),
+      action: SnackBarAction(
+        label: 'Action',
+        onPressed: () {},
+      ),
+    );
     final done_button = MaterialButton(
         minWidth: MediaQuery.of(context).size.width * 0.8,
         child: Text('Add to List'),
@@ -165,6 +175,10 @@ class _InternalJobState extends State<InternalJob> {
               end_customer: (end_customer_select_state is EndCustomerSelected)
                   ? end_customer_select_state.name
                   : "000",
+              end_customer_id:
+                  (end_customer_select_state is EndCustomerSelected)
+                      ? end_customer_select_state.uuid
+                      : "000",
               from_customer:
                   (user_state is UserLogedin) ? user_state.uuid : "000",
             ));
@@ -194,7 +208,44 @@ class _InternalJobState extends State<InternalJob> {
             style: TextStyle(fontSize: 20, color: Colors.grey[200]),
           ),
           TextButton(
-              onPressed: () {
+              onPressed: () async {
+                final body = {
+                  "branch_id": (user_state is UserLogedin)
+                      ? user_state.user.branchId
+                      : "000",
+                  "deliverer_id": null,
+                  "customer_id":
+                      (user_state is UserLogedin) ? user_state.uuid : "000"
+                };
+                try {
+                  var response = await NewJobProvider().createJob(body);
+                  print(response.data);
+                  List job_arr = [];
+                  var jobs =
+                      (new_job_state is NewJobs) ? new_job_state.jobs : [];
+                  for (int i = 0; i < jobs.length; i++) {
+                    job_arr.add({
+                      "doc_id": jobs[i].doc_id,
+                      "end_customer": jobs[i].end_customer_id,
+                      "is_completed": false
+                    });
+                  }
+                  final body_job = {
+                    "job_id": response.data["uuid"],
+                    "customer":
+                        (user_state is UserLogedin) ? user_state.uuid : "000",
+                    "deliveries": job_arr
+                  };
+
+                  var response_2 =
+                      await NewJobProvider().addNewDeliveries(body_job);
+                  print(response_2.data);
+                } catch (e) {
+                  print(e);
+                  //if(e.)
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(snackbar_job_error);
+                }
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute<void>(
