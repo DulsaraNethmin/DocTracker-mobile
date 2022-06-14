@@ -13,10 +13,10 @@ class NewJobProvider {
     return response;
   }
 
-  // Future<Response> addNewDeliveries(List<NewJob> body) async {
-  //   List<dynamic> jobs = [];
-  //   for(int i=0;i<body.length;i++){
-  //     body[i].
-  //   }
-  // }
+  Future<Response> addNewDeliveries(Map body) async {
+    final url = base_url + '/job/add/deliveries';
+    var response = await dio.post(url, data: body);
+    print(response.data);
+    return response;
+  }
 }

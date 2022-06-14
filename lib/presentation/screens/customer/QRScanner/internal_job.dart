@@ -175,6 +175,10 @@ class _InternalJobState extends State<InternalJob> {
               end_customer: (end_customer_select_state is EndCustomerSelected)
                   ? end_customer_select_state.name
                   : "000",
+              end_customer_id:
+                  (end_customer_select_state is EndCustomerSelected)
+                      ? end_customer_select_state.uuid
+                      : "000",
               from_customer:
                   (user_state is UserLogedin) ? user_state.uuid : "000",
             ));
@@ -216,6 +220,26 @@ class _InternalJobState extends State<InternalJob> {
                 try {
                   var response = await NewJobProvider().createJob(body);
                   print(response.data);
+                  List job_arr = [];
+                  var jobs =
+                      (new_job_state is NewJobs) ? new_job_state.jobs : [];
+                  for (int i = 0; i < jobs.length; i++) {
+                    job_arr.add({
+                      "doc_id": jobs[i].doc_id,
+                      "end_customer": jobs[i].end_customer_id,
+                      "is_completed": false
+                    });
+                  }
+                  final body_job = {
+                    "job_id": response.data["uuid"],
+                    "customer":
+                        (user_state is UserLogedin) ? user_state.uuid : "000",
+                    "deliveries": job_arr
+                  };
+
+                  var response_2 =
+                      await NewJobProvider().addNewDeliveries(body_job);
+                  print(response_2.data);
                 } catch (e) {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(snackbar_job_error);
