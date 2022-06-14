@@ -241,9 +241,10 @@ class _InternalJobState extends State<InternalJob> {
                       await NewJobProvider().addNewDeliveries(body_job);
                   print(response_2.data);
                 } catch (e) {
+                  print(e);
+                  //if(e.)
                   ScaffoldMessenger.of(context)
                       .showSnackBar(snackbar_job_error);
-                  print(e);
                 }
                 Navigator.pushAndRemoveUntil(
                     context,
