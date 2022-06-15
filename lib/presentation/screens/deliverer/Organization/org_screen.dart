@@ -41,7 +41,7 @@ class OrgScreen extends StatelessWidget {
                 controller: branchController,
               ),
             ),
-            Text(""),
+            SizedBox(height: 10),
             MaterialButton(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 70),
                 color: kPrimaryColor,

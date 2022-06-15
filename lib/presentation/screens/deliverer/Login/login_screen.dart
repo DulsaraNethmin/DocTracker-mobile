@@ -34,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 "Sign in as a Customer or as a Deliverer to continue",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
+              SizedBox(height: 20),
               TextFieldContainer(
                 child: TextFormField(
                   controller: _username_controller,
@@ -55,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: kPrimaryColor,
                         ))),
               ),
+              SizedBox(height: 20),
               MaterialButton(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
                   color: kPrimaryColor,
@@ -73,15 +75,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(color: Colors.white),
                   )),
               MaterialButton(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 55),
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 60),
                   color: kPrimaryColor,
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.pushNamed(context, 'delivererhome');
                   },
                   child: Text(
                     "Sign in as Deliverer",
                     style: TextStyle(color: Colors.white),
                   )),
+              SizedBox(height: 10),
               Text(
                 "Forgot Password?",
                 style: TextStyle(fontWeight: FontWeight.bold),
