@@ -41,6 +41,22 @@ class UserRepo {
     return user;
   }
 
+  Future<User> verifyDeliverer(
+      String username, String password, BuildContext context) async {
+    final response = await _userProvider.verifyDeliverer(
+        '/user/verify/deliverer', {"username": username, "password": password});
+    print(response.data[0]);
+    final data = response.data[0];
+    final token = response.data[0]["token"];
+    context.read<JwtTokenCubit>().getToken(token);
+    print(token);
+    final jsonData = jsonEncode(data);
+    print(jsonData);
+    final user = User.fromJson(jsonDecode(jsonData));
+    print("hi");
+    return user;
+  }
+
   Future<User> updateProfilePic(
       String download_url, String uuid, String token) async {
     print(download_url + "   " + uuid);

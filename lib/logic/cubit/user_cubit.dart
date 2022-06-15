@@ -55,6 +55,26 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+  Future verifyDeliverer(
+      String username, String password, BuildContext context) async {
+    UserRepo userRepo = UserRepo();
+    try {
+      User user = await userRepo.verifyDeliverer(username, password, context);
+      print(user.name);
+      if (user.username == username) {
+        setUser(user.username, user.uuid, user);
+      } else {
+        emit(UserLogedout(is_logout: true));
+      }
+      //emit(UserState(username: user.name, uuid: user.uuid, user: user));
+    } catch (e) {
+      print('error');
+      //emit(UserState(username: "No Body", uuid: uuid, user: user))
+      emit(UserLogedout(is_logout: true));
+      print(e.toString());
+    }
+  }
+
   Future updateProfilePic(String download_url, BuildContext context) async {
     print(download_url);
     UserRepo userRepo = UserRepo();
