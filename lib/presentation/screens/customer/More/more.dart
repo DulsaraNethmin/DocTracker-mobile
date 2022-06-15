@@ -95,7 +95,9 @@ class _MoreScreenState extends State<MoreScreen> {
             icon: Icon(Icons.arrow_right)));
 
     final help = InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, 'help');
+        },
         child: GFListTile(
             avatar: GFAvatar(
                 backgroundColor: Colors.grey[600],
