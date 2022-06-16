@@ -49,8 +49,10 @@ class OrgScreen extends StatelessWidget {
                   String org = orgController.text;
                   String branch = branchController.text;
                   print('inside');
-                  var res = await UserProvider()
-                      .getAdminId('/user/get/admin/id', branchController.text);
+                  var res = await UserProvider().getAdminId(
+                      '/user/get/admin/id',
+                      branchController.text,
+                      orgController.text);
                   print(res.data);
                   context
                       .read<BranchAdminCubit>()
@@ -61,8 +63,6 @@ class OrgScreen extends StatelessWidget {
                   "Continue",
                   style: TextStyle(color: Colors.white),
                 )),
-            Text(""),
-            Text(""),
           ],
         ),
       )),

@@ -19,21 +19,18 @@ class WelcomeScreen extends StatelessWidget {
               width: size.width * 0.3,
               height: size.height * 0.2,
             ),
-            Text(""),
+            SizedBox(height: 10),
             Text(
               "DocTracker",
               style: TextStyle(fontWeight: FontWeight.bold),
               textScaleFactor: 3,
             ),
-            Text(""),
+            SizedBox(height: 10),
             Text(
               "We remember your Docs",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            Text(""),
-            Text(""),
-            Text(""),
-            Text(""),
+            SizedBox(height: 40),
             MaterialButton(
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
                 color: kPrimaryColor,
@@ -44,10 +41,9 @@ class WelcomeScreen extends StatelessWidget {
                   "Sign In",
                   style: TextStyle(color: Colors.white),
                 )),
-            Text(""),
-            Text(""),
+            SizedBox(height: 30),
             MaterialButton(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 58),
                 color: kPrimaryColor,
                 onPressed: () {
                   Navigator.pushNamed(context, 'org');
