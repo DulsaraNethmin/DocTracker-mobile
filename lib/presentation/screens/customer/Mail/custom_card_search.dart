@@ -6,8 +6,8 @@ import 'package:doctracker/logic/cubit/end_customer_cubit.dart';
 import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
-import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
-import 'package:doctracker/presentation/screens/customer/Chat/search_result_user.dart';
+import 'package:doctracker/presentation/screens/customer/Mail/individual_screen.dart';
+import 'package:doctracker/presentation/screens/customer/Mail/search_result_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
