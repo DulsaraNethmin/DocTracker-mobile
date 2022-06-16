@@ -3,7 +3,7 @@ import 'package:doctracker/logic/algorithms/search_branch_user.dart';
 import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
 import 'package:doctracker/logic/cubit/doc_request_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
-import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
+import 'package:doctracker/presentation/screens/customer/Mail/individual_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/model/documentModel.dart';

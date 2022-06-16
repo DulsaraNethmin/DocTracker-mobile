@@ -1,7 +1,7 @@
 import 'package:doctracker/presentation/screens/Customer/Home/customer_home.dart';
-import 'package:doctracker/presentation/screens/customer/Chat/chat_screen.dart';
-import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
-import 'package:doctracker/presentation/screens/customer/Chat/user_search.dart';
+import 'package:doctracker/presentation/screens/customer/Mail/chat_screen.dart';
+import 'package:doctracker/presentation/screens/customer/Mail/individual_screen.dart';
+import 'package:doctracker/presentation/screens/customer/Mail/user_search.dart';
 import 'package:doctracker/presentation/screens/customer/Help/help_screen.dart';
 import 'package:doctracker/presentation/screens/customer/More/more.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/internal_job.dart';

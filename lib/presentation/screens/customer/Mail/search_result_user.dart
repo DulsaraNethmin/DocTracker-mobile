@@ -1,6 +1,6 @@
 import 'package:doctracker/data/model/userModel.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
-import 'package:doctracker/presentation/screens/customer/Chat/custom_card_search.dart';
+import 'package:doctracker/presentation/screens/customer/Mail/custom_card_search.dart';
 import 'package:doctracker/presentation/screens/customer/Search/result_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

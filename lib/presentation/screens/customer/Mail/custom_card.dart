@@ -1,7 +1,7 @@
 import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/mailModel.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
-import 'package:doctracker/presentation/screens/customer/Chat/individual_screen.dart';
+import 'package:doctracker/presentation/screens/customer/Mail/individual_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
