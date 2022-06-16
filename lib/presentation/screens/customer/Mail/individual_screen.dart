@@ -2,6 +2,7 @@ import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/mailModel.dart';
 import 'package:doctracker/data/model/messageModel.dart';
 import 'package:doctracker/data/model/userModel.dart';
+import 'package:doctracker/logic/cubit/doc_request_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
@@ -66,16 +67,35 @@ class _IndividualScreenState extends State<IndividualScreen> {
             margin: EdgeInsets.only(left: 2, right: 2, bottom: 8),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: TextFormField(
-              //textAlignVertical: TextAlignVertical.center,
-              controller: _head_controller,
-              keyboardType: TextInputType.multiline,
-              minLines: 1,
-              maxLines: 2,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Mail Head',
-                  contentPadding: EdgeInsets.all(7)),
+            child: BlocBuilder<DocRequestCubit, DocRequestState>(
+              builder: (context, state) {
+                if (state is DocRequest) {
+                  _head_controller.text = "Document Request";
+                  return TextFormField(
+                    //textAlignVertical: TextAlignVertical.center,
+                    controller: _head_controller,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 1,
+                    maxLines: 2,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Document request',
+                        contentPadding: EdgeInsets.all(7)),
+                  );
+                } else {
+                  return TextFormField(
+                    //textAlignVertical: TextAlignVertical.center,
+                    controller: _head_controller,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 1,
+                    maxLines: 2,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Mail Head',
+                        contentPadding: EdgeInsets.all(7)),
+                  );
+                }
+              },
             )));
   }
 
@@ -86,16 +106,27 @@ class _IndividualScreenState extends State<IndividualScreen> {
             margin: EdgeInsets.only(left: 2, right: 2, bottom: 8),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            child: TextFormField(
-              //textAlignVertical: TextAlignVertical.center,
-              controller: _body_controller,
-              keyboardType: TextInputType.multiline,
-              maxLines: 100,
-              minLines: 20,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Type a message...',
-                  contentPadding: EdgeInsets.all(7)),
+            child: BlocBuilder<DocRequestCubit, DocRequestState>(
+              builder: (context, state) {
+                if (state is DocRequest) {
+                  //final doc_name =
+                  //   (state is DocRequest) ? state.doc_name : "000";
+                  //final from_name = (state is DocRequest) ? state.from : "000";
+                  _body_controller.text =
+                      "Doc name : ${state.doc_name} is requested.";
+                }
+                return TextFormField(
+                  //textAlignVertical: TextAlignVertical.center,
+                  controller: _body_controller,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 100,
+                  minLines: 20,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Type a message...',
+                      contentPadding: EdgeInsets.all(7)),
+                );
+              },
             )));
   }
 
