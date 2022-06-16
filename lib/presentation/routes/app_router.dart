@@ -12,6 +12,7 @@ import 'package:doctracker/presentation/screens/customer/QRScanner/select_custom
 import 'package:doctracker/presentation/screens/customer/Search/search_doc.dart';
 import 'package:doctracker/presentation/screens/deliverer/Admin/admin_select.dart';
 import 'package:doctracker/presentation/screens/deliverer/Home/deliverer_home.dart';
+import 'package:doctracker/presentation/screens/deliverer/Job/job_inside_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Job/job_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Login/login_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/More/more_screen.dart';
@@ -79,6 +80,9 @@ class AppRouter {
         break;
       case 'jobs':
         return MaterialPageRoute(builder: (_) => JobsScreen());
+        break;
+      case 'jobinside':
+        return MaterialPageRoute(builder: (_) => JobInside());
         break;
       case 'selectcustomer':
         return MaterialPageRoute(builder: (_) => SelectCustomer());
