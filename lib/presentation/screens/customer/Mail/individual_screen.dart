@@ -150,7 +150,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
       Navigator.pushNamed(context, 'chat');
     }
     //emit event
-    socket.emit('new_msg', widget.user.uuid);
+    socket.emit('new_mail', widget.user.uuid);
     //add mail to arr
     //navigate to chat screen
   }
@@ -195,9 +195,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //print("hello2");
     connect();
   }
 
@@ -212,40 +210,24 @@ class _IndividualScreenState extends State<IndividualScreen> {
     final user_state = context.read<UserCubit>().state;
     String id = (user_state is UserLogedin) ? user_state.uuid : "000";
     socket.emit('signin', id);
-    socket.onConnect((data) {
+    socket.onConnect((_) {
       print("connected");
-      socket.on('msg', (msg) {
-        print(msg);
-        setMessages(
-            "target", msg["message"], msg["time"], msg["from"], msg["to"]);
-        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-            duration: Duration(microseconds: 300), curve: Curves.easeOut);
-      });
     });
     print(socket.connected);
-  }
-
-  void sendMessage(String message, String time, String sender, String target) {
-    socket.emit('msg',
-        {"message": message, "time": time, "from": sender, "to": target});
-    setMessages("sender", message, time, sender, target);
-  }
-
-  void setMessages(
-      String type, String msg, String time, String from, String to) {
-    Message message =
-        Message(type: type, message: msg, time: time, from: from, to: to);
-    setState(() {
-      messages.add(message);
-    });
   }
 
 //build...............................................................................................................
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appbar(context),
-      body: body(context),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        return true;
+      },
+      child: Scaffold(
+        appBar: appbar(context),
+        body: body(context),
+      ),
     );
   }
 }

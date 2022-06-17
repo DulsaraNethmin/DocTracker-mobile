@@ -9,6 +9,7 @@ import 'package:doctracker/logic/cubit/image_cubit.dart';
 import 'package:doctracker/logic/cubit/jwt_token_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/new_job_cubit.dart';
+import 'package:doctracker/logic/cubit/new_mail_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/routes/app_router.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'logic/cubit/document_cubit.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -48,6 +50,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => BranchAdminCubit()),
         BlocProvider(create: (context) => DocSearchCubit()),
         BlocProvider(create: (context) => DocRequestCubit()),
+        BlocProvider(create: (context) => NewMailCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
