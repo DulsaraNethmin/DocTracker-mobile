@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
+import 'package:doctracker/logic/cubit/doc_request_cubit.dart';
 import 'package:doctracker/logic/cubit/document_cubit.dart';
 import 'package:doctracker/logic/cubit/image_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
@@ -126,6 +127,7 @@ class _MoreScreenState extends State<MoreScreen> {
           context.read<ImageCubit>().toInitialState();
           context.read<QrCubit>().initial();
           context.read<BotnavbarCubit>().toInitialState();
+          context.read<DocRequestCubit>().toInitialState();
           Navigator.of(context).pushNamedAndRemoveUntil(
               'login', (Route<dynamic> route) => false);
         },
