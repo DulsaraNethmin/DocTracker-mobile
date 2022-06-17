@@ -83,6 +83,7 @@ class _ChatScreenState extends State<ChatScreen> {
 //......................................................................................................................
   @override
   Widget build(BuildContext context) {
+    print('re-build');
     context.read<BotnavbarCubit>().onSelect(4);
     final mail_state = context.read<MailCubit>().state;
     List<Mail> sentMail =
