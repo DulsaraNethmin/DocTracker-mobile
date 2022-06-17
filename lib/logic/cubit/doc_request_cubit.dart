@@ -11,6 +11,7 @@ class DocRequestCubit extends Cubit<DocRequestState> {
   }
 
   void toInitialState() {
+    print('doc initial state');
     emit(DocRequestInitial());
   }
 }
