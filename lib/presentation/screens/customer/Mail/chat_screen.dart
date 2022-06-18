@@ -3,6 +3,7 @@ import 'package:doctracker/data/model/mailModel.dart';
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/new_mail_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Mail/custom_card.dart';
@@ -20,7 +21,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  late IO.Socket socket;
+  //late IO.Socket socket;
 
   //......................................................................................................................
   final appbar = AppBar(
@@ -55,32 +56,33 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
 //......................................................................................................................
-  void connect() {
-    socket = IO.io(realTime, <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": true
-    });
-    socket.connect();
-    final user_state = context.read<UserCubit>().state;
-    String id = (user_state is UserLogedin) ? user_state.uuid : "000";
-    socket.emit('signin', id);
-    socket.onConnect((data) {
-      print("connected");
-    });
-    print(socket.connected);
-  }
+  // void connect() {
+  //   socket = IO.io(realTime, <String, dynamic>{
+  //     "transports": ["websocket"],
+  //     "autoConnect": true
+  //   });
+  //   socket.connect();
+  //   final user_state = context.read<UserCubit>().state;
+  //   String id = (user_state is UserLogedin) ? user_state.uuid : "000";
+  //   socket.emit('signin', id);
+  //   socket.onConnect((data) {
+  //     print("connected");
+  //   });
+  //   print(socket.connected);
+  // }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    connect();
+    context.read<SocketCubit>().connect(context);
+    //connect();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    socket.disconnect();
+    //socket.disconnect();
     super.dispose();
   }
 
@@ -89,6 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
     final user_id = (user_state is UserLogedin) ? user_state.uuid : "000";
+    final socket_state = context.read<SocketCubit>().state;
     print('re-build');
 
     context.read<BotnavbarCubit>().onSelect(4);
@@ -97,20 +100,21 @@ class _ChatScreenState extends State<ChatScreen> {
         (mail_state is MailLoaded) ? mail_state.sentMails : [];
     List<Mail> receivedMail =
         (mail_state is MailLoaded) ? mail_state.receivedMails : [];
+    // if (socket_state is SocketConnected) {
+    //   socket_state.socket.on('incoming_mail', (msg) async {
+    //     print("msg msg");
+    //     await context.read<MailCubit>().getMails(user_id);
+    //     setState(() {
+    //       sentMail = (mail_state is MailLoaded) ? mail_state.sentMails : [];
+    //     });
 
-    socket.on('incoming_mail', (msg) async {
-      print("msg msg");
-      await context.read<MailCubit>().getMails(user_id);
-      setState(() {
-        sentMail = (mail_state is MailLoaded) ? mail_state.sentMails : [];
-      });
-
-      setState(() {
-        receivedMail =
-            (mail_state is MailLoaded) ? mail_state.receivedMails : [];
-      });
-      context.read<NewMailCubit>().newMail();
-    });
+    //     setState(() {
+    //       receivedMail =
+    //           (mail_state is MailLoaded) ? mail_state.receivedMails : [];
+    //     });
+    //     context.read<NewMailCubit>().newMail();
+    //   });
+    // }
 
     //......................................................................................................................
     return DefaultTabController(
@@ -127,52 +131,69 @@ class _ChatScreenState extends State<ChatScreen> {
         //   },
         // ),
         bottomNavigationBar: MyBottomNavBar(),
-        body: TabBarView(
-          children: [
-            BlocBuilder<MailCubit, MailState>(
-              builder: (context, state) {
-                return BlocBuilder<NewMailCubit, NewMailState>(
-                  builder: (context, mstate) {
-                    if (mstate is NewMailCome) {
-                      context.read<NewMailCubit>().toInitialState();
-                      return CircularProgressIndicator.adaptive();
-                    } else {
-                      return ListView.builder(
-                        itemCount: sentMail.length,
-                        itemBuilder: (context, index) {
-                          return CustomCard(
-                            mail: sentMail[index],
-                          );
-                        },
-                      );
-                    }
-                  },
-                );
-              },
-            ),
-            BlocBuilder<MailCubit, MailState>(
-              builder: (context, state) {
-                return BlocBuilder<NewMailCubit, NewMailState>(
-                  builder: (context, mstate) {
-                    if (mstate is NewMailCome) {
-                      context.read<NewMailCubit>().toInitialState();
-                      return CircularProgressIndicator.adaptive();
-                    } else {
-                      return ListView.builder(
-                        itemCount: receivedMail.length,
-                        itemBuilder: (context, index) {
-                          return CustomCard(
-                            mail: receivedMail[index],
-                          );
-                        },
-                      );
-                    }
-                  },
-                );
-              },
-            ),
-            Center(child: UserSearch()),
-          ],
+        body: BlocListener<MailCubit, MailState>(
+          listener: (context, state) {
+            // TODO: implement listener
+            if (state is MailLoaded) {
+              setState(() {
+                sentMail =
+                    (mail_state is MailLoaded) ? mail_state.sentMails : [];
+              });
+
+              setState(() {
+                receivedMail =
+                    (mail_state is MailLoaded) ? mail_state.receivedMails : [];
+              });
+              context.read<NewMailCubit>().newMail();
+            }
+          },
+          child: TabBarView(
+            children: [
+              BlocBuilder<MailCubit, MailState>(
+                builder: (context, state) {
+                  return BlocBuilder<NewMailCubit, NewMailState>(
+                    builder: (context, mstate) {
+                      if (mstate is NewMailCome) {
+                        context.read<NewMailCubit>().toInitialState();
+                        return CircularProgressIndicator.adaptive();
+                      } else {
+                        return ListView.builder(
+                          itemCount: sentMail.length,
+                          itemBuilder: (context, index) {
+                            return CustomCard(
+                              mail: sentMail[index],
+                            );
+                          },
+                        );
+                      }
+                    },
+                  );
+                },
+              ),
+              BlocBuilder<MailCubit, MailState>(
+                builder: (context, state) {
+                  return BlocBuilder<NewMailCubit, NewMailState>(
+                    builder: (context, mstate) {
+                      if (mstate is NewMailCome) {
+                        context.read<NewMailCubit>().toInitialState();
+                        return CircularProgressIndicator.adaptive();
+                      } else {
+                        return ListView.builder(
+                          itemCount: receivedMail.length,
+                          itemBuilder: (context, index) {
+                            return CustomCard(
+                              mail: receivedMail[index],
+                            );
+                          },
+                        );
+                      }
+                    },
+                  );
+                },
+              ),
+              Center(child: UserSearch()),
+            ],
+          ),
         ),
       ),
     );

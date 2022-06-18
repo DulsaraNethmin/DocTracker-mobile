@@ -11,6 +11,7 @@ import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/logic/cubit/new_mail_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/routes/app_router.dart';
 import 'package:doctracker/presentation/screens/deliverer/Welcome/welcome_screen.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => DocSearchCubit()),
         BlocProvider(create: (context) => DocRequestCubit()),
         BlocProvider(create: (context) => NewMailCubit()),
+        BlocProvider(create: (context) => SocketCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
