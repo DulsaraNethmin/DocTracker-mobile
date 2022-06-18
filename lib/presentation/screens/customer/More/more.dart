@@ -7,6 +7,7 @@ import 'package:doctracker/logic/cubit/document_cubit.dart';
 import 'package:doctracker/logic/cubit/image_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,7 @@ class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
+    final socket_state = context.read<SocketCubit>().state;
     context.read<BotnavbarCubit>().onSelect(4);
 
     final mails = InkWell(
@@ -128,6 +130,7 @@ class _MoreScreenState extends State<MoreScreen> {
           context.read<QrCubit>().initial();
           context.read<BotnavbarCubit>().toInitialState();
           context.read<DocRequestCubit>().toInitialState();
+          if (socket_state is SocketConnected) socket_state.socket.disconnect();
           Navigator.of(context).pushNamedAndRemoveUntil(
               'login', (Route<dynamic> route) => false);
         },

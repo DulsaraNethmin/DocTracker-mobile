@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:doctracker/data/model/mailModel.dart';
+import 'package:doctracker/data/provider/mailProvider.dart';
 import 'package:doctracker/data/repository/mailRepo.dart';
 import 'package:meta/meta.dart';
 
@@ -49,6 +50,18 @@ class MailCubit extends Cubit<MailState> {
       //     (mail_state is MailLoaded) ? mail_state.receivedMails : [];
       // arr.add(mail);
       // emit(MailLoaded(sentMails: arr, receivedMails: arr2));
+    } catch (e) {
+      print('error');
+      print(e.toString());
+    }
+  }
+
+  void deleteMail(String uuid) async {
+    MailProvider mailProvider = MailProvider();
+    final mail_state = state;
+    try {
+      var response = await mailProvider.deleteMail(uuid);
+      print(response);
     } catch (e) {
       print('error');
       print(e.toString());
