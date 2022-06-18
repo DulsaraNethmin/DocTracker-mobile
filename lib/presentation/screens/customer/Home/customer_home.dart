@@ -1,5 +1,6 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
@@ -12,6 +13,7 @@ class CustomerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<BotnavbarCubit>().onSelect(0);
+    context.read<SocketCubit>().connect(context);
     final mail_state = context.read<MailCubit>().state;
     final user_state = context.read<UserCubit>().state;
     if (mail_state is MailLoading) {

@@ -61,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<SocketCubit>().connect(context);
+    //context.read<SocketCubit>().connect(context);
     //connect();
   }
 
