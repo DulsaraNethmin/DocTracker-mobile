@@ -1,3 +1,4 @@
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/widgets/bottom_nav_bar.dart';
@@ -10,6 +11,7 @@ class DelivererHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
+    context.read<SocketCubit>().connect(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
