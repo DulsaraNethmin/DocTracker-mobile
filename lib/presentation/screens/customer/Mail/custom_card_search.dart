@@ -40,7 +40,7 @@ class CustomCardSearch extends StatelessWidget {
         children: [
           ListTile(
             leading: CircleAvatar(
-              child: Image.asset('assets/images/profile.png'),
+              child: Image.network(user.image_url),
               radius: 30,
             ),
             title: Text(
