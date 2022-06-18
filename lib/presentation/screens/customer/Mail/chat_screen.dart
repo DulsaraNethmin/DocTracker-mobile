@@ -56,26 +56,12 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
 //......................................................................................................................
-  // void connect() {
-  //   socket = IO.io(realTime, <String, dynamic>{
-  //     "transports": ["websocket"],
-  //     "autoConnect": true
-  //   });
-  //   socket.connect();
-  //   final user_state = context.read<UserCubit>().state;
-  //   String id = (user_state is UserLogedin) ? user_state.uuid : "000";
-  //   socket.emit('signin', id);
-  //   socket.onConnect((data) {
-  //     print("connected");
-  //   });
-  //   print(socket.connected);
-  // }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<SocketCubit>().connect(context);
+    //context.read<SocketCubit>().connect(context);
     //connect();
   }
 
@@ -100,36 +86,12 @@ class _ChatScreenState extends State<ChatScreen> {
         (mail_state is MailLoaded) ? mail_state.sentMails : [];
     List<Mail> receivedMail =
         (mail_state is MailLoaded) ? mail_state.receivedMails : [];
-    // if (socket_state is SocketConnected) {
-    //   socket_state.socket.on('incoming_mail', (msg) async {
-    //     print("msg msg");
-    //     await context.read<MailCubit>().getMails(user_id);
-    //     setState(() {
-    //       sentMail = (mail_state is MailLoaded) ? mail_state.sentMails : [];
-    //     });
-
-    //     setState(() {
-    //       receivedMail =
-    //           (mail_state is MailLoaded) ? mail_state.receivedMails : [];
-    //     });
-    //     context.read<NewMailCubit>().newMail();
-    //   });
-    // }
 
     //......................................................................................................................
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: appbar,
-        //floatingActionButton: actionBtn(context),
-        // body: ListView.builder(
-        //   itemCount: sentMail.length,
-        //   itemBuilder: (context, index) {
-        //     return CustomCard(
-        //       mail: sentMail[index],
-        //     );
-        //   },
-        // ),
         bottomNavigationBar: MyBottomNavBar(),
         body: BlocListener<MailCubit, MailState>(
           listener: (context, state) {
@@ -149,45 +111,19 @@ class _ChatScreenState extends State<ChatScreen> {
           },
           child: TabBarView(
             children: [
-              BlocBuilder<MailCubit, MailState>(
-                builder: (context, state) {
-                  return BlocBuilder<NewMailCubit, NewMailState>(
-                    builder: (context, mstate) {
-                      if (mstate is NewMailCome) {
-                        context.read<NewMailCubit>().toInitialState();
-                        return CircularProgressIndicator.adaptive();
-                      } else {
-                        return ListView.builder(
-                          itemCount: sentMail.length,
-                          itemBuilder: (context, index) {
-                            return CustomCard(
-                              mail: sentMail[index],
-                            );
-                          },
-                        );
-                      }
-                    },
+              ListView.builder(
+                itemCount: sentMail.length,
+                itemBuilder: (context, index) {
+                  return CustomCard(
+                    mail: sentMail[index],
                   );
                 },
               ),
-              BlocBuilder<MailCubit, MailState>(
-                builder: (context, state) {
-                  return BlocBuilder<NewMailCubit, NewMailState>(
-                    builder: (context, mstate) {
-                      if (mstate is NewMailCome) {
-                        context.read<NewMailCubit>().toInitialState();
-                        return CircularProgressIndicator.adaptive();
-                      } else {
-                        return ListView.builder(
-                          itemCount: receivedMail.length,
-                          itemBuilder: (context, index) {
-                            return CustomCard(
-                              mail: receivedMail[index],
-                            );
-                          },
-                        );
-                      }
-                    },
+              ListView.builder(
+                itemCount: receivedMail.length,
+                itemBuilder: (context, index) {
+                  return CustomCard(
+                    mail: receivedMail[index],
                   );
                 },
               ),
