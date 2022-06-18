@@ -4,6 +4,7 @@ import 'package:doctracker/data/model/messageModel.dart';
 import 'package:doctracker/data/model/userModel.dart';
 import 'package:doctracker/logic/cubit/doc_request_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Mail/own_message_card.dart';
@@ -21,7 +22,7 @@ class IndividualScreen extends StatefulWidget {
 }
 
 class _IndividualScreenState extends State<IndividualScreen> {
-  late IO.Socket socket;
+  //late IO.Socket socket;
   final _message_controller = TextEditingController();
   final _head_controller = TextEditingController();
   final _body_controller = TextEditingController();
@@ -133,6 +134,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
   Future sendMail(BuildContext context) async {
     final user_state = context.read<UserCubit>().state;
     final mail_state = context.read<MailCubit>().state;
+    final socket_state = context.read<SocketCubit>().state;
     final data = {
       "from": (user_state is UserLogedin) ? user_state.uuid : "000",
       "to": widget.user.uuid,
@@ -150,7 +152,10 @@ class _IndividualScreenState extends State<IndividualScreen> {
       Navigator.pushNamed(context, 'chat');
     }
     //emit event
-    socket.emit('new_mail', widget.user.uuid);
+    if (socket_state is SocketConnected) {
+      socket_state.socket.emit('new_mail', widget.user.uuid);
+    }
+    //socket.emit('new_mail', widget.user.uuid);
     //add mail to arr
     //navigate to chat screen
   }
@@ -196,25 +201,25 @@ class _IndividualScreenState extends State<IndividualScreen> {
   @override
   void initState() {
     super.initState();
-    connect();
+    //connect();
   }
 
 //socket io.....................................................................................
-  void connect() {
-    socket = IO.io(realTime, <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": false
-    });
-    print("inside");
-    socket.connect();
-    final user_state = context.read<UserCubit>().state;
-    String id = (user_state is UserLogedin) ? user_state.uuid : "000";
-    socket.emit('signin', id);
-    socket.onConnect((_) {
-      print("connected");
-    });
-    print(socket.connected);
-  }
+  // void connect() {
+  //   socket = IO.io(realTime, <String, dynamic>{
+  //     "transports": ["websocket"],
+  //     "autoConnect": false
+  //   });
+  //   print("inside");
+  //   socket.connect();
+  //   final user_state = context.read<UserCubit>().state;
+  //   String id = (user_state is UserLogedin) ? user_state.uuid : "000";
+  //   socket.emit('signin', id);
+  //   socket.onConnect((_) {
+  //     print("connected");
+  //   });
+  //   print(socket.connected);
+  // }
 
 //build...............................................................................................................
   @override
