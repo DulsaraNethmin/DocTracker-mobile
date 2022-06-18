@@ -246,6 +246,7 @@ class _InternalJobState extends State<InternalJob> {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(snackbar_job_error);
                 }
+
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute<void>(

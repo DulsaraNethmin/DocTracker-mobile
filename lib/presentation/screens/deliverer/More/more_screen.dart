@@ -1,4 +1,6 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +17,13 @@ class _DelMoreScreenState extends State<DelMoreScreen> {
   //const MoreScreen({ Key? key }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final user_state = context.read<UserCubit>().state;
+    final socket_state = context.read<SocketCubit>().state;
     final logout = InkWell(
         onTap: () {
           print('logout');
           context.read<BotnavbarCubit>().toInitialState();
+          if (socket_state is SocketConnected) socket_state.socket.disconnect();
           Navigator.of(context).pushNamedAndRemoveUntil(
               'login', (Route<dynamic> route) => false);
         },
