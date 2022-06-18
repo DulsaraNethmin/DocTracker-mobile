@@ -66,10 +66,6 @@ class _ChatScreenState extends State<ChatScreen> {
     socket.emit('signin', id);
     socket.onConnect((data) {
       print("connected");
-      // socket.on('incoming_mail', (msg) {
-      //   print("msg");
-      //   context.read<MailCubit>().getMails(id);
-      // });
     });
     print(socket.connected);
   }
@@ -113,7 +109,6 @@ class _ChatScreenState extends State<ChatScreen> {
         receivedMail =
             (mail_state is MailLoaded) ? mail_state.receivedMails : [];
       });
-
       context.read<NewMailCubit>().newMail();
     });
 
@@ -140,14 +135,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   builder: (context, mstate) {
                     if (mstate is NewMailCome) {
                       context.read<NewMailCubit>().toInitialState();
-                      return ListView.builder(
-                        itemCount: sentMail.length,
-                        itemBuilder: (context, index) {
-                          return CustomCard(
-                            mail: sentMail[index],
-                          );
-                        },
-                      );
+                      return CircularProgressIndicator.adaptive();
                     } else {
                       return ListView.builder(
                         itemCount: sentMail.length,
@@ -168,14 +156,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   builder: (context, mstate) {
                     if (mstate is NewMailCome) {
                       context.read<NewMailCubit>().toInitialState();
-                      return ListView.builder(
-                        itemCount: sentMail.length,
-                        itemBuilder: (context, index) {
-                          return CustomCard(
-                            mail: sentMail[index],
-                          );
-                        },
-                      );
+                      return CircularProgressIndicator.adaptive();
                     } else {
                       return ListView.builder(
                         itemCount: receivedMail.length,
