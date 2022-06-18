@@ -22,7 +22,6 @@ class IndividualScreen extends StatefulWidget {
 }
 
 class _IndividualScreenState extends State<IndividualScreen> {
-  //late IO.Socket socket;
   final _message_controller = TextEditingController();
   final _head_controller = TextEditingController();
   final _body_controller = TextEditingController();
@@ -155,9 +154,6 @@ class _IndividualScreenState extends State<IndividualScreen> {
     if (socket_state is SocketConnected) {
       socket_state.socket.emit('new_mail', widget.user.uuid);
     }
-    //socket.emit('new_mail', widget.user.uuid);
-    //add mail to arr
-    //navigate to chat screen
   }
 
   MaterialButton mail_button(BuildContext context) {
@@ -201,25 +197,9 @@ class _IndividualScreenState extends State<IndividualScreen> {
   @override
   void initState() {
     super.initState();
-    //connect();
   }
 
 //socket io.....................................................................................
-  // void connect() {
-  //   socket = IO.io(realTime, <String, dynamic>{
-  //     "transports": ["websocket"],
-  //     "autoConnect": false
-  //   });
-  //   print("inside");
-  //   socket.connect();
-  //   final user_state = context.read<UserCubit>().state;
-  //   String id = (user_state is UserLogedin) ? user_state.uuid : "000";
-  //   socket.emit('signin', id);
-  //   socket.onConnect((_) {
-  //     print("connected");
-  //   });
-  //   print(socket.connected);
-  // }
 
 //build...............................................................................................................
   @override
