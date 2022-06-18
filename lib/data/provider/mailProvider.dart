@@ -28,4 +28,12 @@ class MailProvider {
     var res = await dio.post(url, data: body);
     return res;
   }
+
+  Future<Response> deleteMail(String uuid) async {
+    var dio = Dio();
+    final url = base_url + '/mail/delete';
+    print(url);
+    var res = await dio.delete(url, queryParameters: {"uuid": uuid});
+    return res;
+  }
 }

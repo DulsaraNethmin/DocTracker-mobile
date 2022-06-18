@@ -1,5 +1,6 @@
 import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/mailModel.dart';
+import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/customer/Mail/individual_screen.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +39,14 @@ class CustomCard extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                Icon(
-                  Icons.delete_sharp,
-                  color: Colors.black,
+                InkWell(
+                  onTap: () {
+                    context.read<MailCubit>().deleteMail(mail.mailId);
+                  },
+                  child: Icon(
+                    Icons.delete_sharp,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),
