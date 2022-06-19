@@ -78,6 +78,12 @@ class _ChatScreenState extends State<ChatScreen> {
     final user_state = context.read<UserCubit>().state;
     final user_id = (user_state is UserLogedin) ? user_state.uuid : "000";
     final socket_state = context.read<SocketCubit>().state;
+    if (socket_state is SocketConnected) {
+      socket_state.socket.on('incoming_mail', (msg) async {
+        print('new mail comming');
+        await context.read<MailCubit>().getMails(user_id);
+      });
+    }
     print('re-build');
 
     context.read<BotnavbarCubit>().onSelect(4);
