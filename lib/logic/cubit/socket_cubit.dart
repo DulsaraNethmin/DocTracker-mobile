@@ -27,10 +27,10 @@ class SocketCubit extends Cubit<SocketState> {
       emit(SocketConnected(socket: socket));
     });
     print(socket.connected);
-    socket.on('incoming_mail', (msg) async {
-      print("msg msg");
-      await context.read<MailCubit>().getMails(id);
-    });
+    // socket.on('incoming_mail', (msg) async {
+    //   print("msg msg");
+    //   await context.read<MailCubit>().getMails(id);
+    // });
   }
 
   void toInitialState(IO.Socket socket) {
