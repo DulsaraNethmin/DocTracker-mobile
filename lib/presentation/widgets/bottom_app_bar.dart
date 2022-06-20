@@ -46,11 +46,12 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
             break;
           case 2:
             context.read<BotnavbarCubit>().onSelect(2);
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const QRScanner()),
-                (route) => false);
+            Navigator.pushNamed(context, 'qr');
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute<void>(
+            //         builder: (BuildContext context) => const QRScanner()),
+            //     (route) => false);
             index = 2;
             break;
           case 3:

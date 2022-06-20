@@ -5,6 +5,7 @@ import 'package:doctracker/logic/algorithms/single_job_validator.dart';
 import 'package:doctracker/logic/cubit/end_customer_cubit.dart';
 import 'package:doctracker/logic/cubit/new_job_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/main.dart';
 import 'package:doctracker/presentation/screens/customer/Home/customer_home.dart';
@@ -246,7 +247,8 @@ class _InternalJobState extends State<InternalJob> {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(snackbar_job_error);
                 }
-
+                final socket_state = context.read<SocketCubit>().state;
+                if (socket_state is SocketConnected) {}
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute<void>(

@@ -70,6 +70,7 @@ class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
+    final user_id = (user_state is UserLogedin) ? user_state.uuid : "000";
     final socket_state = context.read<SocketCubit>().state;
     context.read<BotnavbarCubit>().onSelect(4);
 
@@ -130,7 +131,10 @@ class _MoreScreenState extends State<MoreScreen> {
           context.read<QrCubit>().initial();
           context.read<BotnavbarCubit>().toInitialState();
           context.read<DocRequestCubit>().toInitialState();
-          if (socket_state is SocketConnected) socket_state.socket.disconnect();
+          if (socket_state is SocketConnected) {
+            socket_state.socket.emit('end', user_id);
+            socket_state.socket.disconnect();
+          }
           Navigator.of(context).pushNamedAndRemoveUntil(
               'login', (Route<dynamic> route) => false);
         },
