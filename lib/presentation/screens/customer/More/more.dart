@@ -135,6 +135,7 @@ class _MoreScreenState extends State<MoreScreen> {
             socket_state.socket.emit('end', user_id);
             socket_state.socket.disconnect();
           }
+          context.read<SocketCubit>().toInitialState();
           Navigator.of(context).pushNamedAndRemoveUntil(
               'login', (Route<dynamic> route) => false);
         },

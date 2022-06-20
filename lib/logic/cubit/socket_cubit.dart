@@ -35,8 +35,7 @@ class SocketCubit extends Cubit<SocketState> {
     // });
   }
 
-  void toInitialState(IO.Socket socket) {
-    socket.disconnect();
+  void toInitialState() {
     emit(SocketInitial());
   }
 }

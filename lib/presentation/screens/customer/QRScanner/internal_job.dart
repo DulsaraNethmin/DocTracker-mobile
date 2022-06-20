@@ -248,7 +248,12 @@ class _InternalJobState extends State<InternalJob> {
                       .showSnackBar(snackbar_job_error);
                 }
                 final socket_state = context.read<SocketCubit>().state;
-                if (socket_state is SocketConnected) {}
+                final branch_id = (user_state is UserLogedin)
+                    ? user_state.user.branchId
+                    : "000";
+                if (socket_state is SocketConnected) {
+                  socket_state.socket.emit('new_job', branch_id);
+                }
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute<void>(
