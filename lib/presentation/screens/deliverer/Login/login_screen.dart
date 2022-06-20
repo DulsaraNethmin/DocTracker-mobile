@@ -78,7 +78,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 60),
                   color: kPrimaryColor,
                   onPressed: () async {
-                    Navigator.pushNamed(context, 'delivererhome');
+                    await context.read<UserCubit>().getUser(
+                        _username_controller.text,
+                        _password_controller.text,
+                        context);
+                    if (context.read<UserCubit>().state is UserLogedin) {
+                      Navigator.pushNamed(context, 'delivererhome');
+                    }
                   },
                   child: Text(
                     "Sign in as Deliverer",
