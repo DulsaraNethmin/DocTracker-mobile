@@ -18,12 +18,17 @@ class _DelMoreScreenState extends State<DelMoreScreen> {
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
+    final user_id = (user_state is UserLogedin) ? user_state.uuid : "000";
     final socket_state = context.read<SocketCubit>().state;
     final logout = InkWell(
         onTap: () {
           print('logout');
           context.read<BotnavbarCubit>().toInitialState();
-          if (socket_state is SocketConnected) socket_state.socket.disconnect();
+          if (socket_state is SocketConnected) {
+            socket_state.socket.emit('end', user_id);
+            socket_state.socket.disconnect();
+          }
+          context.read<SocketCubit>().toInitialState();
           Navigator.of(context).pushNamedAndRemoveUntil(
               'login', (Route<dynamic> route) => false);
         },

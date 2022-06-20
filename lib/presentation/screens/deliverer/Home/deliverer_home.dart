@@ -11,7 +11,10 @@ class DelivererHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;
-    context.read<SocketCubit>().connect(context);
+    final socket_state = context.read<SocketCubit>().state;
+    if (!(socket_state is SocketConnected)) {
+      context.read<SocketCubit>().connect(context);
+    }
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
