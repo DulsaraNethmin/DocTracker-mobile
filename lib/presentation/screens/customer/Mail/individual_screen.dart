@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/mailModel.dart';
 import 'package:doctracker/data/model/messageModel.dart';
@@ -158,6 +159,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
     return MaterialButton(
       onPressed: () {
         sendMail(context);
+        Notify();
       },
       child: Text(
         'Send Mail',
@@ -247,4 +249,14 @@ class _IndividualScreenState extends State<IndividualScreen> {
       body: body(context),
     );
   }
+}
+
+void Notify() async {
+  AwesomeNotifications a = new AwesomeNotifications();
+  await a.createNotification(
+      content: NotificationContent(
+          id: 1,
+          channelKey: 'basic_channel',
+          title: 'Notification',
+          body: 'Mail sent'));
 }

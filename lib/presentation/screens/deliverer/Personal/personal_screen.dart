@@ -89,8 +89,8 @@ class Personal extends StatelessWidget {
                         "body": body
                       };
                       await context.read<MailCubit>().sendRequestMail(data);
-                      Notify();
                       Navigator.pushNamed(context, '/');
+                      Notify();
                     }
                   },
                   child: Text(

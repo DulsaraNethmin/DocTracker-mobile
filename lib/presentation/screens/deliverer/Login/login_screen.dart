@@ -3,6 +3,7 @@ import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/widgets/text_field_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -68,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         context);
                     if (context.read<UserCubit>().state is UserLogedin) {
                       Navigator.pushNamed(context, 'customerhome');
+                      Notify();
                     }
                   },
                   child: Text(
@@ -85,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         context);
                     if (context.read<UserCubit>().state is UserLogedin) {
                       Navigator.pushNamed(context, 'delivererhome');
+                      Notify();
                     }
                   },
                   child: Text(
@@ -102,4 +105,14 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+}
+
+void Notify() async {
+  AwesomeNotifications a = new AwesomeNotifications();
+  await a.createNotification(
+      content: NotificationContent(
+          id: 1,
+          channelKey: 'basic_channel',
+          title: 'Notification',
+          body: 'User logged in'));
 }

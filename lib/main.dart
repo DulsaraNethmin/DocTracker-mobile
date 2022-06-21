@@ -28,25 +28,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsFlutterBinding.ensureInitialized();
     AwesomeNotifications().initialize(
-      // set the icon to null if you want to use the default app icon
-      'resource://drawable/res_app_icon',
+      null,
       [
         NotificationChannel(
-            channelGroupKey: 'basic_channel_group',
+            //channelGroupKey: 'basic_channel_group',
             channelKey: 'basic_channel',
             channelName: 'Basic notifications',
             channelDescription: 'Notification channel for basic tests',
             defaultColor: Color(0xFF9D50DD),
-            ledColor: Colors.white)
+            ledColor: Colors.white,
+            playSound: true,
+            enableLights: true,
+            enableVibration: true)
       ],
-      //     // Channel groups are only visual and are not required
-      //     channelGroups: [
-      //       NotificationChannelGroup(
-      //           channelGroupkey: 'basic_channel_group',
-      //           channelGroupName: 'Basic group')
-      //     ],
-      //     debug: true
     );
 
     SystemChrome.setPreferredOrientations([
