@@ -15,6 +15,22 @@ class UserProvider {
     return res;
   }
 
+  Future<Response> verifyCustomer(String end_point, Map body) async {
+    var dio = Dio();
+    final url = base_url + end_point;
+    print(url);
+    var res = await dio.post(url, data: body);
+    return res;
+  }
+
+  Future<Response> verifyDeliverer(String end_point, Map body) async {
+    var dio = Dio();
+    final url = base_url + end_point;
+    print(url);
+    var res = await dio.post(url, data: body);
+    return res;
+  }
+
   Future<Response> updateProfilePic(
       String download_url, String uuid, String token) async {
     var dio = Dio();

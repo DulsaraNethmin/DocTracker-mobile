@@ -1,7 +1,7 @@
 import 'package:doctracker/data/model/userModel.dart';
 import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
-import 'package:doctracker/presentation/screens/customer/Chat/search_result_user.dart';
+import 'package:doctracker/presentation/screens/customer/Mail/search_result_user.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
