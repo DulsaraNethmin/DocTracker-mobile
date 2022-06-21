@@ -5,14 +5,14 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<Deliveries> deliveriesFromJson(String str) =>
-    List<Deliveries>.from(json.decode(str).map((x) => Deliveries.fromJson(x)));
+List<Delivery> deliveryFromJson(String str) =>
+    List<Delivery>.from(json.decode(str).map((x) => Delivery.fromJson(x)));
 
-String deliveriesToJson(List<Deliveries> data) =>
+String deliveriesToJson(List<Delivery> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Deliveries {
-  Deliveries({
+class Delivery {
+  Delivery({
     required this.jobId,
     required this.customerId,
     required this.customerName,
@@ -36,7 +36,7 @@ class Deliveries {
   final String endCustomerName;
   final int isDeliveryCompleted;
 
-  factory Deliveries.fromJson(Map<String, dynamic> json) => Deliveries(
+  factory Delivery.fromJson(Map<String, dynamic> json) => Delivery(
         jobId: json["job_id"],
         customerId: json["customer_id"],
         customerName: json["customer_name"],
