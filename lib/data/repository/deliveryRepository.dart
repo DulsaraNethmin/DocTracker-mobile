@@ -5,14 +5,14 @@ import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DeliveriesRepository {
+class DeliveryRepository {
   final deliveryProvider = Deliveryprovider();
-  Future<List<Delivery>> getAllDocument(BuildContext context) async {
+  Future<List<Delivery>> getAllDelivery(BuildContext context) async {
     final user_state = context.read<UserCubit>().state;
     final branch_id =
         (user_state is UserLogedin) ? user_state.user.branchId : "000";
     final branch = (user_state is UserLogedin) ? user_state.user.branch : "000";
-    final res = await deliveryProvider.getAllJobs(branch_id);
+    final res = await deliveryProvider.getAllDelivery(branch_id);
     print(res);
     List<Delivery> arr = [];
     for (int i = 0; i < res.data.length; i++) {
