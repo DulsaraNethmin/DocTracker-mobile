@@ -11,4 +11,12 @@ class Deliveryprovider {
     var result = await dio.get(url, queryParameters: {"branch_id": branch_id});
     return result;
   }
+
+  Future<Response> verifyDelivery(String doc_id) async {
+    var dio = Dio();
+    var url = base_url + '/job/verify';
+    print(url + "?" + doc_id);
+    var result = await dio.get(url, queryParameters: {"doc_id": doc_id});
+    return result;
+  }
 }

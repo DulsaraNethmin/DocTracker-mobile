@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:doctracker/data/model/qr_scanModel.dart';
+import 'package:doctracker/data/provider/deliveryProvider.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +83,15 @@ class _QrActionScreenState extends State<QrActionScreen> {
 
     final snackbar = SnackBar(
       behavior: SnackBarBehavior.floating,
-      content: Text('Text label'),
+      content: Text('Document alread in the Job queue.'),
+      action: SnackBarAction(
+        label: 'Action',
+        onPressed: () {},
+      ),
+    );
+    final snackbar_verification_fail = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      content: Text('Document Verification Failed'),
       action: SnackBarAction(
         label: 'Action',
         onPressed: () {},
@@ -99,15 +108,31 @@ class _QrActionScreenState extends State<QrActionScreen> {
           children: [
             Expanded(
                 child: InkWell(
-              onTap: () {
-                print('clicked');
+              onTap: () async {
+                final deliveryProvider = Deliveryprovider();
+
+                //print(res.data);
                 final uuid =
                     (user_state is UserLogedin) ? user_state.uuid : '000';
-                if (qr_data.currentUserId == uuid)
-                  Navigator.pushNamed(context, 'qrnext');
-                else {
+                if (qr_data.currentUserId == uuid) {
+                  try {
+                    var res =
+                        await deliveryProvider.verifyDelivery(qr_data.docId);
+                    print(res.data);
+                    if (res.data[0]['count'] == 0) {
+                      Navigator.pushNamed(context, 'qrnext');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                    }
+                  } catch (e) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(snackbar_verification_fail);
+                    print(e);
+                  }
+                } else {
                   //Scaffold.of(context).showSnackBar(snackbar);
-                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(snackbar_verification_fail);
                 }
               },
               child: Container(
