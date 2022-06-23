@@ -7,6 +7,7 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("inside the card");
     return Container(
         child: Column(
             children: [(list == null) ? Text('') : Text(list![0].docName)]));
