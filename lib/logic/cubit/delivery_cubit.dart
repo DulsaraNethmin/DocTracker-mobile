@@ -1,6 +1,9 @@
+import 'dart:collection';
+
 import 'package:bloc/bloc.dart';
 import 'package:doctracker/data/model/deliveryMode.dart';
 import 'package:doctracker/data/repository/deliveryRepository.dart';
+import 'package:doctracker/logic/algorithms/delivery_management.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
@@ -14,7 +17,8 @@ class DeliveryCubit extends Cubit<DeliveryState> {
     try {
       emit(DeliveryLoading());
       List<Delivery> list = await deliveryRepository.getAllDelivery(context);
-      emit(DeliveryLoaded(delivery_list: list));
+      Map<String, List<Delivery>> map = getJbosAndDeliveris(list);
+      emit(DeliveryLoaded(delivery_list: list, map: map));
     } catch (e) {
       emit(DeliveryError());
     }

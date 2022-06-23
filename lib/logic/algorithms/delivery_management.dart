@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:doctracker/data/model/deliveryMode.dart';
 
 Map<String, List<Delivery>> getJbosAndDeliveris(List<Delivery> list) {
@@ -14,5 +13,6 @@ Map<String, List<Delivery>> getJbosAndDeliveris(List<Delivery> list) {
       map[list[i].jobId] = [list[i]];
     }
   }
+  print(map.keys);
   return map;
 }
