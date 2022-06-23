@@ -30,11 +30,12 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
         switch (value) {
           case 0:
             context.read<BotnavbarCubit>().onSelect(0);
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const CustomerHome()),
-                (route) => false);
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute<void>(
+            //         builder: (BuildContext context) => const CustomerHome()),
+            //     (route) => false);
+            Navigator.pushNamed(context, 'customerhome');
             break;
           case 1:
             context.read<BotnavbarCubit>().onSelect(1);
