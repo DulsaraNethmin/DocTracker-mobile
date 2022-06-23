@@ -28,13 +28,22 @@ class _JobsScreenState extends State<JobsScreen> {
       });
     }
     Map<String, List<Delivery>> map =
-        (delivery_state is DeliveryLoaded) ? delivery_state.map : HashMap();
+        (delivery_state is DeliveryLoaded) ? delivery_state.map : {};
     //map = {};
     if (delivery_state is DeliveryLoaded) print('loaded state');
     print(map);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Jobs'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Job Queue'),
+            Text(
+              "Total: " + map.keys.length.toString(),
+              style: TextStyle(color: Colors.red),
+            )
+          ],
+        ),
         backgroundColor: kPrimaryColor,
       ),
       body: BlocListener<DeliveryCubit, DeliveryState>(

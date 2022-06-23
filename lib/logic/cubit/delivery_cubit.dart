@@ -18,6 +18,7 @@ class DeliveryCubit extends Cubit<DeliveryState> {
       emit(DeliveryLoading());
       List<Delivery> list = await deliveryRepository.getAllDelivery(context);
       Map<String, List<Delivery>> map = getJbosAndDeliveris(list);
+      print("deliveries fetched");
       emit(DeliveryLoaded(delivery_list: list, map: map));
     } catch (e) {
       emit(DeliveryError());
