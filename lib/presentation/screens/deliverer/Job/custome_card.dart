@@ -12,12 +12,17 @@ class CustomCard extends StatelessWidget {
     return (list == null)
         ? Text('')
         : Container(
+            child: InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, 'jobinside');
+            },
             child: GFListTile(
                 avatar: GFAvatar(
                   child: Image.asset('assets/images/new_job_icon.png'),
                 ),
                 titleText: "Job BY: " + list![0].customerName,
                 subTitleText: "Total Deliveries: " + list!.length.toString(),
-                icon: Icon(Icons.arrow_right)));
+                icon: Icon(Icons.arrow_right)),
+          ));
   }
 }
