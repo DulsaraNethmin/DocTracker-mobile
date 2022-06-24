@@ -81,9 +81,9 @@ class AppRouter {
       case 'jobs':
         return MaterialPageRoute(builder: (_) => JobsScreen());
         break;
-      case 'jobinside':
-        return MaterialPageRoute(builder: (_) => JobInside());
-        break;
+      // case 'jobinside':
+      //   return MaterialPageRoute(builder: (_) => JobInside());
+      //   break;
       case 'selectcustomer':
         return MaterialPageRoute(builder: (_) => SelectCustomer());
         break;
