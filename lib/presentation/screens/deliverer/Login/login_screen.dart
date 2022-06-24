@@ -13,9 +13,21 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _username_controller = TextEditingController();
   final _password_controller = TextEditingController();
+  bool _passwordVisible = true;
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    const snackBar = SnackBar(
+      content: Text('Enter a valid user'),
+      backgroundColor: Colors.red,
+    );
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -48,14 +60,24 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFieldContainer(
                 child: TextFormField(
                     controller: _password_controller,
-                    obscureText: true,
+                    obscureText: !_passwordVisible,
                     decoration: InputDecoration(
-                        hintText: "Password1",
-                        border: InputBorder.none,
-                        suffixIcon: Icon(
-                          Icons.visibility,
+                      hintText: "Password1",
+                      border: InputBorder.none,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                           color: kPrimaryColor,
-                        ))),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
+                    )),
               ),
               SizedBox(height: 20),
               MaterialButton(
@@ -70,6 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (context.read<UserCubit>().state is UserLogedin) {
                       Navigator.pushNamed(context, 'customerhome');
                       Notify();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   },
                   child: Text(
@@ -88,6 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (context.read<UserCubit>().state is UserLogedin) {
                       Navigator.pushNamed(context, 'delivererhome');
                       Notify();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   },
                   child: Text(
