@@ -42,6 +42,9 @@ dependencies:
   simple_s3: ^0.3.2
   email_validator: ^2.0.1
   awesome_notifications: any
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.1.7
+  location: ^4.4.0
 
 dev_dependencies:
 

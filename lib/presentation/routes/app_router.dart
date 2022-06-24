@@ -10,6 +10,7 @@ import 'package:doctracker/presentation/screens/customer/QRScanner/qr_next.dart'
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_scanner_screen.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/select_customer.dart';
 import 'package:doctracker/presentation/screens/customer/Search/search_doc.dart';
+import 'package:doctracker/presentation/screens/customer/Tracking/tracking_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Admin/admin_select.dart';
 import 'package:doctracker/presentation/screens/deliverer/Home/deliverer_home.dart';
 import 'package:doctracker/presentation/screens/deliverer/Job/job_screen.dart';
@@ -81,8 +82,8 @@ class AppRouter {
       case 'delivererchat':
         return MaterialPageRoute(builder: (_) => DelChatScreen());
         break;
-      case 'jobs':
-        return MaterialPageRoute(builder: (_) => JobsScreen());
+      case 'track':
+        return MaterialPageRoute(builder: (_) => TrackingPage());
         break;
       case 'selectcustomer':
         return MaterialPageRoute(builder: (_) => SelectCustomer());
