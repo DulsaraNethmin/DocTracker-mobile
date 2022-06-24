@@ -23,4 +23,19 @@ class DeliveryRepository {
     }
     return arr;
   }
+
+  Future<List<Delivery>> getAllMyDelivery(BuildContext context) async {
+    final user_state = context.read<UserCubit>().state;
+    final uuid = (user_state is UserLogedin) ? user_state.uuid : "000";
+    final res = await deliveryProvider.getAllMyDelivery(uuid);
+    print(res);
+    List<Delivery> arr = [];
+    for (int i = 0; i < res.data.length; i++) {
+      final jsonData = jsonEncode(res.data[i]);
+      final jsondata2 = jsonDecode(jsonData);
+      final delivery_data = Delivery.fromJson(jsondata2);
+      arr.add(delivery_data);
+    }
+    return arr;
+  }
 }
