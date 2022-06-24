@@ -1,6 +1,10 @@
 import 'package:doctracker/data/model/deliveryMode.dart';
+import 'package:doctracker/data/provider/deliveryProvider.dart';
+import 'package:doctracker/data/provider/userProvider.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getwidget/getwidget.dart';
 
 class JobInside extends StatelessWidget {
@@ -24,32 +28,38 @@ class JobInside extends StatelessWidget {
           backgroundImage: AssetImage('assets/images/profile.png'),
         ),
         titleText: list![0].customerName,
-        subTitleText: 'PlayStation 4',
+        subTitleText: (list![0].isJobCompleted == 0)
+            ? "Open Job"
+            : (list![0].isJobCompleted == 1)
+                ? "Pending Job"
+                : "Finished",
       ),
-      content: Text("Some quick example text to build on the card"),
-      buttonBar: GFButtonBar(
-        children: <Widget>[
-          GFAvatar(
-            backgroundColor: GFColors.PRIMARY,
-            child: Icon(
-              Icons.share,
-              color: Colors.white,
-            ),
+      content: Column(
+        children: [
+          Text("Total : ${list!.length} deliveries."),
+          SizedBox(
+            height: 10,
           ),
-          GFAvatar(
-            backgroundColor: GFColors.SECONDARY,
-            child: Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-          ),
-          GFAvatar(
-            backgroundColor: GFColors.SUCCESS,
-            child: Icon(
-              Icons.phone,
-              color: Colors.white,
-            ),
-          ),
+          GFButton(
+              onPressed: () async {
+                final user_state = context.read<UserCubit>().state;
+                final job_id = list![0].jobId;
+                final deliverer_id =
+                    (user_state is UserLogedin) ? user_state.uuid : "000";
+                try {
+                  final deliveryProvider = Deliveryprovider();
+                  var res = await deliveryProvider.updateJobStateToPending(
+                      job_id, deliverer_id);
+                  print(res.statusCode);
+                  if (res.statusCode == 200) {
+                    Navigator.pushNamed(context, 'myjobs');
+                  }
+                } catch (e) {
+                  print(e);
+                }
+              },
+              color: GFColors.SECONDARY,
+              text: "Accept Job"),
         ],
       ),
     );

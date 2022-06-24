@@ -5,6 +5,8 @@ import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getwidget/colors/gf_color.dart';
+import 'package:getwidget/components/button/gf_button.dart';
 
 class DelivererHome extends StatelessWidget {
   //const DelivererHome({ Key? key }) : super(key: key);
@@ -70,12 +72,13 @@ class DelivererHome extends StatelessWidget {
               ),
             ),
           ),
-          MaterialButton(
+          GFButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/more/del');
+              Navigator.pushNamed(context, 'myjobs');
             },
-            //child: Text('More screen'),
-          )
+            text: "My Jobs",
+            color: GFColors.SECONDARY,
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavBar(),
