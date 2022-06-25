@@ -26,6 +26,10 @@ class _JobsScreenState extends State<JobsScreen> {
         print('new job come');
         context.read<DeliveryCubit>().getAllDelivery(context);
       });
+      socket_state.socket.on('accept_job', (data) {
+        print(data);
+        context.read<DeliveryCubit>().getAllDelivery(context);
+      });
     }
     Map<String, List<Delivery>> map =
         (delivery_state is DeliveryLoaded) ? delivery_state.map : {};

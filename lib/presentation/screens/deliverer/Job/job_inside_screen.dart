@@ -1,6 +1,7 @@
 import 'package:doctracker/data/model/deliveryMode.dart';
 import 'package:doctracker/data/provider/deliveryProvider.dart';
 import 'package:doctracker/data/provider/userProvider.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,10 @@ class JobInside extends StatelessWidget {
           GFButton(
               onPressed: () async {
                 final user_state = context.read<UserCubit>().state;
+                final socket_state = context.read<SocketCubit>().state;
+                final branch_id = (user_state is UserLogedin)
+                    ? user_state.user.branchId
+                    : "000";
                 final job_id = list![0].jobId;
                 final deliverer_id =
                     (user_state is UserLogedin) ? user_state.uuid : "000";
@@ -50,6 +55,9 @@ class JobInside extends StatelessWidget {
                   final deliveryProvider = Deliveryprovider();
                   var res = await deliveryProvider.updateJobStateToPending(
                       job_id, deliverer_id);
+                  if (socket_state is SocketConnected) {
+                    socket_state.socket.emit('accept_job', branch_id);
+                  }
                   print(res.statusCode);
                   if (res.statusCode == 200) {
                     Navigator.pushNamed(context, 'myjobs');
