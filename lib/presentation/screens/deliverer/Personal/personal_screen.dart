@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:doctracker/logic/cubit/branch_admin_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
@@ -6,6 +7,7 @@ import 'package:doctracker/presentation/widgets/text_field_container.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 class Personal extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
@@ -88,6 +90,7 @@ class Personal extends StatelessWidget {
                       };
                       await context.read<MailCubit>().sendRequestMail(data);
                       Navigator.pushNamed(context, '/');
+                      Notify();
                     }
                   },
                   child: Text(
@@ -102,4 +105,14 @@ class Personal extends StatelessWidget {
       ),
     );
   }
+}
+
+void Notify() async {
+  AwesomeNotifications a = new AwesomeNotifications();
+  await a.createNotification(
+      content: NotificationContent(
+          id: 1,
+          channelKey: 'basic_channel',
+          title: 'Notification',
+          body: 'Request sent to Admin'));
 }

@@ -39,6 +39,11 @@ dependencies:
   image_picker: ^0.8.5
   simple_s3: ^0.3.2
   email_validator: ^2.0.1
+  #awesome_notifications: ^0.6.21
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.1.7
+  location: ^4.4.0
+  awesome_notifications: ^0.6.21
   flutter:
     sdk: flutter
   

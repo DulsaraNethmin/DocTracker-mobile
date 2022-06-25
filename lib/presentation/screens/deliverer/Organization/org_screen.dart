@@ -49,15 +49,20 @@ class OrgScreen extends StatelessWidget {
                   String org = orgController.text;
                   String branch = branchController.text;
                   print('inside');
-                  var res = await UserProvider().getAdminId(
-                      '/user/get/admin/id',
-                      branchController.text,
-                      orgController.text);
-                  print(res.data);
-                  context
-                      .read<BranchAdminCubit>()
-                      .getAdminId(res.data[0]["uuid"]);
-                  Navigator.pushNamed(context, 'personal');
+                  try {
+                    var res = await UserProvider().getAdminId(
+                        '/user/get/admin/id',
+                        branchController.text,
+                        orgController.text);
+                    print(res.data);
+                    context
+                        .read<BranchAdminCubit>()
+                        .getAdminId(res.data[0]["uuid"]);
+                    Navigator.pushNamed(context, 'personal');
+                  } catch (e) {
+                    print(e);
+                    //SnackBar(content: content)
+                  }
                 },
                 child: Text(
                   "Continue",

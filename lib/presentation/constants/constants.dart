@@ -10,3 +10,5 @@ const kPrimaryLightColor = Color(0xFFF1E6FF);
 //dev mode
 const restAPI = 'http://192.168.1.3:8080';
 const realTime = 'http://192.168.1.3:8000';
+
+const String google_api_key = "AIzaSyAxLh6-j1CyEPP6QDbWaGeEkXW8td5huNY";

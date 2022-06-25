@@ -10,12 +10,13 @@ import 'package:doctracker/presentation/screens/customer/QRScanner/qr_next.dart'
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_scanner_screen.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/select_customer.dart';
 import 'package:doctracker/presentation/screens/customer/Search/search_doc.dart';
+import 'package:doctracker/presentation/screens/customer/Tracking/tracking_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Admin/admin_select.dart';
 import 'package:doctracker/presentation/screens/deliverer/Home/deliverer_home.dart';
-import 'package:doctracker/presentation/screens/deliverer/Job/job_inside_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Job/job_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Job/my_jobs.dart';
 import 'package:doctracker/presentation/screens/deliverer/Login/login_screen.dart';
+import 'package:doctracker/presentation/screens/deliverer/More/del_chat_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/More/more_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Organization/org_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Personal/personal_screen.dart';
@@ -78,6 +79,12 @@ class AppRouter {
         break;
       case 'deliverermore':
         return MaterialPageRoute(builder: (_) => DelMoreScreen());
+        break;
+      case 'delivererchat':
+        return MaterialPageRoute(builder: (_) => DelChatScreen());
+        break;
+      case 'track':
+        return MaterialPageRoute(builder: (_) => TrackingPage());
         break;
       case 'jobs':
         return MaterialPageRoute(builder: (_) => JobsScreen());

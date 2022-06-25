@@ -3,6 +3,7 @@ import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/widgets/text_field_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -12,9 +13,21 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _username_controller = TextEditingController();
   final _password_controller = TextEditingController();
+  bool _passwordVisible = true;
+
+  @override
+  void initState() {
+    _passwordVisible = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    const snackBar = SnackBar(
+      content: Text('Enter a valid user'),
+      backgroundColor: Colors.red,
+    );
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -47,14 +60,24 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFieldContainer(
                 child: TextFormField(
                     controller: _password_controller,
-                    obscureText: true,
+                    obscureText: !_passwordVisible,
                     decoration: InputDecoration(
-                        hintText: "Password1",
-                        border: InputBorder.none,
-                        suffixIcon: Icon(
-                          Icons.visibility,
+                      hintText: "Password1",
+                      border: InputBorder.none,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
                           color: kPrimaryColor,
-                        ))),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
+                    )),
               ),
               SizedBox(height: 20),
               MaterialButton(
@@ -68,6 +91,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         context);
                     if (context.read<UserCubit>().state is UserLogedin) {
                       Navigator.pushNamed(context, 'customerhome');
+                      Notify();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   },
                   child: Text(
@@ -85,6 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         context);
                     if (context.read<UserCubit>().state is UserLogedin) {
                       Navigator.pushNamed(context, 'delivererhome');
+                      Notify();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   },
                   child: Text(
@@ -102,4 +131,14 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+}
+
+void Notify() async {
+  AwesomeNotifications a = new AwesomeNotifications();
+  await a.createNotification(
+      content: NotificationContent(
+          id: 1,
+          channelKey: 'basic_channel',
+          title: 'Notification',
+          body: 'User logged in'));
 }

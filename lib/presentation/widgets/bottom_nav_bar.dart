@@ -28,8 +28,8 @@ class BottomNavBarState extends State<BottomNavBar> {
           icon: Icon(Icons.home_filled),
         ),
         BottomNavigationBarItem(
-          label: 'Search',
-          icon: Icon(Icons.search),
+          label: 'Scan',
+          icon: Icon(Icons.qr_code_scanner),
         ),
         BottomNavigationBarItem(
           label: 'Jobs',
@@ -48,7 +48,7 @@ class BottomNavBarState extends State<BottomNavBar> {
             break;
           case 1:
             context.read<BotnavbarCubit>().onSelect(1);
-            //Navigator.pushNamed(context, '/search');
+            Navigator.pushNamed(context, 'qr');
             break;
           case 2:
             context.read<BotnavbarCubit>().onSelect(2);
