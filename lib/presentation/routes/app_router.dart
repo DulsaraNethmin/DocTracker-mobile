@@ -85,6 +85,10 @@ class AppRouter {
         break;
       case 'track':
         return MaterialPageRoute(builder: (_) => TrackingPage());
+        break;
+      case 'jobs':
+        return MaterialPageRoute(builder: (_) => JobsScreen());
+        break;
       case 'myjobs':
         return MaterialPageRoute(builder: (_) => MyJobs());
         break;
