@@ -17,7 +17,7 @@ class MailCubit extends Cubit<MailState> {
       List<Mail> receivedMails = await mailRepo.getReceivedMail(uuid);
       emit(MailLoaded(sentMails: sentMails, receivedMails: receivedMails));
     } catch (e) {
-      print('error');
+      print(' get mail error');
       print(e.toString());
     }
   }
