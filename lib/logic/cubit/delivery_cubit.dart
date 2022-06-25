@@ -4,7 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:doctracker/data/model/deliveryMode.dart';
 import 'package:doctracker/data/repository/deliveryRepository.dart';
 import 'package:doctracker/logic/algorithms/delivery_management.dart';
+import 'package:doctracker/logic/validators/logout.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'delivery_state.dart';
@@ -22,6 +24,8 @@ class DeliveryCubit extends Cubit<DeliveryState> {
       emit(DeliveryLoaded(delivery_list: list, map: map));
     } catch (e) {
       emit(DeliveryError());
+      LogOut(context);
+      ScaffoldMessenger.of(context).showSnackBar(error_snack_bar);
     }
   }
 }

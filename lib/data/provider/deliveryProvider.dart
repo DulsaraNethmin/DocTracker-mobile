@@ -4,7 +4,7 @@ import 'package:doctracker/presentation/constants/constants.dart';
 class Deliveryprovider {
   String base_url = restAPI;
 
-  Future<Response> getAllDelivery(String branch_id) async {
+  Future<Response> getAllDelivery(String branch_id, String token) async {
     var dio = Dio();
     var url = base_url + '/job/get/all';
     print(url + "?" + branch_id);
@@ -12,14 +12,14 @@ class Deliveryprovider {
     return result;
   }
 
-  Future<Response> getAllMyDelivery(String uuid) async {
+  Future<Response> getAllMyDelivery(String uuid, String token) async {
     var dio = Dio();
     var url = base_url + '/job/get/all/my';
     var result = await dio.get(url, queryParameters: {"deliverer_id": uuid});
     return result;
   }
 
-  Future<Response> verifyDelivery(String doc_id) async {
+  Future<Response> verifyDelivery(String doc_id, String token) async {
     var dio = Dio();
     var url = base_url + '/job/verify';
     print(url + "?" + doc_id);
@@ -28,7 +28,7 @@ class Deliveryprovider {
   }
 
   Future<Response> updateJobStateToPending(
-      String job_id, String deliverer_id) async {
+      String job_id, String deliverer_id, String token) async {
     var dio = Dio();
     var url = base_url + '/job/update/pending';
     var result = await dio.put(url,

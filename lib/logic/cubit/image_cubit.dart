@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:doctracker/logic/validators/logout.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:bloc/bloc.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
@@ -12,7 +15,7 @@ part 'image_state.dart';
 class ImageCubit extends Cubit<ImageState> {
   ImageCubit() : super(ImageInitial());
 
-  Future getURLs(String fileType) async {
+  Future getURLs(String fileType, BuildContext context) async {
     emit(ImageLoading());
     try {
       var dio = Dio();
@@ -34,6 +37,8 @@ class ImageCubit extends Cubit<ImageState> {
     } catch (e) {
       print(e);
       emit(ImageError());
+      LogOut(context);
+      ScaffoldMessenger.of(context).showSnackBar(error_snack_bar);
     }
   }
 
