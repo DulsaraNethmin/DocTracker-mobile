@@ -3,8 +3,6 @@ import 'package:doctracker/data/provider/deliveryProvider.dart';
 import 'package:doctracker/data/provider/userProvider.dart';
 import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
-import 'package:doctracker/logic/validators/get_token.dart';
-import 'package:doctracker/logic/validators/logout.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +54,7 @@ class JobInside extends StatelessWidget {
                 try {
                   final deliveryProvider = Deliveryprovider();
                   var res = await deliveryProvider.updateJobStateToPending(
-                      job_id, deliverer_id, getToken(context));
+                      job_id, deliverer_id);
                   if (socket_state is SocketConnected) {
                     socket_state.socket.emit('accept_job', branch_id);
                   }
@@ -66,8 +64,6 @@ class JobInside extends StatelessWidget {
                   }
                 } catch (e) {
                   print(e);
-                  LogOut(context);
-                  ScaffoldMessenger.of(context).showSnackBar(error_snack_bar);
                 }
               },
               color: GFColors.SECONDARY,

@@ -9,7 +9,6 @@ import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
-import 'package:doctracker/logic/validators/logout.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +40,7 @@ class _MoreScreenState extends State<MoreScreen> {
           '.' + this.image.toString().split('/').last.split('.').last;
       await context
           .read<ImageCubit>()
-          .getURLs(fileType.substring(0, fileType.length - 1), context);
+          .getURLs(fileType.substring(0, fileType.length - 1));
       //Uint8List byte = await this.image!.readAsBytesSync();
       await context
           .read<ImageCubit>()
@@ -124,22 +123,21 @@ class _MoreScreenState extends State<MoreScreen> {
 
     final logout = InkWell(
         onTap: () {
-          LogOut(context);
-          // print('logout');
-          // context.read<BranchUserCubit>().toInitialState();
-          // context.read<DocumentCubit>().toInitialState();
-          // context.read<MailCubit>().toInitialState();
-          // context.read<ImageCubit>().toInitialState();
-          // context.read<QrCubit>().initial();
-          // context.read<BotnavbarCubit>().toInitialState();
-          // context.read<DocRequestCubit>().toInitialState();
-          // if (socket_state is SocketConnected) {
-          //   socket_state.socket.emit('end', user_id);
-          //   socket_state.socket.disconnect();
-          // }
-          // context.read<SocketCubit>().toInitialState();
-          // Navigator.of(context).pushNamedAndRemoveUntil(
-          //     'login', (Route<dynamic> route) => false);
+          print('logout');
+          context.read<BranchUserCubit>().toInitialState();
+          context.read<DocumentCubit>().toInitialState();
+          context.read<MailCubit>().toInitialState();
+          context.read<ImageCubit>().toInitialState();
+          context.read<QrCubit>().initial();
+          context.read<BotnavbarCubit>().toInitialState();
+          context.read<DocRequestCubit>().toInitialState();
+          if (socket_state is SocketConnected) {
+            socket_state.socket.emit('end', user_id);
+            socket_state.socket.disconnect();
+          }
+          context.read<SocketCubit>().toInitialState();
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              'login', (Route<dynamic> route) => false);
         },
         child: GFListTile(
             avatar: GFAvatar(

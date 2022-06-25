@@ -4,8 +4,6 @@ import 'package:doctracker/data/model/qr_scanModel.dart';
 import 'package:doctracker/data/provider/deliveryProvider.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
-import 'package:doctracker/logic/validators/get_token.dart';
-import 'package:doctracker/logic/validators/logout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getwidget/getwidget.dart';
@@ -118,8 +116,8 @@ class _QrActionScreenState extends State<QrActionScreen> {
                     (user_state is UserLogedin) ? user_state.uuid : '000';
                 if (qr_data.currentUserId == uuid) {
                   try {
-                    var res = await deliveryProvider.verifyDelivery(
-                        qr_data.docId, getToken(context));
+                    var res =
+                        await deliveryProvider.verifyDelivery(qr_data.docId);
                     print(res.data);
                     if (res.data[0]['count'] == 0) {
                       Navigator.pushNamed(context, 'qrnext');
@@ -129,8 +127,6 @@ class _QrActionScreenState extends State<QrActionScreen> {
                   } catch (e) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(snackbar_verification_fail);
-                    LogOut(context);
-                    ScaffoldMessenger.of(context).showSnackBar(error_snack_bar);
                     print(e);
                   }
                 } else {
