@@ -13,13 +13,22 @@ class CustomerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<BotnavbarCubit>().onSelect(0);
-    context.read<SocketCubit>().connect(context);
     final mail_state = context.read<MailCubit>().state;
     final user_state = context.read<UserCubit>().state;
+    final socket_state = context.read<SocketCubit>().state;
     if (mail_state is MailLoading) {
       context
           .read<MailCubit>()
           .getMails(user_state is UserLogedin ? user_state.uuid : "000");
+    }
+
+    // if (socket_state is SocketConnected) {
+    //   socket_state.socket.on('new_job', (data) {
+    //     print('new job come');
+    //   });
+    // }
+    if (!(socket_state is SocketConnected)) {
+      context.read<SocketCubit>().connect(context);
     }
 
 //..................................................................................................................

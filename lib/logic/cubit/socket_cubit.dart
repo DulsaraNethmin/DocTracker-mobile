@@ -21,20 +21,21 @@ class SocketCubit extends Cubit<SocketState> {
     socket.connect();
     final user_state = context.read<UserCubit>().state;
     String id = (user_state is UserLogedin) ? user_state.uuid : "000";
-    socket.emit('signin', id);
+    String branch_id =
+        (user_state is UserLogedin) ? user_state.user.branchId : "000";
+    socket.emit('signin', {"id": id, "branch_id": branch_id});
     socket.onConnect((data) {
       print("connected");
       emit(SocketConnected(socket: socket));
     });
     print(socket.connected);
-    socket.on('incoming_mail', (msg) async {
-      print("msg msg");
-      await context.read<MailCubit>().getMails(id);
-    });
+    // socket.on('incoming_mail', (msg) async {
+    //   print("msg msg");
+    //   await context.read<MailCubit>().getMails(id);
+    // });
   }
 
-  void toInitialState(IO.Socket socket) {
-    socket.disconnect();
+  void toInitialState() {
     emit(SocketInitial());
   }
 }
