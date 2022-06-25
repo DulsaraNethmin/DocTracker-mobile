@@ -1,4 +1,8 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/presentation/screens/customer/Home/customer_home.dart';
+import 'package:doctracker/presentation/screens/customer/More/more.dart';
+import 'package:doctracker/presentation/screens/customer/QRScanner/qr_scanner_screen.dart';
+import 'package:doctracker/presentation/screens/customer/Search/search_doc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,15 +30,29 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
         switch (value) {
           case 0:
             context.read<BotnavbarCubit>().onSelect(0);
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute<void>(
+            //         builder: (BuildContext context) => const CustomerHome()),
+            //     (route) => false);
             Navigator.pushNamed(context, 'customerhome');
             break;
           case 1:
             context.read<BotnavbarCubit>().onSelect(1);
-            Navigator.pushNamed(context, 'search');
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const SearchDoc()),
+                (route) => false);
             break;
           case 2:
             context.read<BotnavbarCubit>().onSelect(2);
             Navigator.pushNamed(context, 'qr');
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     MaterialPageRoute<void>(
+            //         builder: (BuildContext context) => const QRScanner()),
+            //     (route) => false);
             index = 2;
             break;
           case 3:
@@ -44,7 +62,11 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
             break;
           case 4:
             context.read<BotnavbarCubit>().onSelect(4);
-            Navigator.pushNamed(context, 'more');
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const MoreScreen()),
+                (route) => false);
             index = 4;
             break;
         }

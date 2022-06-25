@@ -1,3 +1,6 @@
+import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/widgets/bottom_nav_bar.dart';
 import 'dart:io';
@@ -18,10 +21,10 @@ class DelMoreScreen extends StatefulWidget {
   //const MoreScreen({Key? key}) : super(key: key);
 
   @override
-  State<DelMoreScreen> createState() => MoreScreenState();
+  State<DelMoreScreen> createState() => _DelMoreScreenState();
 }
 
-class MoreScreenState extends State<DelMoreScreen> {
+class _DelMoreScreenState extends State<DelMoreScreen> {
   File? image;
   final ImagePicker _picker = ImagePicker();
   final GFBottomSheetController _bottom_sheet_controller =
@@ -39,7 +42,7 @@ class MoreScreenState extends State<DelMoreScreen> {
           '.' + this.image.toString().split('/').last.split('.').last;
       await context
           .read<ImageCubit>()
-          .getURLs(fileType.substring(0, fileType.length - 1));
+          .getURLs(fileType.substring(0, fileType.length - 1), context);
       //Uint8List byte = await this.image!.readAsBytesSync();
       await context
           .read<ImageCubit>()
@@ -66,6 +69,8 @@ class MoreScreenState extends State<DelMoreScreen> {
     }
   }
 
+//class _DelMoreScreenState extends State<DelMoreScreen> {
+  //const MoreScreen({ Key? key }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final user_state = context.read<UserCubit>().state;

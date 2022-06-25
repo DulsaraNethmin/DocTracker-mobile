@@ -5,6 +5,7 @@ import 'package:doctracker/data/model/messageModel.dart';
 import 'package:doctracker/data/model/userModel.dart';
 import 'package:doctracker/logic/cubit/doc_request_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Mail/own_message_card.dart';
@@ -22,7 +23,6 @@ class IndividualScreen extends StatefulWidget {
 }
 
 class _IndividualScreenState extends State<IndividualScreen> {
-  late IO.Socket socket;
   final _message_controller = TextEditingController();
   final _head_controller = TextEditingController();
   final _body_controller = TextEditingController();
@@ -134,6 +134,7 @@ class _IndividualScreenState extends State<IndividualScreen> {
   Future sendMail(BuildContext context) async {
     final user_state = context.read<UserCubit>().state;
     final mail_state = context.read<MailCubit>().state;
+    final socket_state = context.read<SocketCubit>().state;
     final data = {
       "from": (user_state is UserLogedin) ? user_state.uuid : "000",
       "to": widget.user.uuid,
@@ -147,12 +148,13 @@ class _IndividualScreenState extends State<IndividualScreen> {
     if (mail_state is MailLoaded) {
       print(data);
       await context.read<MailCubit>().sendMail(data);
+      context.read<DocRequestCubit>().toInitialState();
       Navigator.pushNamed(context, 'chat');
     }
     //emit event
-    socket.emit('new_msg', widget.user.uuid);
-    //add mail to arr
-    //navigate to chat screen
+    if (socket_state is SocketConnected) {
+      socket_state.socket.emit('new_mail', widget.user.uuid);
+    }
   }
 
   MaterialButton mail_button(BuildContext context) {
@@ -196,57 +198,23 @@ class _IndividualScreenState extends State<IndividualScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //print("hello2");
-    connect();
   }
 
 //socket io.....................................................................................
-  void connect() {
-    socket = IO.io(realTime, <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": false
-    });
-    print("inside");
-    socket.connect();
-    final user_state = context.read<UserCubit>().state;
-    String id = (user_state is UserLogedin) ? user_state.uuid : "000";
-    socket.emit('signin', id);
-    socket.onConnect((data) {
-      print("connected");
-      socket.on('msg', (msg) {
-        print(msg);
-        setMessages(
-            "target", msg["message"], msg["time"], msg["from"], msg["to"]);
-        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-            duration: Duration(microseconds: 300), curve: Curves.easeOut);
-      });
-    });
-    print(socket.connected);
-  }
-
-  void sendMessage(String message, String time, String sender, String target) {
-    socket.emit('msg',
-        {"message": message, "time": time, "from": sender, "to": target});
-    setMessages("sender", message, time, sender, target);
-  }
-
-  void setMessages(
-      String type, String msg, String time, String from, String to) {
-    Message message =
-        Message(type: type, message: msg, time: time, from: from, to: to);
-    setState(() {
-      messages.add(message);
-    });
-  }
 
 //build...............................................................................................................
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appbar(context),
-      body: body(context),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context);
+        return true;
+      },
+      child: Scaffold(
+        appBar: appbar(context),
+        body: body(context),
+      ),
     );
   }
 }

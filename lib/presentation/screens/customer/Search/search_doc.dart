@@ -2,6 +2,7 @@ import 'package:doctracker/data/model/documentModel.dart';
 import 'package:doctracker/logic/algorithms/doc_search.dart';
 import 'package:doctracker/logic/cubit/doc_search_cubit.dart';
 import 'package:doctracker/logic/cubit/document_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/presentation/screens/customer/Search/search_result.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
@@ -29,6 +30,13 @@ class _SearchDocState extends State<SearchDoc> {
     print("reloaded");
     final state = context.read<DocumentCubit>().state;
     final search_state = context.read<DocSearchCubit>().state;
+    final socket_state = context.read<SocketCubit>().state;
+    if (socket_state is SocketConnected) {
+      print("inside");
+      socket_state.socket.on('new_job', (data) {
+        print('new job come');
+      });
+    }
 
     if (!(state is DocumentLoaded)) {
       context.read<DocumentCubit>().getAllDocs(context);

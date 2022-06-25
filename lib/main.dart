@@ -2,14 +2,18 @@ import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/logic/cubit/branch_admin_cubit.dart';
 import 'package:doctracker/logic/cubit/branch_user_cubit.dart';
 import 'package:doctracker/logic/cubit/chat_cubit.dart';
+import 'package:doctracker/logic/cubit/delivery_cubit.dart';
 import 'package:doctracker/logic/cubit/doc_request_cubit.dart';
 import 'package:doctracker/logic/cubit/doc_search_cubit.dart';
 import 'package:doctracker/logic/cubit/end_customer_cubit.dart';
 import 'package:doctracker/logic/cubit/image_cubit.dart';
 import 'package:doctracker/logic/cubit/jwt_token_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
+import 'package:doctracker/logic/cubit/my_delivery_cubit.dart';
 import 'package:doctracker/logic/cubit/new_job_cubit.dart';
+import 'package:doctracker/logic/cubit/new_mail_cubit.dart';
 import 'package:doctracker/logic/cubit/qr_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/routes/app_router.dart';
 import 'package:doctracker/presentation/screens/deliverer/Welcome/welcome_screen.dart';
@@ -20,6 +24,7 @@ import 'logic/cubit/document_cubit.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -66,6 +71,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => BranchAdminCubit()),
         BlocProvider(create: (context) => DocSearchCubit()),
         BlocProvider(create: (context) => DocRequestCubit()),
+        BlocProvider(create: (context) => NewMailCubit()),
+        BlocProvider(create: (context) => SocketCubit()),
+        BlocProvider(create: (context) => DeliveryCubit()),
+        BlocProvider(create: (context) => MyDeliveryCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

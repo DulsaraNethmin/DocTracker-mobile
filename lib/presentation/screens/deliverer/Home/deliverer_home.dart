@@ -1,12 +1,26 @@
+import 'package:doctracker/logic/cubit/delivery_cubit.dart';
+import 'package:doctracker/logic/cubit/my_delivery_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
+import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getwidget/colors/gf_color.dart';
+import 'package:getwidget/components/button/gf_button.dart';
 
 class DelivererHome extends StatelessWidget {
   //const DelivererHome({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final user_state = context.read<UserCubit>().state;
+    final socket_state = context.read<SocketCubit>().state;
+    if (!(socket_state is SocketConnected)) {
+      context.read<SocketCubit>().connect(context);
+    }
+    context.read<DeliveryCubit>().getAllDelivery(context);
+    context.read<MyDeliveryCubit>().getAllMyDelivery(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -17,50 +31,58 @@ class DelivererHome extends StatelessWidget {
           // SafeArea(
           //   child:
           Column(
-
-              // children: [
-              //   Container(
-              //     //padding: EdgeInsets.symmetric(horizontal: 10),
-              //     child: Card(
-              //       margin: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 90.0),
-              //       color: kPrimaryColor,
-              //       child: Padding(
-              //         padding: EdgeInsets.all(40.0),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             Container(
-              //               child: Column(
-              //                 mainAxisAlignment: MainAxisAlignment.center,
-              //                 //crossAxisAlignment: CrossAxisAlignment.start,
-              //                 children: [
-              //                   Text('Jane Doe',
-              //                       style: TextStyle(
-              //                           fontSize: 20,
-              //                           fontWeight: FontWeight.bold,
-              //                           color: Colors.white)),
-              //                   Text(
-              //                     'Id: xxxxxxxxx',
-              //                     style: TextStyle(
-              //                         fontSize: 15,
-              //                         fontWeight: FontWeight.bold,
-              //                         color: Colors.white),
-              //                   )
-              //                 ],
-              //               ),
-              //             ),
-              //             CircleAvatar(
-              //               radius: 30,
-              //               child: Image.asset('assets/images/profile.png'),
-              //             )
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-
-              // ],
+        children: [
+          Container(
+            //padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Card(
+              margin: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 90.0),
+              color: kPrimaryColor,
+              child: Padding(
+                padding: EdgeInsets.all(40.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        //crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              (user_state is UserLogedin)
+                                  ? user_state.user.name
+                                  : "000",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                          Text(
+                            'Id: xxxxxxxxx',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          )
+                        ],
+                      ),
+                    ),
+                    CircleAvatar(
+                      radius: 30,
+                      child: Image.asset('assets/images/profile.png'),
+                    )
+                  ],
+                ),
               ),
+            ),
+          ),
+          GFButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'myjobs');
+            },
+            text: "My Jobs",
+            color: GFColors.SECONDARY,
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavBar(),
     );
   }

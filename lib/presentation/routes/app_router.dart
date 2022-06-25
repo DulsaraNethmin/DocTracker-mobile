@@ -14,6 +14,7 @@ import 'package:doctracker/presentation/screens/customer/Tracking/tracking_scree
 import 'package:doctracker/presentation/screens/deliverer/Admin/admin_select.dart';
 import 'package:doctracker/presentation/screens/deliverer/Home/deliverer_home.dart';
 import 'package:doctracker/presentation/screens/deliverer/Job/job_screen.dart';
+import 'package:doctracker/presentation/screens/deliverer/Job/my_jobs.dart';
 import 'package:doctracker/presentation/screens/deliverer/Login/login_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/More/del_chat_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/More/more_screen.dart';
@@ -84,7 +85,12 @@ class AppRouter {
         break;
       case 'track':
         return MaterialPageRoute(builder: (_) => TrackingPage());
+      case 'myjobs':
+        return MaterialPageRoute(builder: (_) => MyJobs());
         break;
+      // case 'jobinside':
+      //   return MaterialPageRoute(builder: (_) => JobInside());
+      //   break;
       case 'selectcustomer':
         return MaterialPageRoute(builder: (_) => SelectCustomer());
         break;

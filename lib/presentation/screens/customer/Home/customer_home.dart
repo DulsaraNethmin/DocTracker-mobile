@@ -1,5 +1,6 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
@@ -14,10 +15,20 @@ class CustomerHome extends StatelessWidget {
     context.read<BotnavbarCubit>().onSelect(0);
     final mail_state = context.read<MailCubit>().state;
     final user_state = context.read<UserCubit>().state;
+    final socket_state = context.read<SocketCubit>().state;
     if (mail_state is MailLoading) {
       context
           .read<MailCubit>()
           .getMails(user_state is UserLogedin ? user_state.uuid : "000");
+    }
+
+    // if (socket_state is SocketConnected) {
+    //   socket_state.socket.on('new_job', (data) {
+    //     print('new job come');
+    //   });
+    // }
+    if (!(socket_state is SocketConnected)) {
+      context.read<SocketCubit>().connect(context);
     }
 
 //..................................................................................................................

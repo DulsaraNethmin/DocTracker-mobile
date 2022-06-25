@@ -28,8 +28,6 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
-  flutter:
-    sdk: flutter
   flutter_bloc: ^8.0.1
   http: ^0.13.4
   qr_code_scanner: ^0.7.0
@@ -46,6 +44,9 @@ dependencies:
   google_maps_flutter: ^2.1.7
   location: ^4.4.0
   awesome_notifications: ^0.6.21
+  flutter:
+    sdk: flutter
+  
 
 dev_dependencies:
 

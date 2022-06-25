@@ -2,6 +2,8 @@ import 'package:doctracker/data/model/chatModel.dart';
 import 'package:doctracker/data/model/mailModel.dart';
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
+import 'package:doctracker/logic/cubit/new_mail_cubit.dart';
+import 'package:doctracker/logic/cubit/socket_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Mail/custom_card.dart';
@@ -19,7 +21,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  late IO.Socket socket;
+  //late IO.Socket socket;
 
   //......................................................................................................................
   final appbar = AppBar(
@@ -54,35 +56,35 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
 //......................................................................................................................
-  void connect() {
-    socket = IO.io(realTime, <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": false
-    });
-    print("inside");
-    socket.connect();
-    final user_state = context.read<UserCubit>().state;
-    String id = (user_state is UserLogedin) ? user_state.uuid : "000";
-    socket.emit('signin', id);
-    socket.onConnect((data) {
-      print("connected");
-      socket.on('msg', (msg) {
-        print(msg);
-      });
-    });
-    print(socket.connected);
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    connect();
+    //context.read<SocketCubit>().connect(context);
+    //connect();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    //socket.disconnect();
+    super.dispose();
   }
 
 //......................................................................................................................
   @override
   Widget build(BuildContext context) {
+    final user_state = context.read<UserCubit>().state;
+    final user_id = (user_state is UserLogedin) ? user_state.uuid : "000";
+    final socket_state = context.read<SocketCubit>().state;
+    if (socket_state is SocketConnected) {
+      socket_state.socket.on('incoming_mail', (msg) {
+        context.read<MailCubit>().getMails(user_id);
+      });
+    }
+    print('re-build');
+
     context.read<BotnavbarCubit>().onSelect(4);
     final mail_state = context.read<MailCubit>().state;
     List<Mail> sentMail =
@@ -95,44 +97,44 @@ class _ChatScreenState extends State<ChatScreen> {
       length: 3,
       child: Scaffold(
         appBar: appbar,
-        //floatingActionButton: actionBtn(context),
-        // body: ListView.builder(
-        //   itemCount: sentMail.length,
-        //   itemBuilder: (context, index) {
-        //     return CustomCard(
-        //       mail: sentMail[index],
-        //     );
-        //   },
-        // ),
         bottomNavigationBar: MyBottomNavBar(),
-        body: TabBarView(
-          children: [
-            BlocBuilder<MailCubit, MailState>(
-              builder: (context, state) {
-                return ListView.builder(
-                  itemCount: sentMail.length,
-                  itemBuilder: (context, index) {
-                    return CustomCard(
-                      mail: sentMail[index],
-                    );
-                  },
-                );
-              },
-            ),
-            BlocBuilder<MailCubit, MailState>(
-              builder: (context, state) {
-                return ListView.builder(
-                  itemCount: receivedMail.length,
-                  itemBuilder: (context, index) {
-                    return CustomCard(
-                      mail: receivedMail[index],
-                    );
-                  },
-                );
-              },
-            ),
-            Center(child: UserSearch()),
-          ],
+        body: BlocListener<MailCubit, MailState>(
+          listener: (context, state) {
+            // TODO: implement listener
+            if (state is MailLoaded) {
+              setState(() {
+                sentMail =
+                    (mail_state is MailLoaded) ? mail_state.sentMails : [];
+              });
+
+              setState(() {
+                receivedMail =
+                    (mail_state is MailLoaded) ? mail_state.receivedMails : [];
+              });
+              context.read<NewMailCubit>().newMail();
+            }
+          },
+          child: TabBarView(
+            children: [
+              ListView.builder(
+                itemCount: sentMail.length,
+                itemBuilder: (context, index) {
+                  return CustomCard(
+                    mail: sentMail[index],
+                  );
+                },
+              ),
+              ListView.builder(
+                itemCount: receivedMail.length,
+                itemBuilder: (context, index) {
+                  return CustomCard(
+                    mail: receivedMail[index],
+                  );
+                },
+              ),
+              Center(child: UserSearch()),
+            ],
+          ),
         ),
       ),
     );
