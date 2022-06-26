@@ -35,48 +35,48 @@ class _InternalJobTrackingState extends State<InternalJobTracking> {
     super.initState();
   }
 
-  var step_1_state = false;
-  var step_2_state = false;
-  var step_3_state = false;
-  void state() async {
-    try {
-      final deliveryProvider = Deliveryprovider();
-      var res = await deliveryProvider.getdeliveryState(
-          widget.delivery.deliveryId, getToken(context));
-      //print(res);
-      final en_data = jsonEncode(res.data);
-      final data = jsonDecode(en_data);
-      print(data[0]['state']);
-      var s = data[0]['state'];
-      switch (s) {
-        case 0:
-          break;
-        case 1:
-          setState(() {
-            step_1_state = true;
-          });
-          break;
-        case 2:
-          setState(() {
-            step_1_state = true;
-            step_2_state = true;
-          });
-          break;
-        case 3:
-          setState(() {
-            step_1_state = true;
-            step_2_state = true;
-            step_3_state = true;
-          });
-          break;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    var step_1_state = false;
+    var step_2_state = false;
+    var step_3_state = false;
+    void state() async {
+      try {
+        final deliveryProvider = Deliveryprovider();
+        var res = await deliveryProvider.getdeliveryState(
+            widget.delivery.deliveryId, getToken(context));
+        //print(res);
+        final en_data = jsonEncode(res.data);
+        final data = jsonDecode(en_data);
+        print(data[0]['state']);
+        var s = data[0]['state'];
+        switch (s) {
+          case 0:
+            break;
+          case 1:
+            setState(() {
+              step_1_state = true;
+            });
+            break;
+          case 2:
+            setState(() {
+              step_1_state = true;
+              step_2_state = true;
+            });
+            break;
+          case 3:
+            setState(() {
+              step_1_state = true;
+              step_2_state = true;
+              step_3_state = true;
+            });
+            break;
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
+
     state();
     final top_card = GFCard(
         boxFit: BoxFit.cover,
