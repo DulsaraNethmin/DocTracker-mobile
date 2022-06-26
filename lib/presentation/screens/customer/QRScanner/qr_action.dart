@@ -25,6 +25,7 @@ class _QrActionScreenState extends State<QrActionScreen> {
   Widget build(BuildContext context) {
     final qr_state = context.read<QrCubit>().state;
     final user_state = context.read<UserCubit>().state;
+    final role = (user_state is UserLogedin) ? user_state.user.role : "000";
     //final qr_data = (qr_state is QrVerified) ? qr_state.scan_data : null;
     var qr_data = new QrScan(
         docId: '000',
@@ -70,18 +71,27 @@ class _QrActionScreenState extends State<QrActionScreen> {
         ),
       ),
     );
-    final action_button = MaterialButton(
+    final action_button = GFButton(
       onPressed: () {
         (_bottom_sheet_controller.isBottomSheetOpened)
             ? _bottom_sheet_controller.hideBottomSheet()
             : _bottom_sheet_controller.showBottomSheet();
       },
-      child: Text(
-        'Action',
-        style: TextStyle(color: Colors.white),
-      ),
-      color: Colors.amber,
+      text: "Action",
+      color: GFColors.SECONDARY,
     );
+    // MaterialButton(
+    //   onPressed: () {
+    //     (_bottom_sheet_controller.isBottomSheetOpened)
+    //         ? _bottom_sheet_controller.hideBottomSheet()
+    //         : _bottom_sheet_controller.showBottomSheet();
+    //   },
+    //   child: Text(
+    //     'Action',
+    //     style: TextStyle(color: Colors.white),
+    //   ),
+    //   color: Colors.amber,
+    // );
 
     final snackbar = SnackBar(
       behavior: SnackBarBehavior.floating,
@@ -100,6 +110,7 @@ class _QrActionScreenState extends State<QrActionScreen> {
       ),
     );
     final botton_sheet = GFBottomSheet(
+      animationDuration: 900,
       controller: _bottom_sheet_controller,
       contentBody: Container(
         height: 200,
@@ -235,8 +246,110 @@ class _QrActionScreenState extends State<QrActionScreen> {
       stickyFooterHeight: 50,
     );
 
+    final deliverer_botton_sheet = GFBottomSheet(
+      animationDuration: 900,
+      controller: _bottom_sheet_controller,
+      contentBody: Container(
+        height: 130,
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: ListView(
+          shrinkWrap: true,
+          physics: const ScrollPhysics(),
+          children: [
+            Expanded(
+                child: InkWell(
+              onTap: () async {
+                // final deliveryProvider = Deliveryprovider();
+
+                // //print(res.data);
+                // final uuid =
+                //     (user_state is UserLogedin) ? user_state.uuid : '000';
+                // if (qr_data.currentUserId == uuid) {
+                //   try {
+                //     var res = await deliveryProvider.verifyDelivery(
+                //         qr_data.docId, getToken(context));
+                //     print(res.data);
+                //     if (res.data[0]['count'] == 0) {
+                //       Navigator.pushNamed(context, 'qrnext');
+                //     } else {
+                //       ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                //     }
+                //   } catch (e) {
+                //     ScaffoldMessenger.of(context)
+                //         .showSnackBar(snackbar_verification_fail);
+                //     LogOut(context);
+                //     ScaffoldMessenger.of(context).showSnackBar(error_snack_bar);
+                //     print(e);
+                //   }
+                // } else {
+                //   //Scaffold.of(context).showSnackBar(snackbar);
+                //   ScaffoldMessenger.of(context)
+                //       .showSnackBar(snackbar_verification_fail);
+                // }
+              },
+              child: Container(
+                height: 60,
+                color: Colors.amber,
+                child: Center(
+                  child: Text(
+                    "Confirm Step",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            )),
+            SizedBox(
+              height: 7,
+            ),
+            Expanded(
+                child: InkWell(
+              onTap: () {
+                print('clicked');
+              },
+              child: Container(
+                height: 60,
+                color: Color.fromARGB(255, 216, 208, 184),
+                child: Center(
+                  child: Text(
+                    "Accept Payment",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            )),
+          ],
+        ),
+      ),
+      stickyFooter: Container(
+        color: Color.fromARGB(251, 111, 69, 196),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              'DocTracker',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            Text(
+              'QR Scan Actions',
+              style: TextStyle(fontSize: 15, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+      stickyFooterHeight: 50,
+    );
+
     return Scaffold(
-      bottomSheet: botton_sheet,
+      bottomSheet: (role == "Customer") ? botton_sheet : deliverer_botton_sheet,
       body: SafeArea(
         child: Column(
           children: [
