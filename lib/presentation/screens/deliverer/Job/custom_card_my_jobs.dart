@@ -1,6 +1,7 @@
 import 'package:doctracker/data/model/deliveryMode.dart';
 import 'package:doctracker/logic/cubit/my_delivery_cubit.dart';
 import 'package:doctracker/presentation/screens/deliverer/Job/job_inside_screen.dart';
+import 'package:doctracker/presentation/screens/deliverer/Job/my_deliveries.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getwidget/getwidget.dart';
@@ -25,7 +26,7 @@ class _MyCustomCardState extends State<MyCustomCard> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => JobInside(list: widget.list)),
+                        builder: (context) => MyDeliveries(list: widget.list)),
                   );
                 },
                 child: GFListTile(
