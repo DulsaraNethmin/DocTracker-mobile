@@ -19,12 +19,13 @@ class _MyJobsState extends State<MyJobs> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    context.read<MyDeliveryCubit>().getAllMyDelivery(context);
   }
 
   @override
   Widget build(BuildContext context) {
     //getMyJobs();
-    context.read<MyDeliveryCubit>().getAllMyDelivery(context);
+
     final my_delivery_state = context.read<MyDeliveryCubit>().state;
     Map<String, List<Delivery>> map =
         (my_delivery_state is MyDeliveryLoaded) ? my_delivery_state.map : {};
