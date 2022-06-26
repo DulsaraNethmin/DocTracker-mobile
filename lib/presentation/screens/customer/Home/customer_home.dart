@@ -84,7 +84,8 @@ class CustomerHome extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 0.0),
                       color: kPrimaryLightColor,
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(50.0, 30.0, 50.0, 30.0),
+                        padding: EdgeInsets.fromLTRB(
+                            size.width * 0.13, 30.0, size.width * 0.13, 30.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -110,7 +111,8 @@ class CustomerHome extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 0.0),
                       color: kPrimaryLightColor,
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(60.0, 30.0, 60.0, 30.0),
+                        padding: EdgeInsets.fromLTRB(
+                            size.width * 0.15, 30.0, size.width * 0.15, 30.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
