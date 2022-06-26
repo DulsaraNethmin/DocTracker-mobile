@@ -257,8 +257,7 @@ class _InternalJobState extends State<InternalJob> {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute<void>(
-                        builder: (BuildContext context) =>
-                            const CustomerHome()),
+                        builder: (BuildContext context) => CustomerHome()),
                     (route) => false);
                 context.read<NewJobCubit>().toInitialState();
                 context.read<EndCustomerCubit>().toInitialState();
