@@ -26,6 +26,7 @@ class _QrActionScreenState extends State<QrActionScreen> {
     final qr_state = context.read<QrCubit>().state;
     final user_state = context.read<UserCubit>().state;
     final role = (user_state is UserLogedin) ? user_state.user.role : "000";
+    final user_id = (user_state is UserLogedin) ? user_state.user.uuid : "000";
     //final qr_data = (qr_state is QrVerified) ? qr_state.scan_data : null;
     var qr_data = new QrScan(
         docId: '000',
@@ -259,6 +260,20 @@ class _QrActionScreenState extends State<QrActionScreen> {
             Expanded(
                 child: InkWell(
               onTap: () async {
+                try {
+                  final deliveryProvider = Deliveryprovider();
+                  await deliveryProvider.updateDeliveryState(
+                      qr_data.docId, user_id, getToken(context));
+                  Navigator.pushNamed(context, 'delivererhome');
+                } catch (e) {
+                  var snackBar = SnackBar(
+                    content: Text('Delivery Step confirm failed.'),
+                    backgroundColor: Colors.red,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.pushNamed(context, 'delivererrhome');
+                  print(e);
+                }
                 // final deliveryProvider = Deliveryprovider();
 
                 // //print(res.data);

@@ -56,4 +56,14 @@ class Deliveryprovider {
     // print(data);
     return result;
   }
+
+  Future<Response> updateDeliveryState(
+      String doc_id, String deliverer_id, String token) async {
+    var dio = Dio();
+    var url = base_url + '/job/delivery/update';
+    var result = await dio.get(url,
+        queryParameters: {"deliverer_id": deliverer_id, "doc_id": doc_id},
+        options: Options(headers: {'x-access-token': token}));
+    return result;
+  }
 }
