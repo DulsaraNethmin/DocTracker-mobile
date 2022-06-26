@@ -1,5 +1,6 @@
 import 'package:doctracker/data/model/deliveryMode.dart';
 import 'package:doctracker/logic/cubit/my_delivery_cubit.dart';
+import 'package:doctracker/presentation/screens/deliverer/Job/internal_job_tracking.dart';
 import 'package:doctracker/presentation/screens/deliverer/Job/job_inside_screen.dart';
 import 'package:doctracker/presentation/screens/deliverer/Job/my_deliveries.dart';
 import 'package:flutter/material.dart';
@@ -35,11 +36,12 @@ class _MyDeliveryCardState extends State<MyDeliveryCard> {
         : Container(
             child: InkWell(
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => MyDeliveries(: widget.delivery)),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            InternalJobTracking(delivery: widget.delivery)),
+                  );
                 },
                 child: GFListTile(
                   avatar: GFAvatar(
