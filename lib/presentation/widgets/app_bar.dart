@@ -1,8 +1,9 @@
+import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 dynamic appBar(String title) {
   return AppBar(
-    backgroundColor: Color.fromARGB(255, 49, 62, 130),
+    backgroundColor: kPrimaryColor,
     title: Text(
       title,
       style: TextStyle(fontSize: 20, color: Colors.grey[200]),

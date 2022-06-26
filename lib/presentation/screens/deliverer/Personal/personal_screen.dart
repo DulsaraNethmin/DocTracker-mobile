@@ -27,8 +27,6 @@ class Personal extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.fromLTRB(20, 140, 20, 20),
-          //height: size.height,
-          //width: double.infinity,
           child: Form(
             key: formkey,
             child: Column(
