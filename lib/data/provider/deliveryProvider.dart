@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:doctracker/presentation/constants/constants.dart';
 
@@ -49,6 +51,9 @@ class Deliveryprovider {
     var result = await dio.get(url,
         queryParameters: {"delivery_id": delivery_id},
         options: Options(headers: {'x-access-token': token}));
+    // var en_data = jsonEncode(result);
+    // var data = jsonDecode(en_data);
+    // print(data);
     return result;
   }
 }
