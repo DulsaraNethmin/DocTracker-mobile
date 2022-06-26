@@ -66,4 +66,14 @@ class Deliveryprovider {
         options: Options(headers: {'x-access-token': token}));
     return result;
   }
+
+  Future<Response> updateDeliveryState_customer(
+      String doc_id, String customer_id, String token) async {
+    var dio = Dio();
+    var url = base_url + '/job/delivery/update/customer';
+    var result = await dio.get(url,
+        queryParameters: {"customer_id": customer_id, "doc_id": doc_id},
+        options: Options(headers: {'x-access-token': token}));
+    return result;
+  }
 }

@@ -170,8 +170,22 @@ class _QrActionScreenState extends State<QrActionScreen> {
             ),
             Expanded(
                 child: InkWell(
-              onTap: () {
+              onTap: () async {
                 print('clicked');
+                try {
+                  final deliveryProvider = Deliveryprovider();
+                  await deliveryProvider.updateDeliveryState_customer(
+                      qr_data.docId, user_id, getToken(context));
+                  Navigator.pushNamed(context, 'customerhome');
+                } catch (e) {
+                  var snackBar = SnackBar(
+                    content: Text('Delivery Step confirm failed.'),
+                    backgroundColor: Colors.red,
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.pushNamed(context, 'customerhome');
+                  print(e);
+                }
               },
               child: Container(
                 height: 60,
@@ -274,33 +288,6 @@ class _QrActionScreenState extends State<QrActionScreen> {
                   Navigator.pushNamed(context, 'delivererrhome');
                   print(e);
                 }
-                // final deliveryProvider = Deliveryprovider();
-
-                // //print(res.data);
-                // final uuid =
-                //     (user_state is UserLogedin) ? user_state.uuid : '000';
-                // if (qr_data.currentUserId == uuid) {
-                //   try {
-                //     var res = await deliveryProvider.verifyDelivery(
-                //         qr_data.docId, getToken(context));
-                //     print(res.data);
-                //     if (res.data[0]['count'] == 0) {
-                //       Navigator.pushNamed(context, 'qrnext');
-                //     } else {
-                //       ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                //     }
-                //   } catch (e) {
-                //     ScaffoldMessenger.of(context)
-                //         .showSnackBar(snackbar_verification_fail);
-                //     LogOut(context);
-                //     ScaffoldMessenger.of(context).showSnackBar(error_snack_bar);
-                //     print(e);
-                //   }
-                // } else {
-                //   //Scaffold.of(context).showSnackBar(snackbar);
-                //   ScaffoldMessenger.of(context)
-                //       .showSnackBar(snackbar_verification_fail);
-                // }
               },
               child: Container(
                 height: 60,
