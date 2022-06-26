@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:doctracker/data/model/deliveryMode.dart';
+import 'package:doctracker/data/provider/deliveryProvider.dart';
+import 'package:doctracker/logic/validators/get_token.dart';
 import 'package:doctracker/presentation/screens/deliverer/Job/step_card.dart';
 import 'package:doctracker/presentation/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +28,23 @@ class InternalJobTracking extends StatefulWidget {
 }
 
 class _InternalJobTrackingState extends State<InternalJobTracking> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    try {
+      final deliveryProvider = Deliveryprovider();
+      var res = deliveryProvider.getdeliveryState(
+          widget.delivery.deliveryId, getToken(context));
+      print(res);
+      // final en_data = jsonEncode(res);
+      // final data = jsonDecode(en_data);
+      // print(data);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final top_card = GFCard(
