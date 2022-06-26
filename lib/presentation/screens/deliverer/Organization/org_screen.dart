@@ -17,7 +17,9 @@ class OrgScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
           child: Container(
-        margin: EdgeInsets.fromLTRB(20, 160, 20, 20),
+        margin: EdgeInsets.fromLTRB(20, 220, 20, 20),
+        //height: size.height,
+        //width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
