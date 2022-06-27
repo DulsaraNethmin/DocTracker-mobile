@@ -1,4 +1,5 @@
 import 'package:doctracker/logic/cubit/botnavbar_cubit.dart';
+import 'package:doctracker/presentation/constants/constants.dart';
 import 'package:doctracker/presentation/screens/customer/Home/customer_home.dart';
 import 'package:doctracker/presentation/screens/customer/More/more.dart';
 import 'package:doctracker/presentation/screens/customer/QRScanner/qr_scanner_screen.dart';
@@ -19,7 +20,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
     int index = 0;
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: Color.fromARGB(255, 49, 62, 130),
+      backgroundColor: kPrimaryColor,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white.withOpacity(.60),
       selectedFontSize: 14,
