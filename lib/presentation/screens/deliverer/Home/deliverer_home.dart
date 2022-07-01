@@ -75,7 +75,7 @@ class DelivererHome extends StatelessWidget {
               Image.asset(
                 "assets/images/deliverer.jpg",
               ),
-              Row(
+              Wrap(
                 children: [
                   Card(
                       margin: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 0.0),

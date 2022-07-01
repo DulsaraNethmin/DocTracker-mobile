@@ -3,6 +3,7 @@ import 'package:doctracker/data/model/mailModel.dart';
 import 'package:doctracker/logic/cubit/mail_cubit.dart';
 import 'package:doctracker/logic/cubit/user_cubit.dart';
 import 'package:doctracker/presentation/screens/customer/Mail/individual_screen.dart';
+import 'package:doctracker/presentation/screens/customer/Mail/mail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,6 +17,13 @@ class CustomCard extends StatelessWidget {
       onTap: () {
         print(
             "sender: ${(user_state is UserLogedin) ? user_state.uuid : "000"} and targe : ${mail.toId}");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MailView(
+                    mail: mail,
+                  )),
+        );
       },
       child: Column(
         children: [

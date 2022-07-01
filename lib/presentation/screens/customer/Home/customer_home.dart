@@ -8,10 +8,15 @@ import 'package:doctracker/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomerHome extends StatelessWidget {
+class CustomerHome extends StatefulWidget {
   const CustomerHome({Key? key}) : super(key: key);
-//..................................................................................................................
 
+  @override
+  State<CustomerHome> createState() => _CustomerHomeState();
+}
+
+class _CustomerHomeState extends State<CustomerHome> {
+//..................................................................................................................
   @override
   Widget build(BuildContext context) {
     context.read<BotnavbarCubit>().onSelect(0);
@@ -79,14 +84,13 @@ class CustomerHome extends StatelessWidget {
               Image.asset(
                 "assets/images/customer.jpg",
               ),
-              Row(
+              Wrap(
                 children: [
                   Card(
                       margin: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 0.0),
                       color: kPrimaryLightColor,
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            size.width * 0.13, 30.0, size.width * 0.13, 30.0),
+                        padding: EdgeInsets.fromLTRB(50, 30.0, 50, 30.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -112,8 +116,7 @@ class CustomerHome extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 0.0),
                       color: kPrimaryLightColor,
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            size.width * 0.15, 30.0, size.width * 0.15, 30.0),
+                        padding: EdgeInsets.fromLTRB(50, 30.0, 50, 30.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

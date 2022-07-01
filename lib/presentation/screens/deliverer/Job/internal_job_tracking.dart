@@ -105,27 +105,29 @@ class _InternalJobTrackingState extends State<InternalJobTracking> {
         content: Text('End Customer: ${widget.delivery.endCustomerName}'));
     return Scaffold(
       appBar: appBar('Delivery Statet'),
-      body: Column(
-        children: [
-          top_card,
-          StepCard(
-            is_done: step_1_state,
-            step: 1,
-          ),
-          StepCard(
-            is_done: step_2_state,
-            step: 2,
-          ),
-          StepCard(
-            is_done: step_3_state,
-            step: 3,
-          ),
-          GFButton(
-            color: GFColors.SECONDARY,
-            onPressed: () {},
-            text: "Done",
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            top_card,
+            StepCard(
+              is_done: step_1_state,
+              step: 1,
+            ),
+            StepCard(
+              is_done: step_2_state,
+              step: 2,
+            ),
+            StepCard(
+              is_done: step_3_state,
+              step: 3,
+            ),
+            GFButton(
+              color: GFColors.SECONDARY,
+              onPressed: () {},
+              text: "Done",
+            )
+          ],
+        ),
       ),
     );
   }
